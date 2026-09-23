@@ -20,26 +20,20 @@ test.describe('status pages', () => {
       await page.goto(statusPage.path);
 
       const results = await new AxeBuilder({ page })
-        .withTags(['wcag22aa', 'best-practice', 'experimental'])
+        .withTags([
+          'wcag2aaa',
+          'wcag2a',
+          'wcag2aa',
+          'wcag21a',
+          'wcag21aa',
+          'wcag22aa',
+          'best-practice',
+          'experimental',
+        ])
         .analyze();
 
       expect(results.violations).toEqual([]);
     });
-
-    for (const colorScheme of ['light', 'dark'] as const) {
-      test(`${statusPage.code} ${colorScheme} theme meets WCAG AAA contrast thresholds`, async ({
-        page,
-      }) => {
-        await page.emulateMedia({ colorScheme });
-        await page.goto(statusPage.path);
-
-        const results = await new AxeBuilder({ page })
-          .withRules(['color-contrast-enhanced'])
-          .analyze();
-
-        expect(results.violations).toEqual([]);
-      });
-    }
 
     test(`${statusPage.code} page has an accessible document structure`, async ({ page }) => {
       await page.goto(statusPage.path);
