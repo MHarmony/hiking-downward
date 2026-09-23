@@ -1,0 +1,147 @@
+{
+  "author": {
+    "email": "contact@hikingdownward.com",
+    "name": "HikingDownward Support",
+    "url": "https://hikingdownward.com/support"
+  },
+  "bugs": {
+    "email": "contact@hikingdownward.com",
+    "url": "https://github.com/MHarmony/hiking-downward/issues"
+  },
+  "dependencies": {
+    "@angular/aria": "22.2.0-rc.0",
+    "@angular/cdk": "22.2.0-rc.0",
+    "@angular/common": "22.2.0-rc.0",
+    "@angular/compiler": "22.2.0-rc.0",
+    "@angular/core": "22.2.0-rc.0",
+    "@angular/forms": "22.2.0-rc.0",
+    "@angular/platform-browser": "22.2.0-rc.0",
+    "@angular/router": "22.2.0-rc.0",
+    "@better-auth/drizzle-adapter": "1.7.5",
+    "@better-auth/i18n": "1.7.5",
+    "@better-auth/passkey": "1.7.5",
+    "@elysia/cors": "1.4.2",
+    "@elysia/node": "1.4.6",
+    "@elysia/openapi": "1.4.16",
+    "@fontsource-variable/atkinson-hyperlegible-next": "5.3.0",
+    "@sentry/angular": "10.75.2",
+    "@sentry/elysia": "10.75.2",
+    "@upstash/redis": "1.39.0",
+    "better-auth": "1.7.5",
+    "drizzle-orm": "1.0.0-rc.4",
+    "elysia": "1.4.30",
+    "pg": "8.23.0",
+    "resend": "6.28.1",
+    "rxjs": "7.8.2"
+  },
+  "description": "A re-imagined version of HikingUpward.",
+  "devDependencies": {
+    "@angular-devkit/core": "22.2.0-rc.0",
+    "@angular-devkit/schematics": "22.2.0-rc.0",
+    "@angular/build": "22.2.0-rc.0",
+    "@angular/cli": "22.2.0-rc.0",
+    "@angular/compiler-cli": "22.2.0-rc.0",
+    "@angular/language-service": "22.2.0-rc.0",
+    "@axe-core/playwright": "4.13.0",
+    "@commitlint/cli": "21.2.3",
+    "@commitlint/config-conventional": "21.2.3",
+    "@nx/angular": "23.3.0-beta.2",
+    "@nx/devkit": "23.3.0-beta.2",
+    "@nx/esbuild": "23.3.0-beta.2",
+    "@nx/js": "23.3.0-beta.2",
+    "@nx/node": "23.3.0-beta.2",
+    "@nx/oxlint": "23.3.0-beta.2",
+    "@nx/playwright": "23.3.0-beta.2",
+    "@nx/vite": "23.3.0-beta.2",
+    "@nx/vitest": "23.3.0-beta.2",
+    "@nx/web": "23.3.0-beta.2",
+    "@nx/workspace": "23.3.0-beta.2",
+    "@playwright/test": "1.63.0",
+    "@schematics/angular": "22.2.0-rc.0",
+    "@swc/helpers": "0.5.23",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "26.6.2",
+    "@types/pg": "8.23.1",
+    "@vitest/coverage-v8": "^4.1.11",
+    "autoprefixer": "10.6.1",
+    "drizzle-kit": "1.0.0-rc.4",
+    "esbuild": "0.28.2",
+    "eslint-plugin-drizzle": "0.2.3",
+    "eslint-plugin-playwright": "2.12.0",
+    "eslint-plugin-tailwindcss": "4.4.0",
+    "fast-check": "4.10.2",
+    "jsdom": "30.1.1",
+    "lefthook": "2.1.14",
+    "ng-packagr": "22.2.0-rc.0",
+    "npm-check-updates": "23.1.0",
+    "nx": "23.3.0-beta.2",
+    "oxfmt": "0.70.0",
+    "oxlint": "1.85.0",
+    "oxlint-tsgolint": "7.0.2002",
+    "postcss": "8.5.28",
+    "tailwindcss": "4.3.3",
+    "tslib": "2.8.1",
+    "typescript": "^6.0.3",
+    "verdaccio": "6.10.4",
+    "vite": "8.3.0",
+    "vite-plugin-static-copy": "4.1.1",
+    "vitest": "^4.1.11"
+  },
+  "devEngines": {
+    "runtime": [
+      {
+        "name": "bun",
+        "onFail": "error",
+        "version": "1.4.2"
+      },
+      {
+        "name": "node",
+        "onFail": "error",
+        "version": "26.10.0"
+      }
+    ]
+  },
+  "engines": {
+    "bun": "1.4.2",
+    "node": "26.10.0"
+  },
+  "engineStrict": true,
+  "homepage": "https://hikingdownward.com",
+  "license": "MIT",
+  "name": "@hiking-downward/source",
+  "nx": {
+    "includedScripts": []
+  },
+  "overrides": {
+    "zod": "4.6.5"
+  },
+  "packageManager": "bun@1.4.2",
+  "private": true,
+  "readme": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MHarmony/hiking-downward.git"
+  },
+  "scripts": {
+    "build": "nx run-many -t build",
+    "db:generate": "drizzle-kit generate --config libs/api/database/drizzle.config.mts",
+    "db:migrate": "drizzle-kit migrate --config libs/api/database/drizzle.config.mts",
+    "e2e": "nx run-many -t e2e",
+    "lint": "nx run-many -t lint",
+    "postinstall": "lefthook install",
+    "skills:update": "bunx skills update -y",
+    "test": "nx run-many -t test",
+    "typecheck": "nx run-many -t typecheck typecheck:test"
+  },
+  "trustedDependencies": [
+    "@parcel/watcher",
+    "esbuild",
+    "lefthook",
+    "lmdb",
+    "msgpackr-extract",
+    "nx",
+    "unrs-resolver"
+  ],
+  "type": "module",
+  "version": "0.0.0"
+}

@@ -1,0 +1,103 @@
+- name: 'type: feat'
+  color: 'a2eeef'
+  description: 'New functionality'
+
+- name: 'type: fix'
+  color: 'd73a4a'
+  description: 'Bug fix'
+
+- name: 'type: docs'
+  color: '0075ca'
+  description: 'Documentation changes'
+
+- name: 'type: test'
+  color: '7057ff'
+  description: 'Test changes'
+
+- name: 'type: refactor'
+  color: 'cfd3d7'
+  description: 'Code restructuring without behavior changes'
+
+- name: 'type: perf'
+  color: 'e99695'
+  description: 'Performance improvement'
+
+- name: 'type: build'
+  color: '5319e7'
+  description: 'Build or dependency changes'
+
+- name: 'type: ci'
+  color: '5319e7'
+  description: 'Continuous integration changes'
+
+- name: 'type: chore'
+  color: 'cfd3d7'
+  description: 'Maintenance work'
+
+- name: 'type: revert'
+  color: 'b60205'
+  description: 'Reverts a previous change'
+
+- name: 'scope: frontend'
+  color: '1d76db'
+  description: 'Frontend application changes'
+
+- name: 'scope: frontend-e2e'
+  color: '1d76db'
+  description: 'Frontend end-to-end tests'
+
+- name: 'scope: api'
+  color: '1d76db'
+  description: 'API application changes'
+
+- name: 'scope: api-e2e'
+  color: '1d76db'
+  description: 'API end-to-end tests'
+
+- name: 'scope: tooling'
+  color: '5319e7'
+  description: 'Developer tooling and workspace configuration'
+
+- name: 'scope: dependencies'
+  color: '0366d6'
+  description: 'Dependency updates'
+
+- name: 'status: needs-triage'
+  color: 'fbca04'
+  description: 'Needs maintainer review'
+
+- name: 'status: in-progress'
+  color: '1d76db'
+  description: 'Currently being worked on'
+
+- name: 'status: blocked'
+  color: 'b60205'
+  description: 'Blocked by an external dependency or decision'
+
+- name: 'priority: p0'
+  color: 'b60205'
+  description: 'Critical priority'
+
+- name: 'priority: p1'
+  color: 'd93f0b'
+  description: 'High priority'
+
+- name: 'priority: p2'
+  color: 'fbca04'
+  description: 'Normal priority'
+
+- name: 'priority: p3'
+  color: '0e8a16'
+  description: 'Low priority'
+
+- name: 'good first issue'
+  color: '7057ff'
+  description: 'Suitable for a new contributor'
+
+- name: 'help wanted'
+  color: '008672'
+  description: 'Extra attention or contributors are welcome'
+
+- name: 'security'
+  color: 'b60205'
+  description: 'Security-related issue'

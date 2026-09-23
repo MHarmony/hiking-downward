@@ -1,0 +1,55 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": [
+    "@seahawk/api"
+  ],
+  "name": "@seahawk/api-e2e",
+  "projectType": "application",
+  "sourceRoot": "apps/api-e2e/src",
+  "tags": [
+    "scope:api"
+  ],
+  "targets": {
+    "e2e": {
+      "cache": true,
+      "dependsOn": [
+        {
+          "projects": [
+            "@seahawk/api"
+          ],
+          "target": "serve:e2e"
+        }
+      ],
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production",
+        "^{projectRoot}/tsconfig*.json",
+        {
+          "externalDependencies": [
+            "@playwright/test"
+          ]
+        }
+      ],
+      "options": {
+        "command": "playwright test",
+        "cwd": "apps/api-e2e"
+      },
+      "outputs": [
+        "{workspaceRoot}/dist/.playwright/apps/api-e2e/test-output",
+        "{workspaceRoot}/dist/.playwright/apps/api-e2e/playwright-report"
+      ]
+    },
+    "typecheck:test": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p apps/api-e2e/tsconfig.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "main": "./index.mjs",
+  "name": "@seahawk/api-auth",
+  "peerDependencies": {
+    "@better-auth/drizzle-adapter": "1.7.5",
+    "@better-auth/i18n": "1.7.5",
+    "@better-auth/passkey": "1.7.5",
+    "@seahawk/api-config": "0.0.0",
+    "@seahawk/database": "0.0.0",
+    "@upstash/redis": "1.39.0",
+    "better-auth": "1.7.5",
+    "resend": "6.28.1"
+  },
+  "type": "module",
+  "types": "./index.d.ts",
+  "version": "0.0.0"
+}

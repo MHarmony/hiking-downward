@@ -1,0 +1,61 @@
+name: Feature request
+description: Suggest an improvement for HikingDownward
+title: '[Feature]: '
+labels:
+  - 'type: feat'
+  - 'status: needs-triage'
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: What problem or user need would this feature address?
+      placeholder: As a user, I need...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the behavior or outcome you would like.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Describe alternatives or workarounds you have considered.
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Likely scope
+      description: Which repository area would this affect most?
+      options:
+        - frontend
+        - frontend-e2e
+        - api
+        - api-e2e
+        - tooling
+        - dependencies
+        - Unsure
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Additional context
+      description: Add examples, mockups, links, constraints, or accessibility considerations.
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues and found no duplicate.
+          required: true
+        - label: This request does not contain sensitive or security-related information.
+          required: true

@@ -1,0 +1,79 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "name": "@seahawk/status-page",
+  "prefix": "lib",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "currentVersionResolver": "git-tag",
+      "fallbackCurrentVersionResolver": "disk",
+      "manifestRootsToUpdate": [
+        "dist/{projectRoot}"
+      ]
+    }
+  },
+  "sourceRoot": "libs/frontend/status-page/src",
+  "tags": [
+    "scope:frontend",
+    "type:ui"
+  ],
+  "targets": {
+    "build": {
+      "configurations": {
+        "development": {},
+        "production": {
+          "tsConfig": "libs/frontend/status-page/tsconfig.lib.prod.json"
+        }
+      },
+      "defaultConfiguration": "production",
+      "executor": "@nx/angular:package",
+      "options": {
+        "project": "libs/frontend/status-page/ng-package.json",
+        "tsConfig": "libs/frontend/status-page/tsconfig.lib.json"
+      },
+      "outputs": [
+        "{workspaceRoot}/dist/{projectRoot}"
+      ]
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {
+        "coverage": true,
+        "coverageThresholds": {
+          "branches": 100,
+          "functions": 100,
+          "lines": 100,
+          "statements": 100
+        },
+        "watch": false
+      }
+    },
+    "typecheck": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p libs/frontend/status-page/tsconfig.lib.json"
+      }
+    },
+    "typecheck:test": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p libs/frontend/status-page/tsconfig.spec.json"
+      }
+    }
+  }
+}

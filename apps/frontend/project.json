@@ -1,0 +1,113 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@seahawk/frontend",
+  "prefix": "hiking-downward",
+  "projectType": "application",
+  "sourceRoot": "apps/frontend/src",
+  "tags": [
+    "scope:frontend"
+  ],
+  "targets": {
+    "build": {
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true
+        },
+        "production": {
+          "budgets": [
+            {
+              "maximumError": "1mb",
+              "maximumWarning": "500kb",
+              "type": "initial"
+            },
+            {
+              "maximumError": "8kb",
+              "maximumWarning": "4kb",
+              "type": "anyComponentStyle"
+            }
+          ],
+          "outputHashing": "all"
+        }
+      },
+      "defaultConfiguration": "production",
+      "executor": "@angular/build:application",
+      "options": {
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/frontend/public"
+          }
+        ],
+        "browser": "apps/frontend/src/main.ts",
+        "outputPath": "dist/apps/frontend",
+        "styles": [
+          "apps/frontend/src/styles.css"
+        ],
+        "tsConfig": "apps/frontend/tsconfig.app.json"
+      },
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "serve": {
+      "configurations": {
+        "development": {
+          "buildTarget": "@seahawk/frontend:build:development"
+        },
+        "production": {
+          "buildTarget": "@seahawk/frontend:build:production"
+        }
+      },
+      "continuous": true,
+      "defaultConfiguration": "development",
+      "executor": "@angular/build:dev-server"
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "@seahawk/frontend:build",
+        "port": 4200,
+        "spa": true,
+        "staticFilePath": "dist/apps/frontend/browser"
+      }
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "coverage": true,
+        "coverageThresholds": {
+          "branches": 100,
+          "functions": 100,
+          "lines": 100,
+          "statements": 100
+        },
+        "watch": false
+      }
+    },
+    "typecheck": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p apps/frontend/tsconfig.app.json"
+      }
+    },
+    "typecheck:test": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p apps/frontend/tsconfig.spec.json"
+      }
+    }
+  }
+}

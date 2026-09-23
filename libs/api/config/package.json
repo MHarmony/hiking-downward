@@ -1,0 +1,7 @@
+{
+  "main": "./index.mjs",
+  "name": "@seahawk/api-config",
+  "type": "module",
+  "types": "./index.d.ts",
+  "version": "0.0.0"
+}

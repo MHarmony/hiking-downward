@@ -1,0 +1,105 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@seahawk/api",
+  "projectType": "application",
+  "sourceRoot": "apps/api/src",
+  "tags": [
+    "scope:api"
+  ],
+  "targets": {
+    "build": {
+      "configurations": {
+        "development": {},
+        "production": {
+          "esbuildOptions": {
+            "outExtension": {
+              ".js": ".mjs"
+            },
+            "sourcemap": false
+          }
+        }
+      },
+      "defaultConfiguration": "production",
+      "executor": "@nx/esbuild:esbuild",
+      "options": {
+        "assets": [
+          "apps/api/src/assets"
+        ],
+        "bundle": false,
+        "esbuildOptions": {
+          "outExtension": {
+            ".js": ".mjs"
+          },
+          "sourcemap": true
+        },
+        "format": [
+          "esm"
+        ],
+        "generatePackageJson": true,
+        "main": "apps/api/src/main.ts",
+        "outputPath": "dist/apps/api",
+        "platform": "node",
+        "tsConfig": "apps/api/tsconfig.app.json"
+      },
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "serve": {
+      "configurations": {
+        "development": {
+          "buildTarget": "@seahawk/api:build:development"
+        },
+        "production": {
+          "buildTarget": "@seahawk/api:build:production"
+        }
+      },
+      "continuous": true,
+      "defaultConfiguration": "development",
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "@seahawk/api:build",
+        "inspect": false,
+        "runBuildTargetDependencies": false
+      }
+    },
+    "serve:e2e": {
+      "continuous": true,
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "@seahawk/api:build:production",
+        "inspect": false,
+        "runBuildTargetDependencies": false,
+        "watch": false
+      }
+    },
+    "typecheck": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p apps/api/tsconfig.app.json"
+      }
+    },
+    "typecheck:test": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p apps/api/tsconfig.spec.json"
+      }
+    }
+  }
+}

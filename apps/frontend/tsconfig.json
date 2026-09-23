@@ -1,0 +1,40 @@
+{
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictAttributeTypes": true,
+    "strictContextGenerics": true,
+    "strictDomEventTypes": true,
+    "strictDomLocalRefTypes": true,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictInputTypes": true,
+    "strictLiteralTypes": true,
+    "strictNullInputTypes": true,
+    "strictOutputEventTypes": true,
+    "strictSafeNavigationTypes": true,
+    "strictTemplates": true,
+    "typeCheckHostBindings": true
+  },
+  "compilerOptions": {
+    "emitDecoratorMetadata": false,
+    "isolatedModules": true,
+    "module": "esnext",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "strict": true,
+    "target": "esnext"
+  },
+  "extends": "../../tsconfig.base.json",
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}

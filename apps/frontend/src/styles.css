@@ -1,0 +1,12 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/atkinson-hyperlegible-next/wght.css';
+
+body {
+  font-family:
+    'Atkinson Hyperlegible Next Variable',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}

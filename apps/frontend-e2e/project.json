@@ -1,0 +1,25 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": [
+    "@seahawk/frontend"
+  ],
+  "name": "@seahawk/frontend-e2e",
+  "projectType": "application",
+  "sourceRoot": "apps/frontend-e2e/src",
+  "tags": [
+    "scope:frontend"
+  ],
+  "targets": {
+    "typecheck:test": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p apps/frontend-e2e/tsconfig.json"
+      }
+    }
+  }
+}

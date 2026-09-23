@@ -1,0 +1,13 @@
+{
+  "main": "./index.mjs",
+  "name": "@seahawk/database",
+  "peerDependencies": {
+    "@seahawk/api-config": "0.0.0",
+    "drizzle-orm": "1.0.0-rc.4",
+    "pg": "8.23.0"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "types": "./index.d.ts",
+  "version": "0.0.0"
+}

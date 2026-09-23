@@ -1,0 +1,66 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "name": "@seahawk/api-config",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "currentVersionResolver": "git-tag",
+      "fallbackCurrentVersionResolver": "disk",
+      "manifestRootsToUpdate": [
+        "dist/{projectRoot}"
+      ]
+    }
+  },
+  "sourceRoot": "libs/api/config/src",
+  "tags": [
+    "scope:api",
+    "type:util"
+  ],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "options": {
+        "assets": [
+          "libs/api/config/*.md"
+        ],
+        "format": [
+          "esm"
+        ],
+        "generatePackageJson": true,
+        "main": "libs/api/config/src/index.ts",
+        "outputPath": "dist/libs/api/config",
+        "tsConfig": "libs/api/config/tsconfig.lib.json"
+      },
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
+    "typecheck": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p libs/api/config/tsconfig.lib.json"
+      }
+    },
+    "typecheck:test": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p libs/api/config/tsconfig.spec.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "name": "@seahawk/api-auth",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "currentVersionResolver": "git-tag",
+      "fallbackCurrentVersionResolver": "disk",
+      "manifestRootsToUpdate": [
+        "dist/{projectRoot}"
+      ]
+    }
+  },
+  "sourceRoot": "libs/api/auth/src",
+  "tags": [
+    "scope:api",
+    "type:feature"
+  ],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "options": {
+        "assets": [
+          "libs/api/auth/*.md"
+        ],
+        "format": [
+          "esm"
+        ],
+        "generatePackageJson": true,
+        "main": "libs/api/auth/src/index.ts",
+        "outputPath": "dist/libs/api/auth",
+        "tsConfig": "libs/api/auth/tsconfig.lib.json"
+      },
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
+    "typecheck": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p libs/api/auth/tsconfig.lib.json"
+      }
+    },
+    "typecheck:test": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p libs/api/auth/tsconfig.spec.json"
+      }
+    }
+  }
+}
