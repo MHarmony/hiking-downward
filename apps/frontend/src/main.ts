@@ -13,6 +13,9 @@ if (runtimeConfig.sentryDsn) {
     dsn: runtimeConfig.sentryDsn,
     environment: runtimeConfig.sentryEnvironment,
     release: runtimeConfig.sentryRelease,
+    dataCollection: {
+      userInfo: false,
+    },
     tracesSampleRate: runtimeConfig.sentryTracesSampleRate ?? 0.1,
   });
 }
