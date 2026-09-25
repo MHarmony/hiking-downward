@@ -1,0 +1,9 @@
+{
+  "name": "@hiking-downward/contact-us",
+  "peerDependencies": {
+    "@angular/core": "22.2.0"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.0.0"
+}

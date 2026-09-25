@@ -1,9 +1,9 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "implicitDependencies": [
-    "@seahawk/api"
+    "@hiking-downward/api"
   ],
-  "name": "@seahawk/api-e2e",
+  "name": "@hiking-downward/api-e2e",
   "projectType": "application",
   "sourceRoot": "apps/api-e2e/src",
   "tags": [
@@ -15,7 +15,7 @@
       "dependsOn": [
         {
           "projects": [
-            "@seahawk/api"
+            "@hiking-downward/api"
           ],
           "target": "serve:e2e"
         }

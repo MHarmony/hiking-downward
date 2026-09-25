@@ -10,7 +10,7 @@ export default defineConfig(() => ({
     tsconfigPaths: true,
   },
   test: {
-    name: '@seahawk/database',
+    name: '@hiking-downward/database',
     watch: false,
     globals: true,
     environment: 'node',

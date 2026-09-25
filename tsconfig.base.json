@@ -25,16 +25,19 @@
     "noImplicitThis": true,
     "noUncheckedIndexedAccess": true,
     "paths": {
-      "@seahawk/api-auth": [
+      "@hiking-downward/api-auth": [
         "./libs/api/auth/src/index.ts"
       ],
-      "@seahawk/api-config": [
+      "@hiking-downward/api-config": [
         "./libs/api/config/src/index.ts"
       ],
-      "@seahawk/database": [
+      "@hiking-downward/contact-us": [
+        "./libs/frontend/contact-us/src/index.ts"
+      ],
+      "@hiking-downward/database": [
         "./libs/api/database/src/index.ts"
       ],
-      "@seahawk/status-page": [
+      "@hiking-downward/status-page": [
         "./libs/frontend/status-page/src/index.ts"
       ]
     },

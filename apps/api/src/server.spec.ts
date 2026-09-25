@@ -59,12 +59,12 @@ vi.mock('@elysia/openapi', () => ({
   fromTypes: fromTypesMock,
   openapi: openapiMock,
 }));
-vi.mock('@seahawk/api-auth', () => ({
+vi.mock('@hiking-downward/api-auth', () => ({
   auth: authMock,
   checkRedis: checkRedisMock,
   closeRedis: closeRedisMock,
 }));
-vi.mock('@seahawk/database', () => ({
+vi.mock('@hiking-downward/database', () => ({
   checkDatabase: checkDatabaseMock,
   closeDatabase: closeDatabaseMock,
 }));

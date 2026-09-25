@@ -10,7 +10,7 @@ export default defineConfig(() => ({
     tsconfigPaths: true,
   },
   test: {
-    name: '@seahawk/api-auth',
+    name: '@hiking-downward/api-auth',
     watch: false,
     globals: true,
     environment: 'node',

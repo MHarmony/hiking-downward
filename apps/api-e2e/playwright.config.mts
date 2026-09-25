@@ -15,14 +15,14 @@ export default defineConfig({
     trace: 'on-first-retry' as const,
   },
   webServer: {
-    command: 'bun nx run @seahawk/api:serve:e2e',
+    command: 'bun nx run @hiking-downward/api:serve:e2e',
     url: healthURL,
     reuseExistingServer: true,
     cwd: workspaceRoot,
   },
   projects: [
     {
-      name: '@seahawk/api',
+      name: '@hiking-downward/api',
     },
   ],
 });

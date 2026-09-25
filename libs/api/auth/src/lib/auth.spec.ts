@@ -83,7 +83,7 @@ vi.mock('@better-auth/i18n', () => ({
 vi.mock('@better-auth/passkey', () => ({
   passkey: vi.fn<() => { id: string }>(() => ({ id: 'passkey' })),
 }));
-vi.mock('@seahawk/database', () => ({
+vi.mock('@hiking-downward/database', () => ({
   account: {},
   db: {},
   passkey: {},

@@ -1,6 +1,6 @@
 {
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "name": "@seahawk/database",
+  "name": "@hiking-downward/database",
   "projectType": "library",
   "release": {
     "version": {

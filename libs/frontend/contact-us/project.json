@@ -1,7 +1,7 @@
 {
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "name": "@hiking-downward/status-page",
-  "prefix": "lib",
+  "name": "@hiking-downward/contact-us",
+  "prefix": "hiking-downward",
   "projectType": "library",
   "release": {
     "version": {
@@ -12,7 +12,7 @@
       ]
     }
   },
-  "sourceRoot": "libs/frontend/status-page/src",
+  "sourceRoot": "libs/frontend/contact-us/src",
   "tags": [
     "scope:frontend",
     "type:ui"
@@ -22,14 +22,14 @@
       "configurations": {
         "development": {},
         "production": {
-          "tsConfig": "libs/frontend/status-page/tsconfig.lib.prod.json"
+          "tsConfig": "libs/frontend/contact-us/tsconfig.lib.prod.json"
         }
       },
       "defaultConfiguration": "production",
       "executor": "@nx/angular:package",
       "options": {
-        "project": "libs/frontend/status-page/ng-package.json",
-        "tsConfig": "libs/frontend/status-page/tsconfig.lib.json"
+        "project": "libs/frontend/contact-us/ng-package.json",
+        "tsConfig": "libs/frontend/contact-us/tsconfig.lib.json"
       },
       "outputs": [
         "{workspaceRoot}/dist/{projectRoot}"
@@ -61,7 +61,7 @@
         "^production"
       ],
       "options": {
-        "command": "tsc --noEmit -p libs/frontend/status-page/tsconfig.lib.json"
+        "command": "tsc --noEmit -p libs/frontend/contact-us/tsconfig.lib.json"
       }
     },
     "typecheck:test": {
@@ -72,7 +72,7 @@
         "^production"
       ],
       "options": {
-        "command": "tsc --noEmit -p libs/frontend/status-page/tsconfig.spec.json"
+        "command": "tsc --noEmit -p libs/frontend/contact-us/tsconfig.spec.json"
       }
     }
   }

@@ -1,4 +1,4 @@
-import { apiConfig, getEmailConfig } from '@seahawk/api-config';
+import { apiConfig, getEmailConfig } from '@hiking-downward/api-config';
 import { Resend } from 'resend';
 
 const emailConfig = getEmailConfig();

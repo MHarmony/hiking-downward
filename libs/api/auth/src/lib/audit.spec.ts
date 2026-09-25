@@ -9,7 +9,7 @@ const { insertMock, valuesMock } = vi.hoisted(() => ({
   valuesMock: vi.fn<() => Promise<void>>().mockResolvedValue(null as never),
 }));
 
-vi.mock('@seahawk/database', () => ({
+vi.mock('@hiking-downward/database', () => ({
   auditEvent: { name: 'audit_event' },
   db: { insert: insertMock },
 }));

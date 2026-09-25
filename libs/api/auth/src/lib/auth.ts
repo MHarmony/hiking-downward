@@ -7,7 +7,7 @@ import {
   passkey as passkeySchema,
   twoFactor as twoFactorSchema,
   user,
-} from '@seahawk/database';
+} from '@hiking-downward/database';
 import { Redis } from '@upstash/redis';
 import type { SecondaryStorage } from 'better-auth';
 import { createAuthMiddleware } from 'better-auth/api';

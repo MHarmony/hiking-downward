@@ -22,7 +22,7 @@ bun playwright install --with-deps
 Start the frontend locally:
 
 ```sh
-bun nx serve @seahawk/frontend
+bun nx serve @hiking-downward/frontend
 ```
 
 The development server runs at <http://localhost:4200/> by default.
@@ -30,7 +30,7 @@ The development server runs at <http://localhost:4200/> by default.
 Start the API locally:
 
 ```sh
-bun nx serve @seahawk/api
+bun nx serve @hiking-downward/api
 ```
 
 The development server runs at <http://localhost:3000/> by default.

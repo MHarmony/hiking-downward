@@ -1,4 +1,4 @@
-import { getDatabaseConfig } from '@seahawk/api-config';
+import { getDatabaseConfig } from '@hiking-downward/api-config';
 import { drizzle, type NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import { relations } from './schema/relations.schema';

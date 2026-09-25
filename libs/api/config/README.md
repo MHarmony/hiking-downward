@@ -1,4 +1,4 @@
-# @seahawk/api-config
+# @hiking-downward/api-config
 
 Shared runtime configuration for the HikingDownward API.
 

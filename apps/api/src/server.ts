@@ -1,9 +1,9 @@
 import { cors } from '@elysia/cors';
 import { node } from '@elysia/node';
 import { fromTypes, openapi } from '@elysia/openapi';
-import { auth, checkRedis, closeRedis } from '@seahawk/api-auth';
-import { apiConfig } from '@seahawk/api-config';
-import { checkDatabase, closeDatabase } from '@seahawk/database';
+import { auth, checkRedis, closeRedis } from '@hiking-downward/api-auth';
+import { apiConfig } from '@hiking-downward/api-config';
+import { checkDatabase, closeDatabase } from '@hiking-downward/database';
 import * as Sentry from '@sentry/elysia';
 import { Elysia, type AnyElysia, type ErrorHandler } from 'elysia';
 import { randomUUID } from 'node:crypto';

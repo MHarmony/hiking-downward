@@ -39,7 +39,7 @@ The Playwright browser installation is required before running end-to-end tests.
 Start the frontend development server with:
 
 ```sh
-bun nx serve @seahawk/frontend
+bun nx serve @hiking-downward/frontend
 ```
 
 The default local URL is `http://localhost:4200/`.
@@ -47,7 +47,7 @@ The default local URL is `http://localhost:4200/`.
 Start the API development server with:
 
 ```sh
-bun nx serve @seahawk/api
+bun nx serve @hiking-downward/api
 ```
 
 The default local URL is `http://localhost:3000/`.

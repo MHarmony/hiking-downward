@@ -1,4 +1,4 @@
-# `@seahawk/api-auth`
+# `@hiking-downward/api-auth`
 
 Shared Better Auth configuration for the HikingDownward API. The library
 exports the configured `auth` instance used to mount authentication routes and
@@ -7,12 +7,12 @@ to resolve authenticated API sessions.
 ## Usage
 
 ```ts
-import { auth } from '@seahawk/api-auth';
+import { auth } from '@hiking-downward/api-auth';
 
 app.mount(auth.handler);
 ```
 
-The configuration uses the `@seahawk/database` Drizzle client, Upstash Redis
+The configuration uses the `@hiking-downward/database` Drizzle client, Upstash Redis
 for secondary storage and rate limiting, and Resend for verification,
 password-reset, and magic-link email. Configure these variables before running
 the API:
@@ -36,5 +36,5 @@ stored in audit metadata.
 Build the library from the workspace root with:
 
 ```sh
-bun nx build @seahawk/api-auth
+bun nx build @hiking-downward/api-auth
 ```

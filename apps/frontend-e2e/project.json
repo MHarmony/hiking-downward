@@ -1,9 +1,9 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "implicitDependencies": [
-    "@seahawk/frontend"
+    "@hiking-downward/frontend"
   ],
-  "name": "@seahawk/frontend-e2e",
+  "name": "@hiking-downward/frontend-e2e",
   "projectType": "application",
   "sourceRoot": "apps/frontend-e2e/src",
   "tags": [

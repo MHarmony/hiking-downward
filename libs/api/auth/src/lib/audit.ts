@@ -1,4 +1,4 @@
-import { auditEvent, db } from '@seahawk/database';
+import { auditEvent, db } from '@hiking-downward/database';
 import { randomUUID } from 'node:crypto';
 
 /** Event names persisted by the application audit log. */

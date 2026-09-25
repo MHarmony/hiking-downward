@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "name": "@seahawk/api",
+  "name": "@hiking-downward/api",
   "projectType": "application",
   "sourceRoot": "apps/api/src",
   "tags": [
@@ -48,10 +48,10 @@
     "serve": {
       "configurations": {
         "development": {
-          "buildTarget": "@seahawk/api:build:development"
+          "buildTarget": "@hiking-downward/api:build:development"
         },
         "production": {
-          "buildTarget": "@seahawk/api:build:production"
+          "buildTarget": "@hiking-downward/api:build:production"
         }
       },
       "continuous": true,
@@ -61,7 +61,7 @@
       ],
       "executor": "@nx/js:node",
       "options": {
-        "buildTarget": "@seahawk/api:build",
+        "buildTarget": "@hiking-downward/api:build",
         "inspect": false,
         "runBuildTargetDependencies": false
       }
@@ -73,7 +73,7 @@
       ],
       "executor": "@nx/js:node",
       "options": {
-        "buildTarget": "@seahawk/api:build:production",
+        "buildTarget": "@hiking-downward/api:build:production",
         "inspect": false,
         "runBuildTargetDependencies": false,
         "watch": false

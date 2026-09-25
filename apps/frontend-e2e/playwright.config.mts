@@ -14,7 +14,7 @@ export default defineConfig({
     trace: 'on-first-retry' as const,
   },
   webServer: {
-    command: 'bun nx run @seahawk/frontend:serve-static',
+    command: 'bun nx run @hiking-downward/frontend:serve-static',
     url: 'http://localhost:4200',
     reuseExistingServer: true,
     cwd: workspaceRoot,

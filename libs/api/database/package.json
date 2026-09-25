@@ -1,8 +1,8 @@
 {
   "main": "./index.mjs",
-  "name": "@seahawk/database",
+  "name": "@hiking-downward/database",
   "peerDependencies": {
-    "@seahawk/api-config": "0.0.0",
+    "@hiking-downward/api-config": "0.0.0",
     "drizzle-orm": "1.0.0-rc.4",
     "pg": "8.23.0"
   },

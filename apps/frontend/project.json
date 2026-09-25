@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "name": "@seahawk/frontend",
+  "name": "@hiking-downward/frontend",
   "prefix": "hiking-downward",
   "projectType": "application",
   "sourceRoot": "apps/frontend/src",
@@ -54,10 +54,10 @@
     "serve": {
       "configurations": {
         "development": {
-          "buildTarget": "@seahawk/frontend:build:development"
+          "buildTarget": "@hiking-downward/frontend:build:development"
         },
         "production": {
-          "buildTarget": "@seahawk/frontend:build:production"
+          "buildTarget": "@hiking-downward/frontend:build:production"
         }
       },
       "continuous": true,
@@ -68,7 +68,7 @@
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "@seahawk/frontend:build",
+        "buildTarget": "@hiking-downward/frontend:build",
         "port": 4200,
         "spa": true,
         "staticFilePath": "dist/apps/frontend/browser"

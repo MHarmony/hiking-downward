@@ -1,4 +1,4 @@
-# `@seahawk/status-page`
+# `@hiking-downward/status-page`
 
 Shared status-page components for HikingDownward frontend applications.
 
@@ -8,17 +8,17 @@ Shared status-page components for HikingDownward frontend applications.
 export const routes: Routes = [
   {
     path: '401',
-    loadComponent: async () => import('@seahawk/status-page').then((m) => m.Unauthorized),
+    loadComponent: async () => import('@hiking-downward/status-page').then((m) => m.Unauthorized),
     title: 'HikingDownward - 401',
   },
   {
     path: '403',
-    loadComponent: async () => import('@seahawk/status-page').then((m) => m.Forbidden),
+    loadComponent: async () => import('@hiking-downward/status-page').then((m) => m.Forbidden),
     title: 'HikingDownward - 403',
   },
   {
     path: '**',
-    loadComponent: async () => import('@seahawk/status-page').then((m) => m.NotFound),
+    loadComponent: async () => import('@hiking-downward/status-page').then((m) => m.NotFound),
     title: 'HikingDownward - 404',
   },
 ];
@@ -36,5 +36,5 @@ control the browser document title independently.
 Build the library from the workspace root with:
 
 ```sh
-bun nx build @seahawk/status-page
+bun nx build @hiking-downward/status-page
 ```
