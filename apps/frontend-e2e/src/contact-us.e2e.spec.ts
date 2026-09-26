@@ -66,3 +66,55 @@ test.describe('contact page', () => {
     await expect(page.locator(':focus-visible')).toContainText('Report a bug');
   });
 });
+
+test.describe('contact page in dark mode', () => {
+  test.use({ colorScheme: 'dark' });
+
+  test('has no automated accessibility violations', async ({ page }) => {
+    await page.goto('/contact');
+
+    const results = await new AxeBuilder({ page })
+      .withTags([
+        'wcag2aaa',
+        'wcag2a',
+        'wcag2aa',
+        'wcag21a',
+        'wcag21aa',
+        'wcag22aa',
+        'best-practice',
+        'experimental',
+      ])
+      .analyze();
+
+    expect(results.violations).toEqual([]);
+  });
+});
+
+for (const colorScheme of ['light', 'dark'] as const) {
+  test.describe(`contact page hover states in ${colorScheme} mode`, () => {
+    test.use({ colorScheme });
+
+    for (const name of ['Email support', 'Report a bug']) {
+      test(`${name} has no accessibility violations while hovered`, async ({ page }) => {
+        await page.goto('/contact');
+
+        await page.getByRole('link', { name }).hover();
+
+        const results = await new AxeBuilder({ page })
+          .withTags([
+            'wcag2aaa',
+            'wcag2a',
+            'wcag2aa',
+            'wcag21a',
+            'wcag21aa',
+            'wcag22aa',
+            'best-practice',
+            'experimental',
+          ])
+          .analyze();
+
+        expect(results.violations).toEqual([]);
+      });
+    }
+  });
+}

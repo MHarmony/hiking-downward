@@ -1,5 +1,7 @@
 /** Public runtime settings loaded by the browser before Angular bootstraps. */
 export type FrontendRuntimeConfig = {
+  /** Base URL of the API / better-auth server. */
+  apiUrl?: string;
   /** Public Sentry DSN, when frontend error reporting is enabled. */
   sentryDsn?: string;
   /** Deployment environment reported to Sentry. */
@@ -8,6 +10,8 @@ export type FrontendRuntimeConfig = {
   sentryRelease?: string;
   /** Fraction of frontend transactions sampled by Sentry. */
   sentryTracesSampleRate?: number;
+  /** Origins that receive Sentry trace headers; defaults to `apiUrl`. */
+  sentryTracePropagationTargets?: string[];
 };
 
 const defaultRuntimeConfig: FrontendRuntimeConfig = {};

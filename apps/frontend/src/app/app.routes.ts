@@ -8,6 +8,11 @@ export const appRoutes: Route[] = [
     title: 'HikingDownward - Contact Us',
   },
   {
+    path: 'sign-in',
+    loadComponent: async () => import('@hiking-downward/sign-in').then((m) => m.SignIn),
+    title: 'HikingDownward - Sign In',
+  },
+  {
     path: '401',
     loadComponent: async () => import('@hiking-downward/status-page').then((m) => m.Unauthorized),
     title: 'HikingDownward - 401',

@@ -63,7 +63,10 @@
       "options": {
         "buildTarget": "@hiking-downward/api:build",
         "inspect": false,
-        "runBuildTargetDependencies": false
+        "runBuildTargetDependencies": false,
+        "runtimeArgs": [
+          "--disable-warning=DEP0205"
+        ]
       }
     },
     "serve:e2e": {
@@ -76,6 +79,9 @@
         "buildTarget": "@hiking-downward/api:build:production",
         "inspect": false,
         "runBuildTargetDependencies": false,
+        "runtimeArgs": [
+          "--disable-warning=DEP0205"
+        ],
         "watch": false
       }
     },

@@ -26,7 +26,6 @@
         "format": [
           "esm"
         ],
-        "generatePackageJson": true,
         "main": "libs/api/database/src/index.ts",
         "outputPath": "dist/libs/api/database",
         "tsConfig": "libs/api/database/tsconfig.lib.json"
@@ -34,6 +33,18 @@
       "outputs": [
         "{options.outputPath}"
       ]
+    },
+    "lint": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "oxlint . && eslint package.json",
+        "cwd": "libs/api/database"
+      }
     },
     "nx-release-publish": {
       "options": {

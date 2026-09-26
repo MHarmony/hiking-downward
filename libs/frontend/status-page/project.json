@@ -35,6 +35,18 @@
         "{workspaceRoot}/dist/{projectRoot}"
       ]
     },
+    "lint": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "oxlint . && eslint package.json",
+        "cwd": "libs/frontend/status-page"
+      }
+    },
     "nx-release-publish": {
       "options": {
         "packageRoot": "dist/{projectRoot}"

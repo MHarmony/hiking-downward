@@ -37,6 +37,12 @@
       "@hiking-downward/database": [
         "./libs/api/database/src/index.ts"
       ],
+      "@hiking-downward/frontend-auth": [
+        "./libs/frontend/auth/src/index.ts"
+      ],
+      "@hiking-downward/sign-in": [
+        "./libs/frontend/sign-in/src/index.ts"
+      ],
       "@hiking-downward/status-page": [
         "./libs/frontend/status-page/src/index.ts"
       ]

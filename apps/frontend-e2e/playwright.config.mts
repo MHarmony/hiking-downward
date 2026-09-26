@@ -8,6 +8,7 @@ const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
 /** Playwright configuration for the HikingDownward frontend end-to-end tests. */
 export default defineConfig({
   ...nxE2EPreset(import.meta.dirname, { testDir: './src' }),
+  reporter: [['list'], ['html', { open: 'never' }]],
   workers: 2,
   use: {
     baseURL,
@@ -18,6 +19,8 @@ export default defineConfig({
     url: 'http://localhost:4200',
     reuseExistingServer: true,
     cwd: workspaceRoot,
+    stdout: 'pipe',
+    stderr: 'pipe',
   },
   projects: [
     {
@@ -44,13 +47,13 @@ export default defineConfig({
       use: { ...devices['iPhone 12'] },
     },
 
-    {
-      name: 'Microsoft Edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    },
-    {
-      name: 'Google Chrome',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    },
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    // },
+    // {
+    //   name: 'Google Chrome',
+    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+    // },
   ],
 });

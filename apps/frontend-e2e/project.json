@@ -10,6 +10,14 @@
     "scope:frontend"
   ],
   "targets": {
+    "e2e": {
+      "cache": false,
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "playwright test",
+        "cwd": "apps/frontend-e2e"
+      }
+    },
     "typecheck:test": {
       "cache": true,
       "executor": "nx:run-commands",

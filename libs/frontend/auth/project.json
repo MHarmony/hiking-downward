@@ -1,0 +1,91 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "name": "@hiking-downward/frontend-auth",
+  "prefix": "hiking-downward",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "currentVersionResolver": "git-tag",
+      "fallbackCurrentVersionResolver": "disk",
+      "manifestRootsToUpdate": [
+        "dist/{projectRoot}"
+      ]
+    }
+  },
+  "sourceRoot": "libs/frontend/auth/src",
+  "tags": [
+    "scope:frontend",
+    "type:util"
+  ],
+  "targets": {
+    "build": {
+      "configurations": {
+        "development": {},
+        "production": {
+          "tsConfig": "libs/frontend/auth/tsconfig.lib.prod.json"
+        }
+      },
+      "defaultConfiguration": "production",
+      "executor": "@nx/angular:package",
+      "options": {
+        "project": "libs/frontend/auth/ng-package.json",
+        "tsConfig": "libs/frontend/auth/tsconfig.lib.json"
+      },
+      "outputs": [
+        "{workspaceRoot}/dist/{projectRoot}"
+      ]
+    },
+    "lint": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "oxlint . && eslint package.json",
+        "cwd": "libs/frontend/auth"
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {
+        "coverage": true,
+        "coverageThresholds": {
+          "branches": 100,
+          "functions": 100,
+          "lines": 100,
+          "statements": 100
+        },
+        "watch": false
+      }
+    },
+    "typecheck": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p libs/frontend/auth/tsconfig.lib.json"
+      }
+    },
+    "typecheck:test": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p libs/frontend/auth/tsconfig.spec.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,136 @@
+<div class="flex flex-col justify-center">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <img
+      ngSrc="/images/hiker-mountain.svg"
+      width="240"
+      height="180"
+      priority
+      alt="Stick figure hiking toward a mountain"
+      class="mx-auto h-24 w-32" />
+    <h1 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white">
+      Sign in to your account
+    </h1>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <form (submit)="signInWithPassword($event)" novalidate class="space-y-6">
+      @let identifierErrors = signInForm.emailOrUsername().errors(); @let passwordErrors =
+      signInForm.password().errors();
+
+      <div>
+        <label
+          for="emailOrUsername"
+          class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+          Email address or username
+        </label>
+        <div class="mt-2">
+          <input
+            id="emailOrUsername"
+            type="text"
+            autocomplete="username webauthn"
+            autocapitalize="none"
+            spellcheck="false"
+            [formField]="signInForm.emailOrUsername"
+            [attr.aria-invalid]="identifierErrors.length > 0 ? 'true' : null"
+            [attr.aria-describedby]="identifierErrors.length > 0 ? 'emailOrUsername-error' : null"
+            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+        </div>
+        @if (identifierErrors.length > 0) {
+        <div
+          id="emailOrUsername-error"
+          class="mt-2 space-y-1 text-sm text-red-800 dark:text-red-300">
+          @for (error of identifierErrors; track $index) {
+          <p>{{ error.message }}</p>
+          }
+        </div>
+        }
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between">
+          <label
+            for="password"
+            class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+            Password
+            <a
+              routerLink="/forgot-password"
+              class="font-semibold text-indigo-700 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-indigo-200">
+              Forgot password?
+            </a>
+          </label>
+        </div>
+        <div class="mt-2">
+          <input
+            id="password"
+            type="password"
+            autocomplete="current-password webauthn"
+            [formField]="signInForm.password"
+            [attr.aria-invalid]="passwordErrors.length > 0 ? 'true' : null"
+            [attr.aria-describedby]="passwordErrors.length > 0 ? 'password-error' : null"
+            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+        </div>
+        @if (passwordErrors.length > 0) {
+        <div id="password-error" class="mt-2 space-y-1 text-sm text-red-800 dark:text-red-300">
+          @for (error of passwordErrors; track $index) {
+          <p>{{ error.message }}</p>
+          }
+        </div>
+        }
+      </div>
+
+      <div role="status" aria-live="polite">
+        @if (errorMessage(); as message) {
+        <p
+          class="rounded-md bg-red-50 p-3 text-sm text-red-800 dark:bg-red-500/10 dark:text-red-300">
+          {{ message }}
+        </p>
+        } @if (magicLinkSentTo(); as sentTo) {
+        <p
+          class="rounded-md bg-green-50 p-3 text-sm text-green-900 dark:bg-green-500/10 dark:text-green-400">
+          Check your email. We sent a sign-in link to {{ sentTo }}.
+        </p>
+        }
+      </div>
+
+      <div class="space-y-3">
+        <button
+          type="submit"
+          [disabled]="pending()"
+          class="flex w-full cursor-pointer justify-center rounded-md bg-indigo-800 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:shadow-none dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
+          Sign in
+        </button>
+
+        <div class="flex items-center gap-x-4" aria-hidden="true">
+          <div class="h-px flex-1 bg-gray-200 dark:bg-white/10"></div>
+          <span class="text-sm/6 text-gray-600 dark:text-gray-400">or</span>
+          <div class="h-px flex-1 bg-gray-200 dark:bg-white/10"></div>
+        </div>
+
+        <button
+          type="button"
+          (click)="sendMagicLink()"
+          [disabled]="pending()"
+          class="flex w-full cursor-pointer justify-center rounded-md bg-white px-3 py-1.5 text-sm/6 font-semibold text-gray-900 shadow-xs outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-white dark:shadow-none dark:outline-white/10 dark:hover:bg-white/20">
+          Email me a magic link
+        </button>
+
+        <button
+          type="button"
+          (click)="signInWithPasskey()"
+          [disabled]="pending()"
+          class="flex w-full cursor-pointer justify-center rounded-md bg-white px-3 py-1.5 text-sm/6 font-semibold text-gray-900 shadow-xs outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-white dark:shadow-none dark:outline-white/10 dark:hover:bg-white/20">
+          Sign in with a passkey
+        </button>
+      </div>
+    </form>
+
+    <p class="mt-10 text-center text-sm/6 text-gray-600 dark:text-gray-400">
+      Don't have an account?
+      <a
+        routerLink="/sign-up"
+        class="font-semibold text-indigo-700 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-indigo-200">
+        Sign up
+      </a>
+    </p>
+  </div>
+</div>

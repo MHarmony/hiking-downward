@@ -119,6 +119,8 @@ export function createApp(): AnyElysia {
       const isKnownRoute =
         path === '/health' ||
         path === '/ready' ||
+        path === '/docs' ||
+        path.startsWith('/docs/') ||
         path.startsWith('/api/auth/') ||
         path.startsWith('/openapi/');
       if (!isKnownRoute) {
@@ -138,7 +140,13 @@ export function createApp(): AnyElysia {
         origin: [apiConfig.frontendUrl],
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         credentials: true,
-        allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-Id'],
+        allowedHeaders: [
+          'Content-Type',
+          'Authorization',
+          'X-Request-Id',
+          'sentry-trace',
+          'baggage',
+        ],
         exposeHeaders: ['X-Request-Id'],
       }),
     )
@@ -149,19 +157,97 @@ export function createApp(): AnyElysia {
       set.headers['Permissions-Policy'] = 'camera=(), microphone=(), geolocation=()';
     })
     .onError(normalizeError as never)
-    .get('/health', () => ({ status: 'ok' }))
-    .get('/ready', async ({ status }) => {
-      const [postgres, redis] = await Promise.all([
-        checkDependency(checkDatabase),
-        checkDependency(checkRedis),
-      ]);
-      const body = {
-        status: postgres && redis ? 'ready' : 'not_ready',
-        dependencies: { postgres: postgres ? 'ok' : 'down', redis: redis ? 'ok' : 'down' },
-      } as const;
-
-      return postgres && redis ? body : status(503, body);
+    .get('/health', () => ({ status: 'ok' }), {
+      detail: {
+        summary: 'Check API health',
+        description: 'Confirms that the API process is responding without checking dependencies.',
+        tags: ['Health'],
+        responses: {
+          200: {
+            description: 'The API process is responding.',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  required: ['status'],
+                  properties: {
+                    status: { type: 'string', enum: ['ok'] },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     })
+    .get(
+      '/ready',
+      async ({ status }) => {
+        const [postgres, redis] = await Promise.all([
+          checkDependency(checkDatabase),
+          checkDependency(checkRedis),
+        ]);
+        const body = {
+          status: postgres && redis ? 'ready' : 'not_ready',
+          dependencies: { postgres: postgres ? 'ok' : 'down', redis: redis ? 'ok' : 'down' },
+        } as const;
+
+        return postgres && redis ? body : status(503, body);
+      },
+      {
+        detail: {
+          summary: 'Check API readiness',
+          description: 'Checks PostgreSQL and Redis and reports each dependency state.',
+          tags: ['Health'],
+          responses: {
+            200: {
+              description: 'The API and all dependencies are ready.',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    required: ['status', 'dependencies'],
+                    properties: {
+                      status: { type: 'string', enum: ['ready'] },
+                      dependencies: {
+                        type: 'object',
+                        required: ['postgres', 'redis'],
+                        properties: {
+                          postgres: { type: 'string', enum: ['ok'] },
+                          redis: { type: 'string', enum: ['ok'] },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            503: {
+              description: 'The API is responding, but at least one dependency is unavailable.',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    required: ['status', 'dependencies'],
+                    properties: {
+                      status: { type: 'string', enum: ['not_ready'] },
+                      dependencies: {
+                        type: 'object',
+                        required: ['postgres', 'redis'],
+                        properties: {
+                          postgres: { type: 'string', enum: ['ok', 'down'] },
+                          redis: { type: 'string', enum: ['ok', 'down'] },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    )
     .use(
       openapi({
         documentation: {
@@ -178,6 +264,13 @@ export function createApp(): AnyElysia {
               name: 'MIT',
             },
           },
+        },
+        path: '/docs',
+        scalar: {
+          darkMode: true,
+          favicon: 'http://localhost:4200/favicon.ico',
+          telemetry: false,
+          schemaKeyboardNav: true,
         },
         ...openApiTypeReferences,
       }),

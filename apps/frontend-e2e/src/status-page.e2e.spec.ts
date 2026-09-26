@@ -70,3 +70,57 @@ test.describe('status pages', () => {
     await expect(page).toHaveURL('/');
   });
 });
+
+test.describe('status pages in dark mode', () => {
+  test.use({ colorScheme: 'dark' });
+
+  for (const statusPage of statusPages) {
+    test(`${statusPage.code} page has no automated accessibility violations`, async ({ page }) => {
+      await page.goto(statusPage.path);
+
+      const results = await new AxeBuilder({ page })
+        .withTags([
+          'wcag2aaa',
+          'wcag2a',
+          'wcag2aa',
+          'wcag21a',
+          'wcag21aa',
+          'wcag22aa',
+          'best-practice',
+          'experimental',
+        ])
+        .analyze();
+
+      expect(results.violations).toEqual([]);
+    });
+  }
+});
+
+for (const colorScheme of ['light', 'dark'] as const) {
+  test.describe(`status page hover states in ${colorScheme} mode`, () => {
+    test.use({ colorScheme });
+
+    for (const name of ['Go back home', 'Contact support']) {
+      test(`${name} has no accessibility violations while hovered`, async ({ page }) => {
+        await page.goto('/403');
+
+        await page.getByRole('link', { name }).hover();
+
+        const results = await new AxeBuilder({ page })
+          .withTags([
+            'wcag2aaa',
+            'wcag2a',
+            'wcag2aa',
+            'wcag21a',
+            'wcag21aa',
+            'wcag22aa',
+            'best-practice',
+            'experimental',
+          ])
+          .analyze();
+
+        expect(results.violations).toEqual([]);
+      });
+    }
+  });
+}

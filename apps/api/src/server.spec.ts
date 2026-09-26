@@ -84,8 +84,8 @@ vi.mock('elysia', () => {
       return this;
     }
 
-    public get(path: string, handler: unknown): this {
-      this.calls.push(['get', [path, handler]]);
+    public get(path: string, handler: unknown, options?: unknown): this {
+      this.calls.push(['get', [path, handler, options]]);
       return this;
     }
 
@@ -177,7 +177,13 @@ describe('server', () => {
     expect(corsMock).toHaveBeenCalledWith(
       expect.objectContaining({
         credentials: true,
-        allowedHeaders: ['Content-Type', 'Authorization', 'X-Request-Id'],
+        allowedHeaders: [
+          'Content-Type',
+          'Authorization',
+          'X-Request-Id',
+          'sentry-trace',
+          'baggage',
+        ],
         exposeHeaders: ['X-Request-Id'],
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         origin: ['http://localhost:4200'],
@@ -209,6 +215,12 @@ describe('server', () => {
     }
     const healthHandler = healthRoute[1][1] as () => { status: string };
     expect(healthHandler()).toEqual({ status: 'ok' });
+    expect(healthRoute[1][2]).toMatchObject({
+      detail: {
+        summary: 'Check API health',
+        responses: { 200: { description: 'The API process is responding.' } },
+      },
+    });
     expect(app.calls.some(([name]) => name === 'mount')).toBe(true);
     expect(app.calls).toContainEqual(['listen', 3000]);
 
@@ -226,6 +238,14 @@ describe('server', () => {
     const status = vi.fn<(code: number, body: unknown) => unknown>((_code, body) => body);
     onRequest({ request: new Request('http://localhost/health'), set: requestSet, status });
     expect(requestSet.headers['X-Request-Id']).toEqual(expect.any(String));
+
+    expect(
+      onRequest({
+        request: new Request('http://localhost/docs'),
+        set: { headers: {} },
+        status,
+      }),
+    ).toBeNull();
 
     const oversizedSet: { headers: Record<string, string> } = { headers: {} };
     expect(
@@ -261,6 +281,17 @@ describe('server', () => {
     if (!readyRoute || !Array.isArray(readyRoute[1])) {
       throw new Error('Expected readiness route to be registered');
     }
+    expect(readyRoute[1][2]).toMatchObject({
+      detail: {
+        summary: 'Check API readiness',
+        responses: {
+          200: { description: 'The API and all dependencies are ready.' },
+          503: {
+            description: 'The API is responding, but at least one dependency is unavailable.',
+          },
+        },
+      },
+    });
     const readyHandler = readyRoute[1] as [string, (input: unknown) => Promise<unknown>];
     await expect(readyHandler[1]({ status })).resolves.toEqual({
       status: 'ready',

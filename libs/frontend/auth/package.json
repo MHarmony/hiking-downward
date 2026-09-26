@@ -1,0 +1,11 @@
+{
+  "name": "@hiking-downward/frontend-auth",
+  "peerDependencies": {
+    "@angular/core": "22.2.0",
+    "@better-auth/passkey": "1.7.6",
+    "better-auth": "1.7.6"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "version": "0.0.0"
+}
