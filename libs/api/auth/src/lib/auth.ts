@@ -149,6 +149,15 @@ export const auth = betterAuth({
     },
   },
   hooks: {
+    before: createAuthMiddleware(async (context) => {
+      if (context.path !== '/sign-up/email' && context.path !== '/sign-in/magic-link') {
+        return;
+      }
+
+      if ('email' in context.body && typeof context.body.email === 'string') {
+        context.body.email = context.body.email.trim().toLowerCase();
+      }
+    }),
     after: createAuthMiddleware(async (context) => {
       if (!context.path.startsWith('/admin/')) {
         return;
@@ -181,6 +190,8 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+    maxPasswordLength: 128,
+    minPasswordLength: 8,
     requireEmailVerification: true,
     revokeSessionsOnPasswordReset: true,
     /**

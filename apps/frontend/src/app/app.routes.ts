@@ -13,6 +13,16 @@ export const appRoutes: Route[] = [
     title: 'HikingDownward - Sign In',
   },
   {
+    path: 'sign-up',
+    loadComponent: async () => import('@hiking-downward/sign-up').then((m) => m.SignUp),
+    title: 'HikingDownward - Sign Up',
+  },
+  {
+    path: 'sign-up/complete',
+    loadComponent: async () => import('@hiking-downward/sign-up').then((m) => m.SignUpComplete),
+    title: 'HikingDownward - Sign Up Complete',
+  },
+  {
     path: '401',
     loadComponent: async () => import('@hiking-downward/status-page').then((m) => m.Unauthorized),
     title: 'HikingDownward - 401',

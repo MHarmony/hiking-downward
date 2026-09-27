@@ -1,0 +1,143 @@
+<div class="flex flex-col justify-center">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <img
+      ngSrc="/images/hiker-mountain.svg"
+      width="240"
+      height="180"
+      priority
+      alt="Stick figure hiking toward a mountain"
+      class="mx-auto h-24 w-32" />
+    <h1 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white">
+      Create your account
+    </h1>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <form (submit)="signUpWithPassword($event)" novalidate class="space-y-6">
+      @let emailErrors = signUpForm.email().errors(); @let passwordErrors =
+      signUpForm.password().errors(); @let confirmationErrors =
+      signUpForm.passwordConfirmation().errors();
+
+      <div>
+        <label for="email" class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+          Email address
+        </label>
+        <div class="mt-2">
+          <input
+            id="email"
+            type="email"
+            autocomplete="email"
+            autocapitalize="none"
+            spellcheck="false"
+            [formField]="signUpForm.email"
+            [attr.aria-invalid]="emailErrors.length > 0 ? 'true' : null"
+            [attr.aria-describedby]="emailErrors.length > 0 ? 'email-error' : null"
+            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+        </div>
+        @if (emailErrors.length > 0) {
+        <div id="email-error" class="mt-2 space-y-1 text-sm text-red-800 dark:text-red-300">
+          @for (error of emailErrors; track $index) {
+          <p>{{ error.message }}</p>
+          }
+        </div>
+        }
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+          Password
+        </label>
+        <div class="mt-2">
+          <input
+            id="password"
+            type="password"
+            autocomplete="new-password"
+            [formField]="signUpForm.password"
+            [attr.aria-invalid]="passwordErrors.length > 0 ? 'true' : null"
+            [attr.aria-describedby]="passwordErrors.length > 0 ? 'password-error' : null"
+            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+        </div>
+        @if (passwordErrors.length > 0) {
+        <div id="password-error" class="mt-2 space-y-1 text-sm text-red-800 dark:text-red-300">
+          @for (error of passwordErrors; track $index) {
+          <p>{{ error.message }}</p>
+          }
+        </div>
+        }
+      </div>
+
+      <div>
+        <label
+          for="passwordConfirmation"
+          class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+          Confirm password
+        </label>
+        <div class="mt-2">
+          <input
+            id="passwordConfirmation"
+            type="password"
+            autocomplete="new-password"
+            [formField]="signUpForm.passwordConfirmation"
+            [attr.aria-invalid]="confirmationErrors.length > 0 ? 'true' : null"
+            [attr.aria-describedby]="confirmationErrors.length > 0 ? 'passwordConfirmation-error' : null"
+            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:aria-invalid:outline-red-400" />
+        </div>
+        @if (confirmationErrors.length > 0) {
+        <div
+          id="passwordConfirmation-error"
+          class="mt-2 space-y-1 text-sm text-red-800 dark:text-red-300">
+          @for (error of confirmationErrors; track $index) {
+          <p>{{ error.message }}</p>
+          }
+        </div>
+        }
+      </div>
+
+      <div role="status" aria-live="polite">
+        @if (errorMessage(); as message) {
+        <p
+          class="rounded-md bg-red-50 p-3 text-sm text-red-800 dark:bg-red-500/10 dark:text-red-300">
+          {{ message }}
+        </p>
+        } @if (verificationSentTo(); as sentTo) {
+        <p
+          class="rounded-md bg-green-50 p-3 text-sm text-green-900 dark:bg-green-500/10 dark:text-green-400">
+          Check your email. We sent verification instructions to {{ sentTo }}.
+        </p>
+        }
+      </div>
+
+      <div class="space-y-3">
+        <button
+          type="submit"
+          [disabled]="pending()"
+          class="flex w-full cursor-pointer justify-center rounded-md bg-indigo-800 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:shadow-none dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
+          Create account
+        </button>
+
+        <div class="flex items-center gap-x-4" aria-hidden="true">
+          <div class="h-px flex-1 bg-gray-200 dark:bg-white/10"></div>
+          <span class="text-sm/6 text-gray-600 dark:text-gray-400">or</span>
+          <div class="h-px flex-1 bg-gray-200 dark:bg-white/10"></div>
+        </div>
+
+        <button
+          type="button"
+          (click)="sendMagicLink()"
+          [disabled]="pending()"
+          class="flex w-full cursor-pointer justify-center rounded-md bg-white px-3 py-1.5 text-sm/6 font-semibold text-gray-900 shadow-xs outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-white dark:shadow-none dark:outline-white/10 dark:hover:bg-white/20">
+          Email me a sign-up link
+        </button>
+      </div>
+    </form>
+
+    <p class="mt-10 text-center text-sm/6 text-gray-600 dark:text-gray-400">
+      Already have an account?
+      <a
+        routerLink="/sign-in"
+        class="font-semibold text-indigo-700 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-indigo-200">
+        Sign in
+      </a>
+    </p>
+  </div>
+</div>

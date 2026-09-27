@@ -49,7 +49,7 @@ function reportAuthFailure(method: SignInMethod | 'passkey', error: AuthError): 
 @Component({
   selector: 'hiking-downward-hiking-downward-sign-in',
   imports: [NgOptimizedImage, RouterLink, FormField],
-  templateUrl: './sign-in.html',
+  templateUrl: './sign-in.ng.html',
   styleUrl: './sign-in.css',
 })
 /** Presents password, magic-link, and passkey authentication flows. */

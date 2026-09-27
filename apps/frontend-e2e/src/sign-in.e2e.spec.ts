@@ -45,7 +45,7 @@ test.describe('sign-in page', () => {
 
     await expect(page).toHaveTitle('HikingDownward - Sign In');
     await expect(page.getByRole('heading', { name: 'Sign in to your account' })).toBeVisible();
-    const hikingImage = page.getByAltText('Hiker climbing a mountain with a backpack');
+    const hikingImage = page.getByAltText('Stick figure hiking toward a mountain');
     await expect(hikingImage).toBeVisible();
     await expect(hikingImage).toHaveAttribute('src', /\/images\/hiker-mountain\.svg/);
     await expect(hikingImage).toHaveAttribute('width', '240');

@@ -160,6 +160,7 @@ type AuthOptions = {
     };
   };
   hooks: {
+    before: (context: { path: string; body: Record<string, unknown> }) => Promise<void>;
     after: (context: {
       path: string;
       request: Request;
@@ -347,6 +348,28 @@ describe('auth configuration', () => {
       }),
     );
   }, 10_000);
+
+  it('normalizes registration emails in the before hook', async () => {
+    const beforeHook = authOptions.hooks.before;
+    const signUpContext = { path: '/sign-up/email', body: { email: '  PERSON@Example.COM  ' } };
+    const magicLinkContext = {
+      path: '/sign-in/magic-link',
+      body: { email: '  HIKER@Example.COM  ' },
+    };
+    const unrelatedContext = { path: '/sign-in/email', body: { email: 'Person@Example.COM' } };
+    const invalidEmailContext = { path: '/sign-up/email', body: { email: 42 } };
+
+    await beforeHook(signUpContext);
+    await beforeHook(magicLinkContext);
+    await beforeHook(unrelatedContext);
+    await beforeHook(invalidEmailContext);
+
+    expect(signUpContext.body.email).toBe('person@example.com');
+    expect(magicLinkContext.body.email).toBe('hiker@example.com');
+    expect(unrelatedContext.body.email).toBe('Person@Example.COM');
+    expect(invalidEmailContext.body.email).toBe(42);
+  }, 10_000);
+
   it('sends the magic link email', async () => {
     await magicLinkOptions.sendMagicLink({
       email: 'person@example.com',
