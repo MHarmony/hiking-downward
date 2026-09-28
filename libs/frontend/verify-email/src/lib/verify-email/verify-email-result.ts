@@ -50,7 +50,8 @@ function reportAuthFailure(error: AuthError): void {
 /** Shows the outcome of an email verification link and offers a new link on failure. */
 export class VerifyEmailResult {
   /** Better Auth client used to resend verification emails. */
-  readonly #authClient = inject(FrontendAuth).authClient;
+  readonly #auth = inject(FrontendAuth);
+  readonly #authClient = this.#auth.authClient;
   /** Origin used to build the verification callback URL. */
   readonly #origin = inject(DOCUMENT).location.origin;
   /** Error code Better Auth appended when verification failed. */
@@ -123,7 +124,7 @@ export class VerifyEmailResult {
     const emailAddress = normalizeEmail(this.#resendModel().email);
     const { error } = await this.#authClient.sendVerificationEmail({
       email: emailAddress,
-      callbackURL: `${this.#origin}/verify-email/result`,
+      callbackURL: this.#auth.emailVerificationCallbackUrl(this.#origin),
     });
 
     if (error) {

@@ -34,19 +34,32 @@ type AuthClientMock = {
   sendVerificationEmail: ReturnType<typeof vi.fn<AuthMethod>>;
 };
 
+/** Frontend auth surface exercised by the verification result tests. */
+type FrontendAuthMock = {
+  /** Better Auth client. */
+  authClient: AuthClientMock;
+  /** Creates the callback URL carried by outgoing verification emails. */
+  emailVerificationCallbackUrl: ReturnType<typeof vi.fn<(origin: string) => string>>;
+};
+
 /** Error codes Better Auth appends when an email verification link fails. */
 const knownErrorCodes = new Set(['TOKEN_EXPIRED', 'INVALID_TOKEN', 'USER_NOT_FOUND']);
 
 describe('VerifyEmailResult', () => {
-  let authClient: AuthClientMock;
+  let auth: FrontendAuthMock;
 
   beforeEach(() => {
     vi.clearAllMocks();
-    authClient = {
-      sendVerificationEmail: vi.fn<AuthMethod>().mockResolvedValue({
-        data: { status: true },
-        error: null,
-      }),
+    auth = {
+      authClient: {
+        sendVerificationEmail: vi.fn<AuthMethod>().mockResolvedValue({
+          data: { status: true },
+          error: null,
+        }),
+      },
+      emailVerificationCallbackUrl: vi
+        .fn<(origin: string) => string>()
+        .mockReturnValue('http://localhost:3000/verify-email/result?flow=test-flow'),
     };
   });
 
@@ -61,7 +74,7 @@ describe('VerifyEmailResult', () => {
       imports: [VerifyEmailResult],
       providers: [
         provideRouter([]),
-        { provide: FrontendAuth, useValue: { authClient } },
+        { provide: FrontendAuth, useValue: auth },
         {
           provide: ActivatedRoute,
           useValue: { snapshot: { queryParamMap: convertToParamMap(queryParams) } },
@@ -174,7 +187,7 @@ describe('VerifyEmailResult', () => {
     setEmail(fixture, 'not-an-email');
     await submitForm(fixture);
     expect(fixture.nativeElement.textContent).toContain('Enter a valid email address.');
-    expect(authClient.sendVerificationEmail).not.toHaveBeenCalled();
+    expect(auth.authClient.sendVerificationEmail).not.toHaveBeenCalled();
   }, 10_000);
 
   it('sends a normalized resend request that returns to this page', async () => {
@@ -182,9 +195,9 @@ describe('VerifyEmailResult', () => {
     setEmail(fixture, '  HIKER@Example.COM ');
     await submitForm(fixture);
 
-    expect(authClient.sendVerificationEmail).toHaveBeenCalledWith({
+    expect(auth.authClient.sendVerificationEmail).toHaveBeenCalledWith({
       email: 'hiker@example.com',
-      callbackURL: 'http://localhost:3000/verify-email/result',
+      callbackURL: 'http://localhost:3000/verify-email/result?flow=test-flow',
     });
     expect(fixture.nativeElement.textContent).toContain(
       'If hiker@example.com needs verification, we sent it a new link.',
@@ -192,7 +205,7 @@ describe('VerifyEmailResult', () => {
   }, 10_000);
 
   it('shows expected resend errors without reporting them', async () => {
-    authClient.sendVerificationEmail.mockResolvedValue({
+    auth.authClient.sendVerificationEmail.mockResolvedValue({
       data: null,
       error: { status: 400, message: 'Email is already verified' },
     });
@@ -205,7 +218,7 @@ describe('VerifyEmailResult', () => {
   }, 10_000);
 
   it('reports operational resend failures', async () => {
-    authClient.sendVerificationEmail.mockResolvedValue({ data: null, error: { status: 500 } });
+    auth.authClient.sendVerificationEmail.mockResolvedValue({ data: null, error: { status: 500 } });
     const fixture = createFixture({ error: 'INVALID_TOKEN' });
     setEmail(fixture, 'hiker@example.com');
     await submitForm(fixture);
@@ -213,7 +226,7 @@ describe('VerifyEmailResult', () => {
     expect(fixture.nativeElement.textContent).toContain('Unable to send a verification email.');
     expect(captureException).toHaveBeenCalledOnce();
 
-    authClient.sendVerificationEmail.mockResolvedValue({
+    auth.authClient.sendVerificationEmail.mockResolvedValue({
       data: null,
       error: { status: 0, message: 'offline' },
     });

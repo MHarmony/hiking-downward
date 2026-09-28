@@ -67,7 +67,8 @@ function reportAuthFailure(method: 'email' | 'magicLink', error: AuthError): voi
 /** Presents email/password and magic-link registration flows. */
 export class SignUp {
   /** Better Auth client used to execute registration requests. */
-  readonly #authClient = inject(FrontendAuth).authClient;
+  readonly #auth = inject(FrontendAuth);
+  readonly #authClient = this.#auth.authClient;
   /** Origin used to build registration callback URLs. */
   readonly #origin = inject(DOCUMENT).location.origin;
   /** Signal containing the current registration field values. */
@@ -139,7 +140,7 @@ export class SignUp {
         email: emailAddress,
         name: emailAddress,
         password,
-        callbackURL: `${this.#origin}/verify-email/result`,
+        callbackURL: this.#auth.emailVerificationCallbackUrl(this.#origin),
       });
 
       if (error) {
@@ -169,7 +170,7 @@ export class SignUp {
             email: emailAddress,
             name: emailAddress,
             callbackURL: `${this.#origin}/`,
-            newUserCallbackURL: `${this.#origin}/sign-up/complete`,
+            newUserCallbackURL: this.#auth.signUpCompletionCallbackUrl(this.#origin),
           });
           if (error) {
             reportAuthFailure('magicLink', error);

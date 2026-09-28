@@ -110,6 +110,9 @@ test.describe('forgot-password page', () => {
 
   test('has no accessibility violations', async ({ page }) => {
     await page.goto('/forgot-password');
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Reset your password' }),
+    ).toBeVisible();
     const results = await new AxeBuilder({ page })
       .withTags([
         'wcag2aaa',

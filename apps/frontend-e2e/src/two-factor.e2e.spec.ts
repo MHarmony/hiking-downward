@@ -28,11 +28,22 @@ async function mockAuthResponse(
   });
 }
 
+/** Opens the challenge page with the pending sign-in state created by Better Auth. */
+async function visitTwoFactor(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    sessionStorage.setItem(
+      'hiking-downward.two-factor-pending-until',
+      String(Date.now() + 10 * 60 * 1000),
+    );
+  });
+  await page.goto('/two-factor');
+}
+
 test.describe('two-factor page', () => {
   test('renders authenticator verification and an alternate backup-code method', async ({
     page,
   }) => {
-    await page.goto('/two-factor');
+    await visitTwoFactor(page);
 
     await expect(page).toHaveTitle('HikingDownward - Two-Factor Authentication');
     await expect(page.getByRole('heading', { name: 'Two-factor authentication' })).toBeVisible();
@@ -49,7 +60,7 @@ test.describe('two-factor page', () => {
   });
 
   test('requires a six-digit authenticator code and focuses its input', async ({ page }) => {
-    await page.goto('/two-factor');
+    await visitTwoFactor(page);
     await page.getByRole('button', { name: 'Verify' }).click();
 
     const code = page.getByLabel('Authentication code');
@@ -69,7 +80,7 @@ test.describe('two-factor page', () => {
       status: 200,
       body: { token: 'session-token', user: { id: 'hiker' } },
     });
-    await page.goto('/two-factor');
+    await visitTwoFactor(page);
     await page.getByLabel('Authentication code').fill('123456');
     await page.getByRole('button', { name: 'Verify' }).click();
 
@@ -79,7 +90,7 @@ test.describe('two-factor page', () => {
 
   test('shows server errors without leaving the challenge', async ({ page }) => {
     await mockAuthResponse(page, '**/two-factor/verify-totp', { status: 401, body: {} });
-    await page.goto('/two-factor');
+    await visitTwoFactor(page);
     await page.getByLabel('Authentication code').fill('123456');
     await page.getByRole('button', { name: 'Verify' }).click();
 
@@ -88,7 +99,7 @@ test.describe('two-factor page', () => {
   });
 
   test('has no accessibility violations', async ({ page }) => {
-    await page.goto('/two-factor');
+    await visitTwoFactor(page);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     const results = await new AxeBuilder({ page })
       .withTags([
@@ -103,5 +114,11 @@ test.describe('two-factor page', () => {
       ])
       .analyze();
     expect(results.violations).toEqual([]);
+  });
+
+  test('shows not-found without a pending sign-in challenge', async ({ page }) => {
+    await page.goto('/two-factor');
+
+    await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
   });
 });

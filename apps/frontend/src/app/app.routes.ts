@@ -1,4 +1,9 @@
 import type { Route } from '@angular/router';
+import {
+  emailVerificationResultGuard,
+  pendingTwoFactorGuard,
+  signUpCompletionGuard,
+} from '@hiking-downward/frontend-auth';
 
 /** Route configuration for the HikingDownward application. */
 export const appRoutes: Route[] = [
@@ -25,11 +30,13 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'sign-up/complete',
+    canActivate: [signUpCompletionGuard],
     loadComponent: async () => import('@hiking-downward/sign-up').then((m) => m.SignUpComplete),
     title: 'HikingDownward - Sign Up Complete',
   },
   {
     path: 'two-factor',
+    canActivate: [pendingTwoFactorGuard],
     loadComponent: async () => import('@hiking-downward/two-factor').then((m) => m.TwoFactor),
     title: 'HikingDownward - Two-Factor Authentication',
   },
@@ -47,6 +54,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'verify-email/result',
+    canActivate: [emailVerificationResultGuard],
     loadComponent: async () =>
       import('@hiking-downward/verify-email').then((m) => m.VerifyEmailResult),
     title: 'HikingDownward - Verify Email',

@@ -26,9 +26,21 @@ async function mockAuthResponse(
   });
 }
 
+/** Opens a verification result using the callback state recorded when its email was sent. */
+async function visitVerificationResult(page: Page, query = ''): Promise<void> {
+  await page.addInitScript(() => {
+    localStorage.setItem(
+      'hiking-downward.email-verification-flow',
+      JSON.stringify({ expiresAt: Date.now() + 24 * 60 * 60 * 1000, id: 'test-flow' }),
+    );
+  });
+  const separator = query.length > 0 ? '&' : '?';
+  await page.goto(`/verify-email/result${query}${separator}flow=test-flow`);
+}
+
 test.describe('verify-email result page', () => {
   test('confirms a successful email verification', async ({ page }) => {
-    await page.goto('/verify-email/result');
+    await visitVerificationResult(page);
 
     await expect(page).toHaveTitle('HikingDownward - Verify Email');
     await expect(page.getByRole('heading', { name: 'Your email is verified' })).toBeVisible();
@@ -41,7 +53,7 @@ test.describe('verify-email result page', () => {
   });
 
   test('explains an expired link and validates a resend email', async ({ page }) => {
-    await page.goto('/verify-email/result?error=TOKEN_EXPIRED');
+    await visitVerificationResult(page, '?error=TOKEN_EXPIRED');
 
     await expect(page.getByText('This verification link has expired.')).toBeVisible();
     await page.getByRole('button', { name: 'Send a new verification link' }).click();
@@ -59,7 +71,7 @@ test.describe('verify-email result page', () => {
       status: 200,
       body: { status: true },
     });
-    await page.goto('/verify-email/result?error=INVALID_TOKEN');
+    await visitVerificationResult(page, '?error=INVALID_TOKEN');
     await page.getByLabel('Email address').fill('hiker@example.com');
     await page.getByRole('button', { name: 'Send a new verification link' }).click();
 
@@ -79,14 +91,20 @@ test.describe('verify-email result page', () => {
       'best-practice',
       'experimental',
     ];
-    await page.goto('/verify-email/result');
+    await visitVerificationResult(page);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     let results = await new AxeBuilder({ page }).withTags(tags).analyze();
     expect(results.violations).toEqual([]);
 
-    await page.goto('/verify-email/result?error=TOKEN_EXPIRED');
+    await visitVerificationResult(page, '?error=TOKEN_EXPIRED');
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     results = await new AxeBuilder({ page }).withTags(tags).analyze();
     expect(results.violations).toEqual([]);
+  });
+
+  test('shows not-found without a verification callback flow', async ({ page }) => {
+    await page.goto('/verify-email/result');
+
+    await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
   });
 });

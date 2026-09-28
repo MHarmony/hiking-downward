@@ -38,6 +38,17 @@ async function mockAuthResponse(
   });
 }
 
+/** Opens the magic-link completion page with the callback state from sign-up. */
+async function visitSignUpComplete(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    localStorage.setItem(
+      'hiking-downward.sign-up-completion-flow',
+      JSON.stringify({ expiresAt: Date.now() + 24 * 60 * 60 * 1000, id: 'test-flow' }),
+    );
+  });
+  await page.goto('/sign-up/complete?flow=test-flow');
+}
+
 test.describe('sign-up page', () => {
   test('renders password and magic-link registration', async ({ page }) => {
     await page.goto('/sign-up');
@@ -142,7 +153,7 @@ test.describe('sign-up page', () => {
   });
 
   test('renders the magic-link completion page', async ({ page }) => {
-    await page.goto('/sign-up/complete');
+    await visitSignUpComplete(page);
 
     await expect(page).toHaveTitle('HikingDownward - Sign Up Complete');
     await expect(page.getByRole('heading', { name: 'Your sign-up link is ready' })).toBeVisible();
@@ -150,6 +161,12 @@ test.describe('sign-up page', () => {
       'href',
       '/',
     );
+  });
+
+  test('shows not-found for direct access to magic-link completion', async ({ page }) => {
+    await page.goto('/sign-up/complete');
+
+    await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
   });
 });
 
