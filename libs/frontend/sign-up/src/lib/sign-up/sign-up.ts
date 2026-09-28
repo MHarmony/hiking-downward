@@ -139,7 +139,7 @@ export class SignUp {
         email: emailAddress,
         name: emailAddress,
         password,
-        callbackURL: `${this.#origin}/`,
+        callbackURL: `${this.#origin}/verify-email/result`,
       });
 
       if (error) {

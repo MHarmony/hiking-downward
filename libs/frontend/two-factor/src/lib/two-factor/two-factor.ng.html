@@ -1,0 +1,96 @@
+<div class="flex flex-col justify-center">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <img
+      ngSrc="/images/hiker-mountain.svg"
+      width="240"
+      height="180"
+      priority
+      alt="Stick figure hiking toward a mountain"
+      class="mx-auto h-24 w-32" />
+    <h1 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white">
+      Two-factor authentication
+    </h1>
+    <p class="mt-2 text-center text-sm/6 text-gray-600 dark:text-gray-400">
+      @if (method() === 'totp') { Enter the 6-digit code from your authenticator app. } @else {
+      Enter one of the backup codes you saved when you set up two-factor authentication. }
+    </p>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <form (submit)="verify($event)" novalidate class="space-y-6">
+      @let codeErrors = twoFactorForm.code().errors();
+
+      <div>
+        <label for="code" class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+          @if (method() === 'totp') { Authentication code } @else { Backup code }
+        </label>
+        <div class="mt-2">
+          <input
+            id="code"
+            type="text"
+            autocapitalize="none"
+            spellcheck="false"
+            [attr.autocomplete]="method() === 'totp' ? 'one-time-code' : 'off'"
+            [attr.inputmode]="method() === 'totp' ? 'numeric' : 'text'"
+            [formField]="twoFactorForm.code"
+            [attr.aria-invalid]="codeErrors.length > 0 ? 'true' : null"
+            [attr.aria-describedby]="codeErrors.length > 0 ? 'code-error' : null"
+            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+        </div>
+        @if (codeErrors.length > 0) {
+        <div id="code-error" class="mt-2 space-y-1 text-sm text-red-800 dark:text-red-300">
+          @for (error of codeErrors; track $index) {
+          <p>{{ error.message }}</p>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="flex items-center gap-x-3">
+        <input
+          id="trustDevice"
+          type="checkbox"
+          [formField]="twoFactorForm.trustDevice"
+          class="size-4 rounded-sm border-gray-300 text-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:border-white/10 dark:bg-white/5" />
+        <label for="trustDevice" class="block text-sm/6 text-gray-900 dark:text-gray-100">
+          Trust this device for 30 days
+        </label>
+      </div>
+
+      <div role="status" aria-live="polite">
+        @if (errorMessage(); as message) {
+        <p
+          class="rounded-md bg-red-50 p-3 text-sm text-red-800 dark:bg-red-500/10 dark:text-red-300">
+          {{ message }}
+        </p>
+        }
+      </div>
+
+      <div class="space-y-3">
+        <button
+          type="submit"
+          [disabled]="pending()"
+          class="flex w-full cursor-pointer justify-center rounded-md bg-indigo-800 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:shadow-none dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
+          Verify
+        </button>
+
+        <button
+          type="button"
+          (click)="toggleMethod()"
+          [disabled]="pending()"
+          class="flex w-full cursor-pointer justify-center rounded-md bg-white px-3 py-1.5 text-sm/6 font-semibold text-gray-900 shadow-xs outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-white dark:shadow-none dark:outline-white/10 dark:hover:bg-white/20">
+          @if (method() === 'totp') { Use a backup code instead } @else { Use your authenticator app
+          instead }
+        </button>
+      </div>
+    </form>
+
+    <p class="mt-10 text-center text-sm/6 text-gray-600 dark:text-gray-400">
+      <a
+        routerLink="/sign-in"
+        class="font-semibold text-indigo-700 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-indigo-200">
+        Back to sign in
+      </a>
+    </p>
+  </div>
+</div>

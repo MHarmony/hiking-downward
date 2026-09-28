@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from '@playwright/test';
 
 const accessibilityTags = [
   'wcag2aaa',
@@ -125,17 +125,17 @@ test.describe('sign-up page', () => {
       page.getByRole('button', { name: 'Create account' }),
       page.getByRole('button', { name: 'Email me a sign-up link' }),
       page.getByRole('link', { name: 'Sign in' }),
-    ];
-    const focusControls = async (index: number): Promise<void> => {
-      const control = controls[index];
-      if (!control) {
-        return;
-      }
+    ] as const;
+    const focusControl = async (control: Locator): Promise<void> => {
       await control.focus();
       await expect(control).toBeFocused();
-      await focusControls(index + 1);
     };
-    await focusControls(0);
+    await focusControl(controls[0]);
+    await focusControl(controls[1]);
+    await focusControl(controls[2]);
+    await focusControl(controls[3]);
+    await focusControl(controls[4]);
+    await focusControl(controls[5]);
 
     const results = await new AxeBuilder({ page }).withTags(accessibilityTags).analyze();
     expect(results.violations).toEqual([]);

@@ -3,6 +3,12 @@ import type { Route } from '@angular/router';
 /** Route configuration for the HikingDownward application. */
 export const appRoutes: Route[] = [
   {
+    path: '',
+    pathMatch: 'full',
+    loadComponent: async () => import('@hiking-downward/home').then((m) => m.Home),
+    title: 'HikingDownward',
+  },
+  {
     path: 'contact',
     loadComponent: async () => import('@hiking-downward/contact-us').then((m) => m.ContactUs),
     title: 'HikingDownward - Contact Us',
@@ -21,6 +27,29 @@ export const appRoutes: Route[] = [
     path: 'sign-up/complete',
     loadComponent: async () => import('@hiking-downward/sign-up').then((m) => m.SignUpComplete),
     title: 'HikingDownward - Sign Up Complete',
+  },
+  {
+    path: 'two-factor',
+    loadComponent: async () => import('@hiking-downward/two-factor').then((m) => m.TwoFactor),
+    title: 'HikingDownward - Two-Factor Authentication',
+  },
+  {
+    path: 'forgot-password',
+    loadComponent: async () =>
+      import('@hiking-downward/password-reset').then((m) => m.ForgotPassword),
+    title: 'HikingDownward - Forgot Password',
+  },
+  {
+    path: 'reset-password',
+    loadComponent: async () =>
+      import('@hiking-downward/password-reset').then((m) => m.ResetPassword),
+    title: 'HikingDownward - Reset Password',
+  },
+  {
+    path: 'verify-email/result',
+    loadComponent: async () =>
+      import('@hiking-downward/verify-email').then((m) => m.VerifyEmailResult),
+    title: 'HikingDownward - Verify Email',
   },
   {
     path: '401',

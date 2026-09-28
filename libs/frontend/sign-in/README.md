@@ -25,11 +25,12 @@ The component obtains its Better Auth client from
 - Email-only magic-link sign-in.
 - Explicit passkey sign-in and conditional passkey autofill when supported by
   the browser.
-- Better Auth two-factor redirects.
+- Better Auth two-factor redirects to `/two-factor`, provided by
+  `@hiking-downward/two-factor`.
 
 Successful password and passkey authentication navigates to `/`. The component
-also links to `/forgot-password` and `/sign-up`, so applications should provide
-those routes.
+also links to `/forgot-password`, provided by `@hiking-downward/password-reset`,
+and `/sign-up`, so applications should provide those routes.
 
 Network failures and server errors are reported to Sentry. Expected credential
 errors remain user-facing and are not reported.

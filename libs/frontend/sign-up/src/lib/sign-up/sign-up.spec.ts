@@ -175,7 +175,7 @@ describe('SignUp', () => {
       email: 'person@example.com',
       name: 'person@example.com',
       password: 'correct horse',
-      callbackURL: 'http://localhost:3000/',
+      callbackURL: 'http://localhost:3000/verify-email/result',
     });
     expect(fixture.nativeElement.textContent).toContain(
       'Check your email. We sent verification instructions to person@example.com.',

@@ -32,8 +32,10 @@ Passwords must contain between 8 and 128 characters and match the confirmation
 field.
 
 Magic-link registration uses `/sign-up/complete` as its new-user callback.
-`SignUpComplete` confirms that the link was processed and links to `/`. The
-registration form also links to `/sign-in`.
+`SignUpComplete` confirms that the link was processed and links to `/`. Password
+registration sends verification links that return to `/verify-email/result`,
+provided by `@hiking-downward/verify-email`. The registration form also links to
+`/sign-in`.
 
 Network failures and server errors are reported to Sentry. Expected validation
 and registration errors remain user-facing and are not reported.

@@ -40,6 +40,12 @@
       "@hiking-downward/frontend-auth": [
         "./libs/frontend/auth/src/index.ts"
       ],
+      "@hiking-downward/home": [
+        "./libs/frontend/home/src/index.ts"
+      ],
+      "@hiking-downward/password-reset": [
+        "./libs/frontend/password-reset/src/index.ts"
+      ],
       "@hiking-downward/sign-in": [
         "./libs/frontend/sign-in/src/index.ts"
       ],
@@ -48,6 +54,12 @@
       ],
       "@hiking-downward/status-page": [
         "./libs/frontend/status-page/src/index.ts"
+      ],
+      "@hiking-downward/two-factor": [
+        "./libs/frontend/two-factor/src/index.ts"
+      ],
+      "@hiking-downward/verify-email": [
+        "./libs/frontend/verify-email/src/index.ts"
       ]
     },
     "rootDir": ".",

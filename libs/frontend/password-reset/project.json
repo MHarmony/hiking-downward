@@ -1,0 +1,91 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "name": "@hiking-downward/password-reset",
+  "prefix": "hiking-downward",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "currentVersionResolver": "git-tag",
+      "fallbackCurrentVersionResolver": "disk",
+      "manifestRootsToUpdate": [
+        "dist/{projectRoot}"
+      ]
+    }
+  },
+  "sourceRoot": "libs/frontend/password-reset/src",
+  "tags": [
+    "scope:frontend",
+    "type:feature"
+  ],
+  "targets": {
+    "build": {
+      "configurations": {
+        "development": {},
+        "production": {
+          "tsConfig": "libs/frontend/password-reset/tsconfig.lib.prod.json"
+        }
+      },
+      "defaultConfiguration": "production",
+      "executor": "@nx/angular:package",
+      "options": {
+        "project": "libs/frontend/password-reset/ng-package.json",
+        "tsConfig": "libs/frontend/password-reset/tsconfig.lib.json"
+      },
+      "outputs": [
+        "{workspaceRoot}/dist/{projectRoot}"
+      ]
+    },
+    "lint": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "oxlint . && eslint package.json",
+        "cwd": "libs/frontend/password-reset"
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    },
+    "test": {
+      "executor": "@nx/angular:unit-test",
+      "options": {
+        "coverage": true,
+        "coverageThresholds": {
+          "branches": 100,
+          "functions": 100,
+          "lines": 100,
+          "statements": 100
+        },
+        "watch": false
+      }
+    },
+    "typecheck": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p libs/frontend/password-reset/tsconfig.lib.json"
+      }
+    },
+    "typecheck:test": {
+      "cache": true,
+      "executor": "nx:run-commands",
+      "inputs": [
+        "default",
+        "^production"
+      ],
+      "options": {
+        "command": "tsc --noEmit -p libs/frontend/password-reset/tsconfig.spec.json"
+      }
+    }
+  }
+}
