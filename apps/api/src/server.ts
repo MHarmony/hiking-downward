@@ -5,7 +5,7 @@ import { auth, checkRedis, closeRedis } from '@hiking-downward/api-auth';
 import { apiConfig } from '@hiking-downward/api-config';
 import { checkDatabase, closeDatabase } from '@hiking-downward/database';
 import * as Sentry from '@sentry/elysia';
-import { Elysia, type AnyElysia, type ErrorHandler } from 'elysia';
+import { Elysia, NotFound, ValidationError, problem, type AnyElysia } from 'elysia';
 import { randomUUID } from 'node:crypto';
 import path from 'node:path';
 
@@ -58,9 +58,9 @@ async function checkDependency(check: () => Promise<void>): Promise<boolean> {
  * @param context Elysia error context containing the request and response state.
  * @returns The normalized error payload, or `undefined` for Better Auth errors.
  */
-const normalizeError: ErrorHandler = (context) => {
-  const { code, request, set } = context as unknown as {
-    code: string;
+const normalizeError = (context: { error: unknown }): unknown => {
+  const { error } = context;
+  const { request, set } = context as typeof context & {
     request: Request;
     set: { headers: Record<string, string | number>; status: number };
   };
@@ -69,23 +69,24 @@ const normalizeError: ErrorHandler = (context) => {
   }
 
   const requestId = set.headers['X-Request-Id'];
-  const isNotFound = code === 'NOT_FOUND';
+  const isValidation = error instanceof ValidationError;
+  const isNotFound = error instanceof NotFound;
   const statusCode =
-    set.status === 200 ? (code === 'VALIDATION' ? 400 : isNotFound ? 404 : 500) : set.status;
-  set.status = statusCode;
-  return {
-    error: {
-      code:
-        code === 'VALIDATION' ? 'VALIDATION_ERROR' : isNotFound ? 'NOT_FOUND' : 'INTERNAL_ERROR',
-      message:
-        code === 'VALIDATION'
-          ? 'Request validation failed'
-          : isNotFound
-            ? 'Route not found'
-            : 'Internal server error',
-      requestId,
-    },
-  };
+    set.status === 200 ? (isValidation ? 400 : isNotFound ? 404 : 500) : set.status;
+  const code = isValidation ? 'VALIDATION_ERROR' : isNotFound ? 'NOT_FOUND' : 'INTERNAL_ERROR';
+  const message = isValidation
+    ? 'Request validation failed'
+    : isNotFound
+      ? 'Route not found'
+      : 'Internal server error';
+  const title = isValidation ? 'Bad Request' : isNotFound ? 'Not Found' : 'Internal Server Error';
+
+  return problem(statusCode, {
+    title,
+    detail: message,
+    requestId,
+    error: { code, message, requestId },
+  });
 };
 
 /**
@@ -96,17 +97,18 @@ const normalizeError: ErrorHandler = (context) => {
 export function createApp(): AnyElysia {
   return new Elysia({
     adapter: node(),
-    aot: true,
     name: 'HikingDownward API',
     strictPath: true,
     serve: { maxRequestBodySize },
   })
-    .onRequest(({ request, set, status }) => {
+    .request(({ request, set }) => {
       set.headers['X-Request-Id'] = randomUUID();
 
       const contentLength = Number(request.headers.get('content-length'));
       if (Number.isFinite(contentLength) && contentLength > maxRequestBodySize) {
-        return status(413, {
+        return problem(413, {
+          title: 'Payload Too Large',
+          detail: 'Request body exceeds the maximum size',
           error: {
             code: 'PAYLOAD_TOO_LARGE',
             message: 'Request body exceeds the maximum size',
@@ -124,7 +126,9 @@ export function createApp(): AnyElysia {
         path.startsWith('/api/auth/') ||
         path.startsWith('/openapi/');
       if (!isKnownRoute) {
-        return status(404, {
+        return problem(404, {
+          title: 'Not Found',
+          detail: 'Route not found',
           error: {
             code: 'NOT_FOUND',
             message: 'Route not found',
@@ -150,28 +154,31 @@ export function createApp(): AnyElysia {
         exposeHeaders: ['X-Request-Id'],
       }),
     )
-    .onAfterHandle(({ set }) => {
+    .afterHandle(({ set }) => {
       set.headers['X-Content-Type-Options'] = 'nosniff';
       set.headers['Referrer-Policy'] = 'no-referrer';
       set.headers['X-Frame-Options'] = 'DENY';
       set.headers['Permissions-Policy'] = 'camera=(), microphone=(), geolocation=()';
     })
-    .onError(normalizeError as never)
-    .get('/health', () => ({ status: 'ok' }), {
-      detail: {
-        summary: 'Check API health',
-        description: 'Confirms that the API process is responding without checking dependencies.',
-        tags: ['Health'],
-        responses: {
-          200: {
-            description: 'The API process is responding.',
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'object',
-                  required: ['status'],
-                  properties: {
-                    status: { type: 'string', enum: ['ok'] },
+    .error(normalizeError)
+    .get(
+      '/health',
+      {
+        detail: {
+          summary: 'Check API health',
+          description: 'Confirms that the API process is responding without checking dependencies.',
+          tags: ['Health'],
+          responses: {
+            200: {
+              description: 'The API process is responding.',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    required: ['status'],
+                    properties: {
+                      status: { type: 'string', enum: ['ok'] },
+                    },
                   },
                 },
               },
@@ -179,21 +186,10 @@ export function createApp(): AnyElysia {
           },
         },
       },
-    })
+      () => ({ status: 'ok' }),
+    )
     .get(
       '/ready',
-      async ({ status }) => {
-        const [postgres, redis] = await Promise.all([
-          checkDependency(checkDatabase),
-          checkDependency(checkRedis),
-        ]);
-        const body = {
-          status: postgres && redis ? 'ready' : 'not_ready',
-          dependencies: { postgres: postgres ? 'ok' : 'down', redis: redis ? 'ok' : 'down' },
-        } as const;
-
-        return postgres && redis ? body : status(503, body);
-      },
       {
         detail: {
           summary: 'Check API readiness',
@@ -225,12 +221,16 @@ export function createApp(): AnyElysia {
             503: {
               description: 'The API is responding, but at least one dependency is unavailable.',
               content: {
-                'application/json': {
+                'application/problem+json': {
                   schema: {
                     type: 'object',
-                    required: ['status', 'dependencies'],
+                    required: ['type', 'title', 'status', 'detail', 'readiness', 'dependencies'],
                     properties: {
-                      status: { type: 'string', enum: ['not_ready'] },
+                      type: { type: 'string' },
+                      title: { type: 'string', enum: ['Service Unavailable'] },
+                      status: { type: 'integer', enum: [503] },
+                      detail: { type: 'string' },
+                      readiness: { type: 'string', enum: ['not_ready'] },
                       dependencies: {
                         type: 'object',
                         required: ['postgres', 'redis'],
@@ -246,6 +246,24 @@ export function createApp(): AnyElysia {
             },
           },
         },
+      },
+      async () => {
+        const [postgres, redis] = await Promise.all([
+          checkDependency(checkDatabase),
+          checkDependency(checkRedis),
+        ]);
+        const dependencies = { postgres: postgres ? 'ok' : 'down', redis: redis ? 'ok' : 'down' };
+
+        if (postgres && redis) {
+          return { status: 'ready', dependencies };
+        }
+
+        return problem(503, {
+          title: 'Service Unavailable',
+          detail: 'PostgreSQL and Redis are not ready.',
+          readiness: 'not_ready',
+          dependencies,
+        });
       },
     )
     .use(
@@ -278,13 +296,16 @@ export function createApp(): AnyElysia {
     .mount(auth.handler)
     .macro({
       auth: {
-        async resolve({ status, request: { headers } }) {
+        async derive({ request: { headers } }) {
           const session = await auth.api.getSession({
             headers,
           });
 
           if (!session) {
-            return status(401);
+            return problem(401, {
+              title: 'Unauthorized',
+              detail: 'Authentication is required.',
+            });
           }
 
           return {
@@ -297,9 +318,7 @@ export function createApp(): AnyElysia {
 }
 
 /** Configured Elysia application for the HikingDownward API server. */
-export const app = Sentry.withElysia(createApp())
-  .onError(normalizeError as never)
-  .listen(3000);
+export const app = Sentry.withElysia(createApp()).error(normalizeError).listen(3000);
 
 let shutdownPromise: Promise<void> | null = null;
 

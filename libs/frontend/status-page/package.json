@@ -1,8 +1,8 @@
 {
   "name": "@hiking-downward/status-page",
   "peerDependencies": {
-    "@angular/core": "22.2.0",
-    "@angular/router": "22.2.0"
+    "@angular/core": "22.2.1",
+    "@angular/router": "22.2.1"
   },
   "sideEffects": false,
   "type": "module",

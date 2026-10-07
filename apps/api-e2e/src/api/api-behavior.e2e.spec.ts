@@ -34,7 +34,10 @@ test.describe('API behavior', () => {
     const response = await request.get('/does-not-exist');
 
     expect(response.status()).toBe(404);
+    expect(response.headers()['content-type']).toContain('application/problem+json');
     await expect(response.json()).resolves.toMatchObject({
+      status: 404,
+      title: 'Not Found',
       error: {
         code: 'NOT_FOUND',
         message: 'Route not found',
@@ -50,5 +53,11 @@ test.describe('API behavior', () => {
     });
 
     expect(response.status()).toBe(413);
+    expect(response.headers()['content-type']).toContain('application/problem+json');
+    await expect(response.json()).resolves.toMatchObject({
+      status: 413,
+      title: 'Payload Too Large',
+      error: { code: 'PAYLOAD_TOO_LARGE' },
+    });
   });
 });

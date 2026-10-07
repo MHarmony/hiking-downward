@@ -12,6 +12,7 @@ const {
   corsMock,
   fromTypesMock,
   openapiMock,
+  problemMock,
 } = vi.hoisted(() => {
   const appInstances: Array<{ calls: Array<[string, unknown]>; config: Record<string, unknown> }> =
     [];
@@ -49,6 +50,9 @@ const {
       type: 'openapi',
       config,
     })),
+    problemMock: vi.fn<(status: number, details?: Record<string, unknown>) => unknown>(
+      (status, details = {}) => ({ status, ...details }),
+    ),
   };
 });
 
@@ -84,7 +88,7 @@ vi.mock('elysia', () => {
       return this;
     }
 
-    public get(path: string, handler: unknown, options?: unknown): this {
+    public get(path: string, options: unknown, handler?: unknown): this {
       this.calls.push(['get', [path, handler, options]]);
       return this;
     }
@@ -104,13 +108,28 @@ vi.mock('elysia', () => {
       return this;
     }
 
+    public request(value: unknown): this {
+      this.calls.push(['request', value]);
+      return this;
+    }
+
     public onAfterHandle(value: unknown): this {
       this.calls.push(['onAfterHandle', value]);
       return this;
     }
 
+    public afterHandle(value: unknown): this {
+      this.calls.push(['afterHandle', value]);
+      return this;
+    }
+
     public onError(value: unknown): this {
       this.calls.push(['onError', value]);
+      return this;
+    }
+
+    public error(value: unknown): this {
+      this.calls.push(['error', value]);
       return this;
     }
 
@@ -139,7 +158,10 @@ vi.mock('elysia', () => {
     }
   }
 
-  return { Elysia };
+  class NotFound extends Error {}
+  class ValidationError extends Error {}
+
+  return { Elysia, NotFound, ValidationError, problem: problemMock };
 });
 
 describe('server', () => {
@@ -169,7 +191,6 @@ describe('server', () => {
       throw new Error('Expected app instance to be created');
     }
     expect(app.config).toMatchObject({
-      aot: true,
       name: 'HikingDownward API',
       strictPath: true,
       serve: { maxRequestBodySize: 1_048_576 },
@@ -224,39 +245,38 @@ describe('server', () => {
     expect(app.calls.some(([name]) => name === 'mount')).toBe(true);
     expect(app.calls).toContainEqual(['listen', 3000]);
 
-    const onRequestEntry = app.calls.find(([name]) => name === 'onRequest');
-    expect(onRequestEntry).toBeTruthy();
-    if (!onRequestEntry) {
+    const requestEntry = app.calls.find(([name]) => name === 'request');
+    expect(requestEntry).toBeTruthy();
+    if (!requestEntry) {
       throw new Error('Expected request hook to be registered');
     }
-    const onRequest = onRequestEntry[1] as (input: {
+    const requestHook = requestEntry[1] as (input: {
       request: Request;
       set: { headers: Record<string, string> };
-      status: (code: number, body: unknown) => unknown;
     }) => unknown;
     const requestSet: { headers: Record<string, string> } = { headers: {} };
-    const status = vi.fn<(code: number, body: unknown) => unknown>((_code, body) => body);
-    onRequest({ request: new Request('http://localhost/health'), set: requestSet, status });
+    requestHook({ request: new Request('http://localhost/health'), set: requestSet });
     expect(requestSet.headers['X-Request-Id']).toEqual(expect.any(String));
 
     expect(
-      onRequest({
+      requestHook({
         request: new Request('http://localhost/docs'),
         set: { headers: {} },
-        status,
       }),
     ).toBeNull();
 
     const oversizedSet: { headers: Record<string, string> } = { headers: {} };
     expect(
-      onRequest({
+      requestHook({
         request: new Request('http://localhost/health', {
           headers: { 'content-length': '1048577' },
         }),
         set: oversizedSet,
-        status,
       }),
-    ).toEqual({
+    ).toMatchObject({
+      status: 413,
+      title: 'Payload Too Large',
+      detail: 'Request body exceeds the maximum size',
       error: {
         code: 'PAYLOAD_TOO_LARGE',
         message: 'Request body exceeds the maximum size',
@@ -265,12 +285,14 @@ describe('server', () => {
     });
 
     expect(
-      onRequest({
+      requestHook({
         request: new Request('http://localhost/does-not-exist'),
         set: { headers: {} },
-        status,
       }),
-    ).toEqual({
+    ).toMatchObject({
+      status: 404,
+      title: 'Not Found',
+      detail: 'Route not found',
       error: { code: 'NOT_FOUND', message: 'Route not found', requestId: expect.any(String) },
     });
 
@@ -293,86 +315,107 @@ describe('server', () => {
       },
     });
     const readyHandler = readyRoute[1] as [string, (input: unknown) => Promise<unknown>];
-    await expect(readyHandler[1]({ status })).resolves.toEqual({
+    await expect(readyHandler[1]({})).resolves.toEqual({
       status: 'ready',
       dependencies: { postgres: 'ok', redis: 'ok' },
     });
 
     checkRedisMock.mockRejectedValueOnce(new Error('redis down'));
-    await expect(readyHandler[1]({ status })).resolves.toEqual({
-      status: 'not_ready',
+    await expect(readyHandler[1]({})).resolves.toEqual({
+      status: 503,
+      title: 'Service Unavailable',
+      detail: 'PostgreSQL and Redis are not ready.',
+      readiness: 'not_ready',
       dependencies: { postgres: 'ok', redis: 'down' },
     });
-    expect(status).toHaveBeenCalledWith(503, {
-      status: 'not_ready',
+    expect(problemMock).toHaveBeenCalledWith(503, {
+      title: 'Service Unavailable',
+      detail: 'PostgreSQL and Redis are not ready.',
+      readiness: 'not_ready',
       dependencies: { postgres: 'ok', redis: 'down' },
     });
 
     checkDatabaseMock.mockRejectedValueOnce(new Error('postgres down'));
     checkRedisMock.mockResolvedValueOnce(noValue);
-    await expect(readyHandler[1]({ status })).resolves.toEqual({
-      status: 'not_ready',
+    await expect(readyHandler[1]({})).resolves.toEqual({
+      status: 503,
+      title: 'Service Unavailable',
+      detail: 'PostgreSQL and Redis are not ready.',
+      readiness: 'not_ready',
       dependencies: { postgres: 'down', redis: 'ok' },
     });
 
     vi.useFakeTimers();
     checkDatabaseMock.mockImplementation(async () => new Promise(() => noValue));
-    const pendingReady = readyHandler[1]({ status });
+    const pendingReady = readyHandler[1]({});
     await vi.advanceTimersByTimeAsync(1_000);
     await expect(pendingReady).resolves.toEqual({
-      status: 'not_ready',
+      status: 503,
+      title: 'Service Unavailable',
+      detail: 'PostgreSQL and Redis are not ready.',
+      readiness: 'not_ready',
       dependencies: { postgres: 'down', redis: 'ok' },
     });
     vi.useRealTimers();
 
-    const onAfterHandleEntry = app.calls.find(([name]) => name === 'onAfterHandle');
-    expect(onAfterHandleEntry).toBeTruthy();
-    if (!onAfterHandleEntry) {
+    const afterHandleEntry = app.calls.find(([name]) => name === 'afterHandle');
+    expect(afterHandleEntry).toBeTruthy();
+    if (!afterHandleEntry) {
       throw new Error('Expected response hook to be registered');
     }
-    const onAfterHandle = onAfterHandleEntry[1] as (input: {
+    const afterHandle = afterHandleEntry[1] as (input: {
       set: { headers: Record<string, string> };
     }) => void;
     const responseSet = { headers: {} };
-    onAfterHandle({ set: responseSet });
+    afterHandle({ set: responseSet });
     expect(responseSet.headers).toMatchObject({
       'X-Content-Type-Options': 'nosniff',
       'Referrer-Policy': 'no-referrer',
       'X-Frame-Options': 'DENY',
     });
 
-    const onErrorEntry = app.calls.find(([name]) => name === 'onError');
-    expect(onErrorEntry).toBeTruthy();
-    if (!onErrorEntry) {
+    const errorEntry = app.calls.find(([name]) => name === 'error');
+    expect(errorEntry).toBeTruthy();
+    if (!errorEntry) {
       throw new Error('Expected error hook to be registered');
     }
-    const onError = onErrorEntry[1] as (input: {
-      code: string;
+    const normalizeError = errorEntry[1] as (input: {
+      error: Error;
       request: Request;
       set: { headers: Record<string, string>; status: number };
     }) => unknown;
+    const { NotFound, ValidationError } = (await import('elysia')) as unknown as {
+      NotFound: new () => Error;
+      ValidationError: new () => Error;
+    };
     const errorSet = { headers: { 'X-Request-Id': 'request-id' }, status: 200 };
     expect(
-      onError({
-        code: 'VALIDATION',
+      normalizeError({
+        error: new ValidationError(),
         request: new Request('http://localhost/invalid'),
         set: errorSet,
       }),
-    ).toEqual({
+    ).toMatchObject({
+      status: 400,
+      title: 'Bad Request',
+      detail: 'Request validation failed',
       error: {
         code: 'VALIDATION_ERROR',
         message: 'Request validation failed',
         requestId: 'request-id',
       },
     });
-    expect(errorSet.status).toBe(400);
+    expect(errorSet.status).toBe(200);
     expect(
-      onError({
-        code: 'NOT_FOUND',
+      normalizeError({
+        error: new NotFound(),
         request: new Request('http://localhost/missing'),
         set: { headers: { 'X-Request-Id': 'request-id' }, status: 200 },
       }),
-    ).toEqual({
+    ).toMatchObject({
+      status: 404,
+      title: 'Not Found',
+      detail: 'Route not found',
       error: {
         code: 'NOT_FOUND',
         message: 'Route not found',
@@ -380,8 +423,8 @@ describe('server', () => {
       },
     });
     expect(
-      onError({
-        code: 'NOT_FOUND',
+      normalizeError({
+        error: new NotFound(),
         request: new Request('http://localhost/api/auth/missing'),
         set: { headers: { 'X-Request-Id': 'request-id' }, status: 404 },
       }),
@@ -389,27 +432,34 @@ describe('server', () => {
 
     const internalErrorSet = { headers: { 'X-Request-Id': 'request-id' }, status: 200 };
     expect(
-      onError({
-        code: 'UNKNOWN',
+      normalizeError({
+        error: new Error('unknown'),
         request: new Request('http://localhost/boom'),
         set: internalErrorSet,
       }),
-    ).toEqual({
+    ).toMatchObject({
+      status: 500,
+      title: 'Internal Server Error',
+      detail: 'Internal server error',
       error: {
         code: 'INTERNAL_ERROR',
         message: 'Internal server error',
         requestId: 'request-id',
       },
     });
-    expect(internalErrorSet.status).toBe(500);
+    expect(internalErrorSet.status).toBe(200);
 
     const existingStatusSet = { headers: { 'X-Request-Id': 'request-id' }, status: 401 };
-    onError({
-      code: 'UNKNOWN',
+    normalizeError({
+      error: new Error('unknown'),
       request: new Request('http://localhost/forbidden'),
       set: existingStatusSet,
     });
     expect(existingStatusSet.status).toBe(401);
+    expect(problemMock).toHaveBeenLastCalledWith(
+      401,
+      expect.objectContaining({ title: 'Internal Server Error' }),
+    );
 
     const { shutdownServer } = await import('./server');
     await shutdownServer();
@@ -465,30 +515,32 @@ describe('server', () => {
     }
     const macroConfig = macroEntry[1] as {
       auth: {
-        resolve: (input: {
-          status: (code: number) => number;
-          request: { headers: Record<string, string> };
-        }) => Promise<number | { user: object; session: object }>;
+        derive: (input: { request: { headers: Record<string, string> } }) => Promise<unknown>;
       };
     };
-    const resolve = macroConfig.auth.resolve;
-    const status = vi.fn<(code: number) => number>((code) => code);
+    const derive = macroConfig.auth.derive;
+    problemMock.mockClear();
 
     authMock.api.getSession.mockResolvedValueOnce(null);
     await expect(
-      resolve({
-        status,
+      derive({
         request: { headers: { Authorization: 'Bearer missing' } },
       }),
-    ).resolves.toBe(401);
-    expect(status).toHaveBeenCalledWith(401);
+    ).resolves.toEqual({
+      status: 401,
+      title: 'Unauthorized',
+      detail: 'Authentication is required.',
+    });
+    expect(problemMock).toHaveBeenCalledWith(401, {
+      title: 'Unauthorized',
+      detail: 'Authentication is required.',
+    });
 
     const user = { id: 'user-1' };
     const session = { id: 'session-1' };
     authMock.api.getSession.mockResolvedValueOnce({ user, session });
     await expect(
-      resolve({
-        status,
+      derive({
         request: { headers: { Authorization: 'Bearer present' } },
       }),
     ).resolves.toEqual({ user, session });

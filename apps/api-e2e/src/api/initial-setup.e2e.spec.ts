@@ -13,13 +13,25 @@ test.describe('initial API setup', () => {
     const body = await response.json();
 
     expect([200, 503]).toContain(response.status());
-    expect(body).toMatchObject({
-      status: expect.stringMatching(/^(ready|not_ready)$/),
-      dependencies: {
-        postgres: expect.stringMatching(/^(ok|down)$/),
-        redis: expect.stringMatching(/^(ok|down)$/),
-      },
-    });
+    expect(body).toMatchObject(
+      response.status() === 200
+        ? {
+            status: 'ready',
+            dependencies: {
+              postgres: expect.stringMatching(/^(ok|down)$/),
+              redis: expect.stringMatching(/^(ok|down)$/),
+            },
+          }
+        : {
+            status: 503,
+            title: 'Service Unavailable',
+            readiness: 'not_ready',
+            dependencies: {
+              postgres: expect.stringMatching(/^(ok|down)$/),
+              redis: expect.stringMatching(/^(ok|down)$/),
+            },
+          },
+    );
   });
 
   test('serves the OpenAPI document on startup', async ({ request }) => {
