@@ -121,6 +121,30 @@ vi.mock('./audit', () => ({
 }));
 
 type AuthOptions = {
+  user: {
+    changeEmail: {
+      enabled: boolean;
+      updateEmailWithoutVerification: boolean;
+      sendChangeEmailConfirmation: (
+        input: {
+          user: { id: string; email: string };
+          newEmail: string;
+          url: string;
+          token: string;
+        },
+        request?: Request,
+      ) => Promise<void>;
+    };
+    deleteUser: {
+      enabled: boolean;
+      sendDeleteAccountVerification: (
+        input: { user: { id: string; email: string }; url: string; token: string },
+        request?: Request,
+      ) => Promise<void>;
+      beforeDelete: (user: { id: string; email: string }, request?: Request) => Promise<void>;
+      afterDelete: (user: { id: string; email: string }, request?: Request) => Promise<void>;
+    };
+  };
   emailAndPassword: {
     customSyntheticUser: (input: {
       coreFields: Record<string, unknown>;
@@ -235,6 +259,108 @@ describe('auth configuration', () => {
       banExpires: null,
       username: 'person',
       id: 'user-id',
+    });
+  }, 10_000);
+
+  it('enables verified email changes and sends confirmation to the current address', async () => {
+    const { changeEmail } = authOptions.user;
+    expect(changeEmail.enabled).toBe(true);
+    expect(changeEmail.updateEmailWithoutVerification).toBe(false);
+
+    const request = new Request('https://api.example.com/api/auth/change-email', {
+      headers: { 'x-request-id': 'request-id' },
+    });
+    await changeEmail.sendChangeEmailConfirmation(
+      {
+        user: { id: 'user-id', email: 'current@example.com' },
+        newEmail: 'new@example.com',
+        url: 'https://example.com/verify-email?token=secret-token',
+        token: 'change-token',
+      },
+      request,
+    );
+
+    expect(sendEmailMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        subject: 'Confirm your HikingDownward email change',
+        to: 'current@example.com',
+        textBody: expect.stringContaining('new@example.com'),
+        action: {
+          label: 'Confirm email change',
+          url: 'https://example.com/verify-email?token=secret-token',
+        },
+        idempotencyKey: 'change-email/change-token',
+      }),
+    );
+    expect(recordAuditMock).toHaveBeenCalledWith({
+      eventType: 'account_email_change_requested',
+      actorUserId: 'user-id',
+      targetUserId: 'user-id',
+      path: '/change-email',
+      ipAddress: '127.0.0.1',
+      requestId: 'request-id',
+      userAgent: 'test-agent',
+    });
+  }, 10_000);
+
+  it('sends deletion verification and audits the confirmed deletion lifecycle', async () => {
+    const { deleteUser } = authOptions.user;
+    expect(deleteUser.enabled).toBe(true);
+    const user = { id: 'user-id', email: 'person@example.com' };
+    const request = new Request('https://api.example.com/api/auth/delete-user', {
+      headers: { 'x-request-id': 'request-id' },
+    });
+
+    await deleteUser.sendDeleteAccountVerification(
+      {
+        user,
+        url: 'https://example.com/delete-user?token=secret-token',
+        token: 'delete-token',
+      },
+      request,
+    );
+
+    expect(sendEmailMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        subject: 'Confirm your HikingDownward account deletion',
+        to: 'person@example.com',
+        action: {
+          label: 'Confirm account deletion',
+          url: 'https://example.com/delete-user?token=secret-token',
+        },
+        idempotencyKey: 'delete-account/delete-token',
+      }),
+    );
+    expect(recordAuditMock).toHaveBeenNthCalledWith(1, {
+      eventType: 'account_deletion_requested',
+      actorUserId: 'user-id',
+      targetUserId: 'user-id',
+      path: '/delete-user',
+      ipAddress: '127.0.0.1',
+      requestId: 'request-id',
+      userAgent: 'test-agent',
+    });
+
+    await deleteUser.beforeDelete(user, request);
+    await deleteUser.afterDelete(user, request);
+
+    expect(recordAuditMock).toHaveBeenNthCalledWith(2, {
+      eventType: 'account_deletion_confirmed',
+      actorUserId: 'user-id',
+      targetUserId: 'user-id',
+      path: '/delete-user/callback',
+      ipAddress: '127.0.0.1',
+      requestId: 'request-id',
+      userAgent: 'test-agent',
+    });
+    expect(recordAuditMock).toHaveBeenNthCalledWith(3, {
+      eventType: 'account_deleted',
+      actorUserId: 'user-id',
+      targetUserId: 'user-id',
+      path: '/delete-user/callback',
+      ipAddress: '127.0.0.1',
+      requestId: 'request-id',
+      userAgent: 'test-agent',
     });
   }, 10_000);
 

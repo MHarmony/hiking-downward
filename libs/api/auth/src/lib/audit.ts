@@ -5,6 +5,10 @@ import { randomUUID } from 'node:crypto';
 export type AuditEventType =
   | 'password_reset_requested'
   | 'password_reset_completed'
+  | 'account_email_change_requested'
+  | 'account_deletion_requested'
+  | 'account_deletion_confirmed'
+  | 'account_deleted'
   | 'two_factor_changed'
   | 'admin_action'
   | 'sensitive_resource_access';

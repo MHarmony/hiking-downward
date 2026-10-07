@@ -188,6 +188,71 @@ export const auth = betterAuth({
     schemaName: 'better_auth',
     provider: 'pg',
   }),
+  user: {
+    changeEmail: {
+      enabled: true,
+      updateEmailWithoutVerification: false,
+      sendChangeEmailConfirmation: async ({ user, newEmail, url, token }, request) => {
+        await recordAuditEvent({
+          eventType: 'account_email_change_requested',
+          actorUserId: user.id,
+          targetUserId: user.id,
+          path: '/change-email',
+          ...getAuditRequestContext(request),
+        });
+        await sendTransactionalEmail({
+          body: `A request was made to change your HikingDownward email address to ${newEmail}. If you made this request, confirm the change using the button below.`,
+          heading: 'Confirm your new email address',
+          preview: 'Confirm the requested change to your HikingDownward email address.',
+          subject: 'Confirm your HikingDownward email change',
+          textBody: `A request was made to change your HikingDownward email address to ${newEmail}. Confirm the change: ${url}`,
+          to: user.email,
+          action: { label: 'Confirm email change', url },
+          idempotencyKey: `change-email/${token}`,
+        });
+      },
+    },
+    deleteUser: {
+      enabled: true,
+      sendDeleteAccountVerification: async ({ user, url, token }, request) => {
+        await recordAuditEvent({
+          eventType: 'account_deletion_requested',
+          actorUserId: user.id,
+          targetUserId: user.id,
+          path: '/delete-user',
+          ...getAuditRequestContext(request),
+        });
+        await sendTransactionalEmail({
+          body: 'A request was made to delete your HikingDownward account. Confirming will permanently delete your account and cannot be undone.',
+          heading: 'Confirm account deletion',
+          preview: 'Confirm whether you want to permanently delete your account.',
+          subject: 'Confirm your HikingDownward account deletion',
+          textBody: `A request was made to delete your HikingDownward account. Confirm deletion: ${url}`,
+          to: user.email,
+          action: { label: 'Confirm account deletion', url },
+          idempotencyKey: `delete-account/${token}`,
+        });
+      },
+      beforeDelete: async (user, request) => {
+        await recordAuditEvent({
+          eventType: 'account_deletion_confirmed',
+          actorUserId: user.id,
+          targetUserId: user.id,
+          path: '/delete-user/callback',
+          ...getAuditRequestContext(request),
+        });
+      },
+      afterDelete: async (user, request) => {
+        await recordAuditEvent({
+          eventType: 'account_deleted',
+          actorUserId: user.id,
+          targetUserId: user.id,
+          path: '/delete-user/callback',
+          ...getAuditRequestContext(request),
+        });
+      },
+    },
+  },
   emailAndPassword: {
     enabled: true,
     maxPasswordLength: 128,
