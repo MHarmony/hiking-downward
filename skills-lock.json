@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "skills": {
     "accessibility": {
       "computedHash": "612f913bcb03f0787b103c848cd7664b676a9aaf31f25d3270cc69cf5caaab95",
@@ -211,10 +212,10 @@
       "sourceType": "github"
     },
     "resend": {
-      "computedHash": "7a51e5808711f4c099b1170939ea216520ae18d7a1fa60cb9349c6c345799cb3",
-      "skillPath": "skills/resend/SKILL.md",
       "source": "resend/resend-skills",
-      "sourceType": "github"
+      "sourceType": "github",
+      "skillPath": "skills/resend/SKILL.md",
+      "computedHash": "82b26e4f038c5dc4f5e6d94e83ceb09b655418919845ae4a2e7c5496d2c1b01f"
     },
     "resend-cli": {
       "computedHash": "f092422073720c7d3af73a6c87ef02371e0f789b5b7b20528fa9fc3cf85ed2a1",
@@ -403,6 +404,5 @@
       "source": "mattpocock/skills",
       "sourceType": "github"
     }
-  },
-  "version": 1
+  }
 }
