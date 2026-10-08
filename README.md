@@ -5,7 +5,7 @@ HikingDownward is a re-imagined version of HikingUpward, built as an Angular and
 ## Requirements
 
 - [Bun](https://bun.sh/) `1.4.2`
-- Node.js `26.10.0`
+- Node.js `26.11.1`
 - Git
 
 ## Getting started

@@ -13,7 +13,7 @@ For bugs, feature ideas, and questions that are not security-sensitive, search e
 Use the repository's supported toolchain:
 
 - [Bun](https://bun.sh/) `1.4.2`
-- Node.js `26.10.0` when Node.js is required by a tool
+- Node.js `26.11.1` when Node.js is required by a tool
 - Git
 
 The repository pins dependency versions and uses Bun's exact-install mode. From a fresh checkout:

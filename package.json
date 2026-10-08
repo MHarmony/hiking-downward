@@ -102,13 +102,13 @@
       {
         "name": "node",
         "onFail": "error",
-        "version": "26.10.0"
+        "version": "26.11.1"
       }
     ]
   },
   "engines": {
     "bun": "1.4.2",
-    "node": "26.10.0"
+    "node": "26.11.1"
   },
   "engineStrict": true,
   "homepage": "https://hikingdownward.com",
