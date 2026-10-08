@@ -16,8 +16,6 @@ export default defineConfig({
     user: databaseConfig.user,
     password: databaseConfig.password,
     database: databaseConfig.database,
-    ssl: {
-      rejectUnauthorized: false,
-    },
+    ssl: false,
   },
 });
