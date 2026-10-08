@@ -1,5 +1,5 @@
 import * as fc from 'fast-check';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const noValue = null as never;
 
@@ -15,7 +15,11 @@ vi.mock('resend', () => ({
   },
 }));
 
-import { sendTransactionalEmail } from './email';
+let sendTransactionalEmail: typeof import('./email').sendTransactionalEmail;
+
+beforeAll(async () => {
+  ({ sendTransactionalEmail } = await import('./email'));
+});
 
 describe('sendTransactionalEmail', () => {
   beforeEach(() => {

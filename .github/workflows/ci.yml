@@ -24,5 +24,4 @@ jobs:
           bun-version: 1.4.2
 
       - run: bun install --no-cache --frozen-lockfile
-      - run: bun playwright install --with-deps
       - run: bun nx run-many -t lint typecheck test build
