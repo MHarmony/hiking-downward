@@ -6,17 +6,21 @@
 ![Bun](https://img.shields.io/badge/Bun-1.4.2-f9f1e1?logo=bun)
 ![Node.js](https://img.shields.io/badge/Node.js-26.11.1-339933?logo=nodedotjs)
 
-HikingDownward is a re-imagined version of HikingUpward, built as an Angular and Nx workspace. The project is currently in active pre-1.0 development and may introduce breaking changes between releases.
+> [!WARNING]
+> **Work in progress:** HikingDownward is under active pre-1.0 development and may introduce breaking changes between releases.
+
+HikingDownward is a re-imagined version of HikingUpward, built as an [Angular](https://angular.dev/) and [Nx](https://nx.dev/) workspace.
 
 ## Requirements
 
 - [Bun](https://bun.sh/) `1.4.2`
-- Node.js `26.11.1`
-- Git
+- [Node.js](https://nodejs.org/) `26.11.1`
+- [PostgreSQL](https://www.postgresql.org/)
+- [Git](https://git-scm.com/)
 
 ## Getting started
 
-Clone the repository, install dependencies, and install the Playwright browsers:
+Clone the repository, install dependencies, and install the [Playwright](https://playwright.dev/) browsers:
 
 ```sh
 git clone https://github.com/MHarmony/hiking-downward.git
@@ -41,15 +45,15 @@ bun nx serve @hiking-downward/api
 
 The development server runs at <http://localhost:3000/> by default.
 
-The API and database libraries require PostgreSQL connection variables. Set
+The API and database libraries require [PostgreSQL](https://www.postgresql.org/) connection variables. Set
 `DATABASE_HOST`, `DATABASE_PORT`, `DATABASE_USER`, `DATABASE_PASSWORD`, and
-`DATABASE_NAME` before starting the API. Authentication also uses Upstash Redis
-and Resend; configure `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`, and
+`DATABASE_NAME` before starting the API. Authentication also uses [Upstash Redis](https://upstash.com/redis)
+and [Resend](https://resend.com/); configure `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`, and
 `RESEND_API_KEY` for account email and session storage. `EMAIL_FROM` optionally
 sets the transactional sender. `FRONTEND_URL` defaults to `http://localhost:4200`.
 
 The API exposes `/health` as a liveness check and `/ready` as a PostgreSQL and
-Redis readiness check. Readiness probes time out after one second. API Sentry
+Redis readiness check. Readiness probes time out after one second. API [Sentry](https://sentry.io/)
 configuration is optional through `SENTRY_DSN`, `SENTRY_ENVIRONMENT`,
 `SENTRY_RELEASE`, and `SENTRY_TRACES_SAMPLE_RATE`.
 
@@ -77,10 +81,10 @@ for the API E2E job.
 - `apps/frontend/` — Angular frontend application
 - `apps/frontend-e2e/` — Playwright end-to-end tests
 - `libs/frontend/account-settings/` — Profile, security, and account-management workflows
-- `apps/api/` — Elysia API application
+- `apps/api/` — [Elysia](https://elysiajs.com/) API application
 - `apps/api-e2e/` — Playwright end-to-end tests
-- `libs/api/auth/` — Better Auth configuration and authentication workflows
-- `libs/api/database/` — Drizzle database client and PostgreSQL schema
+- `libs/api/auth/` — [Better Auth](https://www.better-auth.com/) configuration and authentication workflows
+- `libs/api/database/` — [Drizzle](https://orm.drizzle.team/) database client and PostgreSQL schema
 - `.github/` — GitHub workflows, issue forms, and repository policies
 - `nx.json` — Nx task orchestration and release configuration
 

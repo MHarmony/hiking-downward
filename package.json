@@ -112,6 +112,12 @@
     "node": "26.11.1"
   },
   "engineStrict": true,
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/MHarmony"
+    }
+  ],
   "homepage": "https://hikingdownward.com",
   "license": "MIT",
   "name": "@hiking-downward/source",

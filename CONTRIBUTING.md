@@ -13,8 +13,9 @@ For bugs, feature ideas, and questions that are not security-sensitive, search e
 Use the repository's supported toolchain:
 
 - [Bun](https://bun.sh/) `1.4.2`
-- Node.js `26.11.1` when Node.js is required by a tool
-- Git
+- [Node.js](https://nodejs.org/) `26.11.1`
+- [Git](https://git-scm.com/)
+- [PostgreSQL](https://www.postgresql.org/) for API and database work
 
 The repository pins dependency versions and uses Bun's exact-install mode. From a fresh checkout:
 
@@ -52,6 +53,17 @@ bun nx serve @hiking-downward/api
 
 The default local URL is `http://localhost:3000/`.
 
+Before starting the API, configure PostgreSQL and the authentication services
+described in the [README's Getting started section](README.md#getting-started).
+
+When changing the database schema, generate a migration and apply migrations
+with:
+
+```sh
+bun run db:generate
+bun run db:migrate
+```
+
 ## Validate Changes
 
 Run the checks relevant to your change before opening a pull request:
@@ -65,6 +77,10 @@ bun run e2e
 ```
 
 The end-to-end command starts the frontend and api servers through Nx. If you are working on browser behavior, run the complete e2e suite rather than relying only on unit tests.
+
+The API E2E GitHub Actions job requires the `BETTER_AUTH_SECRET`,
+`UPSTASH_REDIS_REST_URL`, and `UPSTASH_REDIS_REST_TOKEN` repository secrets.
+Maintainers should configure these secrets for that job.
 
 When a command fails, fix the underlying issue rather than weakening a lint rule, coverage threshold, or test. Include any known environmental limitation in the pull request description.
 
