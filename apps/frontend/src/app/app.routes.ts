@@ -1,11 +1,12 @@
 import type { Route } from '@angular/router';
 import {
+  authenticatedGuard,
   emailVerificationResultGuard,
   pendingTwoFactorGuard,
   signUpCompletionGuard,
 } from '@hiking-downward/frontend-auth';
 
-/** Route configuration for the HikingDownward application. */
+/** Route configuration, including protected settings and public completion pages. */
 export const appRoutes: Route[] = [
   {
     path: '',
@@ -58,6 +59,19 @@ export const appRoutes: Route[] = [
     loadComponent: async () =>
       import('@hiking-downward/verify-email').then((m) => m.VerifyEmailResult),
     title: 'HikingDownward - Verify Email',
+  },
+  {
+    path: 'settings',
+    canActivate: [authenticatedGuard],
+    loadChildren: async () =>
+      import('@hiking-downward/account-settings').then((m) => m.accountSettingsRoutes),
+    title: 'HikingDownward - Account Settings',
+  },
+  {
+    path: 'account-deleted',
+    loadComponent: async () =>
+      import('@hiking-downward/account-settings').then((m) => m.AccountDeleted),
+    title: 'HikingDownward - Account Deleted',
   },
   {
     path: '401',

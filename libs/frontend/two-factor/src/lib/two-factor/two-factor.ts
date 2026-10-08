@@ -32,6 +32,7 @@ type AuthError = {
  *
  * @param method The verification method that produced the failure.
  * @param error The error returned by the auth client.
+ * @returns Nothing; eligible failures are sent to Sentry.
  */
 function reportAuthFailure(method: TwoFactorMethod, error: AuthError): void {
   if (!shouldReportAuthFailure(error.status)) {
@@ -46,15 +47,16 @@ function reportAuthFailure(method: TwoFactorMethod, error: AuthError): void {
   );
 }
 
+/** Completes a pending sign-in with an authenticator app code or a backup code. */
 @Component({
   selector: 'hiking-downward-two-factor',
   imports: [NgOptimizedImage, RouterLink, FormField],
   templateUrl: './two-factor.ng.html',
 })
-/** Completes a pending sign-in with an authenticator app code or a backup code. */
 export class TwoFactor {
+  readonly #auth = inject(FrontendAuth);
   /** Better Auth client used to verify two-factor codes. */
-  readonly #authClient = inject(FrontendAuth).authClient;
+  readonly #authClient = this.#auth.authClient;
   /** Router used to navigate after successful verification. */
   readonly #router = inject(Router);
 
@@ -83,6 +85,7 @@ export class TwoFactor {
   protected readonly errorMessage = signal<string | null>(null);
 
   /** Switches between authenticator app and backup code verification. */
+  /** Switches code type, clears prior validation, and resets the entered value. */
   protected toggleMethod(): void {
     this.method.update((method) => (method === 'totp' ? 'backupCode' : 'totp'));
     this.#attempted.set(false);
@@ -137,7 +140,7 @@ export class TwoFactor {
       reportAuthFailure(method, error);
       this.errorMessage.set(error.message ?? 'Unable to verify your code.');
     } else {
-      await this.#router.navigateByUrl('/');
+      await this.#router.navigateByUrl(this.#auth.consumePostAuthRedirectUrl());
     }
   }
 }

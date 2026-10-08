@@ -1,0 +1,44 @@
+<section class="mx-auto max-w-6xl">
+  <header class="border-b border-gray-200 pb-6 dark:border-white/10">
+    <h1 class="text-3xl font-semibold text-gray-900 dark:text-white">Account settings</h1>
+    <p class="mt-2 max-w-2xl text-sm/6 text-gray-600 dark:text-gray-400">
+      Manage your profile, sign-in methods, and account access.
+    </p>
+  </header>
+
+  <div class="mt-8 grid gap-8 md:grid-cols-[13rem_minmax(0,1fr)]">
+    <nav aria-label="Account settings sections">
+      <ul class="flex gap-2 overflow-x-auto pb-2 md:flex-col md:overflow-visible">
+        <li>
+          <a
+            routerLink="profile"
+            routerLinkActive="bg-white text-indigo-800 shadow-xs dark:bg-white/10 dark:text-indigo-200"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="block rounded-md px-3 py-2 text-sm font-medium whitespace-nowrap text-gray-700 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:text-gray-200 dark:hover:bg-white/10">
+            Profile
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="security"
+            routerLinkActive="bg-white text-indigo-800 shadow-xs dark:bg-white/10 dark:text-indigo-200"
+            class="block rounded-md px-3 py-2 text-sm font-medium whitespace-nowrap text-gray-700 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:text-gray-200 dark:hover:bg-white/10">
+            Security
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="account"
+            routerLinkActive="bg-white text-indigo-800 shadow-xs dark:bg-white/10 dark:text-indigo-200"
+            class="block rounded-md px-3 py-2 text-sm font-medium whitespace-nowrap text-gray-700 hover:bg-gray-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:text-gray-200 dark:hover:bg-white/10">
+            Account
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="min-w-0">
+      <router-outlet />
+    </div>
+  </div>
+</section>

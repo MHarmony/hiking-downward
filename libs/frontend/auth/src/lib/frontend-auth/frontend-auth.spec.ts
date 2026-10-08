@@ -10,12 +10,13 @@ let responseBody: Record<string, unknown> = {};
  * Sets the JSON body returned by the shared auth fetch stub.
  *
  * @param body The JSON body returned for every request.
+ * @returns Nothing; the shared response fixture is replaced.
  */
 function respondWith(body: Record<string, unknown>): void {
   responseBody = body;
 }
 
-/** Installs the fetch stub before Better Auth creates its client. */
+/** Installs the fetch stub before Better Auth creates its client; returns nothing. */
 function stubFetch(): void {
   vi.stubGlobal(
     'fetch',
@@ -60,6 +61,21 @@ describe('FrontendAuth', () => {
 
   it('has no pending two-factor challenge by default', () => {
     expect(TestBed.inject(FrontendAuth).hasPendingTwoFactor()).toBe(false);
+  }, 10_000);
+
+  it('accepts only local post-authentication return URLs', () => {
+    expect(FrontendAuth.safePostAuthRedirectUrl('/settings/profile')).toBe('/settings/profile');
+    expect(FrontendAuth.safePostAuthRedirectUrl('https://example.test')).toBe('/');
+    expect(FrontendAuth.safePostAuthRedirectUrl('//example.test')).toBe('/');
+    expect(FrontendAuth.safePostAuthRedirectUrl('/\\\\example.test')).toBe('/');
+  }, 10_000);
+
+  it('stores and consumes a post-authentication return URL once', () => {
+    const service = TestBed.inject(FrontendAuth);
+    service.rememberPostAuthRedirectUrl('/settings/security');
+
+    expect(service.consumePostAuthRedirectUrl()).toBe('/settings/security');
+    expect(service.consumePostAuthRedirectUrl()).toBe('/');
   }, 10_000);
 
   it('records a pending challenge and navigates when sign-in requires two-factor', async () => {

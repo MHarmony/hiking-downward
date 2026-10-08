@@ -13,7 +13,9 @@ vi.mock('@sentry/angular', () => ({
   captureException: vi.fn<(error: unknown, context?: unknown) => void>(),
 }));
 
+/** Mocked authentication methods exposed to the sign-in component. */
 type AuthClientMock = {
+  /** Sign-in endpoints exercised by the component. */
   signIn: {
     email: ReturnType<typeof vi.fn<AuthMethod>>;
     username: ReturnType<typeof vi.fn<AuthMethod>>;
@@ -22,16 +24,32 @@ type AuthClientMock = {
   };
 };
 
+/**
+ * Request and response shape shared by mocked Better Auth sign-in endpoints.
+ *
+ * @param options Mock request body accepted by the endpoint.
+ * @returns A mocked auth payload or authentication error.
+ */
 type AuthMethod = (options?: Record<string, unknown>) => Promise<{
+  /** Successful response payload, when authentication succeeds. */
   data: Record<string, unknown> | null;
+  /** Authentication error, when the request fails. */
   error: { status: number; message?: string } | null;
 }>;
 
 describe('SignIn', () => {
   let authClient: AuthClientMock;
+  let postAuthRedirectUrl = '/';
+  let frontendAuth: {
+    authClient: AuthClientMock;
+    safePostAuthRedirectUrl: (url: string | null) => string;
+    rememberPostAuthRedirectUrl: (url: string | null) => void;
+    consumePostAuthRedirectUrl: () => string;
+  };
 
   beforeEach(() => {
     vi.clearAllMocks();
+    postAuthRedirectUrl = '/';
     authClient = {
       signIn: {
         email: vi.fn<AuthMethod>(),
@@ -40,19 +58,41 @@ describe('SignIn', () => {
         passkey: vi.fn<AuthMethod>().mockResolvedValue({ data: null, error: null }),
       },
     };
+    frontendAuth = {
+      authClient,
+      safePostAuthRedirectUrl: (url: string | null): string =>
+        FrontendAuth.safePostAuthRedirectUrl(url),
+      rememberPostAuthRedirectUrl: (url: string | null): void => {
+        postAuthRedirectUrl = FrontendAuth.safePostAuthRedirectUrl(url);
+      },
+      consumePostAuthRedirectUrl: (): string => {
+        const url = postAuthRedirectUrl;
+        postAuthRedirectUrl = '/';
+        return url;
+      },
+    };
 
     TestBed.configureTestingModule({
       imports: [SignIn],
-      providers: [provideRouter([]), { provide: FrontendAuth, useValue: { authClient } }],
+      providers: [provideRouter([]), { provide: FrontendAuth, useValue: frontendAuth }],
     });
   });
 
+  /** Creates and renders a sign-in component fixture. */
   function createFixture(): ComponentFixture<SignIn> {
     const fixture = TestBed.createComponent(SignIn);
     fixture.detectChanges();
     return fixture;
   }
 
+  /**
+   * Enters a value through an input's DOM binding.
+   *
+   * @param fixture Rendered sign-in component fixture.
+   * @param id Input element ID.
+   * @param value Text to enter.
+   * @returns Nothing; dispatches the input event synchronously.
+   */
   function setField(fixture: ReturnType<typeof createFixture>, id: string, value: string): void {
     const input = fixture.nativeElement.querySelector(`#${id}`) as HTMLInputElement;
     input.value = value;

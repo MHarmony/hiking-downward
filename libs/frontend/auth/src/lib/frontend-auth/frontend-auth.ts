@@ -16,6 +16,8 @@ export const AUTH_BASE_URL = new InjectionToken<string>('AUTH_BASE_URL', {
 
 /** Session storage key holding the epoch milliseconds at which a pending two-factor sign-in expires. */
 const TWO_FACTOR_PENDING_KEY = 'hiking-downward.two-factor-pending-until';
+/** Session storage key holding a validated destination to open after sign-in. */
+const POST_AUTH_REDIRECT_KEY = 'hiking-downward.post-auth-redirect';
 
 /** Lifetime of a pending two-factor sign-in, matching Better Auth's default two-factor cookie. */
 const TWO_FACTOR_PENDING_MS = 10 * 60 * 1000;
@@ -81,10 +83,47 @@ export class FrontendAuth {
   }
 
   /**
+   * Accepts only an application-local route as a post-authentication destination.
+   *
+   * @param url Candidate path from a return URL query parameter.
+   * @returns A safe local URL, or `/` when the candidate is external or malformed.
+   */
+  public static safePostAuthRedirectUrl(url: string | null): string {
+    if (!url || !url.startsWith('/') || url.startsWith('//') || url.includes('\\')) {
+      return '/';
+    }
+    return url;
+  }
+
+  /**
+   * Stores a safe local destination so it survives a two-factor challenge.
+   *
+   * @param url Candidate destination from the sign-in return URL.
+   * @returns Nothing; the session-storage value is replaced synchronously.
+   */
+  public rememberPostAuthRedirectUrl(url: string | null): void {
+    this.#sessionStorage.setItem(POST_AUTH_REDIRECT_KEY, FrontendAuth.safePostAuthRedirectUrl(url));
+  }
+
+  /**
+   * Returns and clears the post-authentication destination.
+   *
+   * @returns The previously stored safe path, or `/` when none was stored.
+   */
+  public consumePostAuthRedirectUrl(): string {
+    const url = FrontendAuth.safePostAuthRedirectUrl(
+      this.#sessionStorage.getItem(POST_AUTH_REDIRECT_KEY),
+    );
+    this.#sessionStorage.removeItem(POST_AUTH_REDIRECT_KEY);
+    return url;
+  }
+
+  /**
    * Creates a callback URL for an email-verification flow initiated in this tab.
    *
    * @param origin Application origin to receive the verification result.
    * @returns A callback URL carrying the registered flow identifier.
+   * @throws Propagates local-storage or UUID-generation failures.
    */
   public emailVerificationCallbackUrl(origin: string): string {
     const flow: EmailVerificationFlow = {
@@ -100,6 +139,7 @@ export class FrontendAuth {
    *
    * @param flowId Flow identifier received in the verification callback URL.
    * @returns `true` when the flow is registered and has not expired.
+   * @throws Propagates local-storage access failures.
    */
   public hasPendingEmailVerification(flowId: string | null): boolean {
     const storedFlow = this.#localStorage.getItem(EMAIL_VERIFICATION_FLOW_KEY);
@@ -124,6 +164,7 @@ export class FrontendAuth {
    *
    * @param origin Application origin to receive the sign-up completion page.
    * @returns A callback URL carrying the registered flow identifier.
+   * @throws Propagates local-storage or UUID-generation failures.
    */
   public signUpCompletionCallbackUrl(origin: string): string {
     const flow: EmailVerificationFlow = {
@@ -139,6 +180,7 @@ export class FrontendAuth {
    *
    * @param flowId Flow identifier received in the magic-link callback URL.
    * @returns `true` when the flow is registered and has not expired.
+   * @throws Propagates local-storage access failures.
    */
   public hasPendingSignUpCompletion(flowId: string | null): boolean {
     const storedFlow = this.#localStorage.getItem(SIGN_UP_COMPLETION_FLOW_KEY);

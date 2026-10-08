@@ -1,7 +1,7 @@
 import { DOCUMENT, NgOptimizedImage } from '@angular/common';
 import { afterNextRender, Component, inject, signal } from '@angular/core';
 import { email, form, FormField, required, submit } from '@angular/forms/signals';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FrontendAuth } from '@hiking-downward/frontend-auth';
 import * as Sentry from '@sentry/angular';
 import {
@@ -32,6 +32,7 @@ type AuthError = {
  *
  * @param method The authentication flow that produced the failure.
  * @param error The error returned by the auth client.
+ * @returns Nothing; eligible failures are sent to Sentry.
  */
 function reportAuthFailure(method: SignInMethod | 'passkey', error: AuthError): void {
   if (!shouldReportAuthFailure(error.status)) {
@@ -46,18 +47,22 @@ function reportAuthFailure(method: SignInMethod | 'passkey', error: AuthError): 
   );
 }
 
+/** Presents password, magic-link, and passkey authentication flows. */
 @Component({
   selector: 'hiking-downward-hiking-downward-sign-in',
   imports: [NgOptimizedImage, RouterLink, FormField],
   templateUrl: './sign-in.ng.html',
   styleUrl: './sign-in.css',
 })
-/** Presents password, magic-link, and passkey authentication flows. */
 export class SignIn {
+  /** Shared Better Auth client and safe return-destination helpers. */
+  readonly #auth = inject(FrontendAuth);
   /** Better Auth client used to execute authentication requests. */
-  readonly #authClient = inject(FrontendAuth).authClient;
+  readonly #authClient = this.#auth.authClient;
   /** Router used to navigate after successful authentication. */
   readonly #router = inject(Router);
+  /** Requested local destination preserved by the authenticated route guard. */
+  readonly #returnUrl = inject(ActivatedRoute).snapshot.queryParamMap.get('returnUrl');
   /** Origin used to build the magic-link callback URL. */
   readonly #origin = inject(DOCUMENT).location.origin;
 
@@ -92,6 +97,7 @@ export class SignIn {
   /** Email address to which the latest magic link was sent. */
   protected readonly magicLinkSentTo = signal<string | null>(null);
 
+  /** Starts optional conditional passkey autofill after the view renders. */
   public constructor() {
     afterNextRender({ read: async () => this.#startPasskeyAutofill() });
   }
@@ -101,9 +107,11 @@ export class SignIn {
    *
    * @param event The native form-submit event to prevent from reloading the page.
    * @returns A promise that settles after validation and the auth request complete.
+   * @throws Propagates unexpected form submission or auth client failures.
    */
   protected async signInWithPassword(event: Event): Promise<void> {
     event.preventDefault();
+    this.#auth.rememberPostAuthRedirectUrl(this.#returnUrl);
     await this.#run('password', async () => {
       const { emailOrUsername, password } = this.#signInModel();
       const identifier = normalizeIdentifier(emailOrUsername);
@@ -121,7 +129,7 @@ export class SignIn {
       if ('twoFactorRedirect' in data && data.twoFactorRedirect) {
         return;
       }
-      await this.#router.navigateByUrl('/');
+      await this.#router.navigateByUrl(this.#auth.consumePostAuthRedirectUrl());
     });
   }
 
@@ -129,13 +137,14 @@ export class SignIn {
    * Sends a magic-link sign-in email for the entered address.
    *
    * @returns A promise that settles after validation and the email request complete.
+   * @throws Propagates unexpected form submission or auth client failures.
    */
   protected async sendMagicLink(): Promise<void> {
     await this.#run('magicLink', async () => {
       const emailAddress = normalizeIdentifier(this.#signInModel().emailOrUsername);
       const { error } = await this.#authClient.signIn.magicLink({
         email: emailAddress,
-        callbackURL: `${this.#origin}/`,
+        callbackURL: `${this.#origin}${FrontendAuth.safePostAuthRedirectUrl(this.#returnUrl)}`,
       });
 
       if (error) {
@@ -151,11 +160,13 @@ export class SignIn {
    * Starts an explicit passkey sign-in ceremony.
    *
    * @returns A promise that settles after the passkey ceremony and navigation complete.
+   * @throws Propagates passkey client or navigation failures.
    */
   protected async signInWithPasskey(): Promise<void> {
     this.#method.set(null);
     this.errorMessage.set(null);
     this.magicLinkSentTo.set(null);
+    this.#auth.rememberPostAuthRedirectUrl(this.#returnUrl);
     this.pending.set(true);
     try {
       const { error } = await this.#authClient.signIn.passkey();
@@ -164,7 +175,7 @@ export class SignIn {
         this.errorMessage.set(error.message ?? 'Unable to sign in with a passkey.');
         return;
       }
-      await this.#router.navigateByUrl('/');
+      await this.#router.navigateByUrl(this.#auth.consumePostAuthRedirectUrl());
     } finally {
       this.pending.set(false);
     }
@@ -174,6 +185,7 @@ export class SignIn {
    * Starts browser passkey autofill when Conditional UI is available.
    *
    * @returns A promise that settles after the optional autofill ceremony completes.
+   * @throws Propagates conditional UI or navigation failures.
    */
   async #startPasskeyAutofill(): Promise<void> {
     if (
@@ -187,7 +199,8 @@ export class SignIn {
     // Errors are ignored: this ceremony is aborted whenever another passkey prompt starts.
     const { error } = await this.#authClient.signIn.passkey({ autoFill: true });
     if (!error) {
-      await this.#router.navigateByUrl('/');
+      this.#auth.rememberPostAuthRedirectUrl(this.#returnUrl);
+      await this.#router.navigateByUrl(this.#auth.consumePostAuthRedirectUrl());
     }
   }
 
@@ -197,6 +210,7 @@ export class SignIn {
    * @param method The flow whose validators should be active for this attempt.
    * @param action The validated authentication operation to execute.
    * @returns A promise that settles after validation and the action complete.
+   * @throws Propagates unexpected Signal Forms submission failures.
    */
   async #run(method: SignInMethod, action: () => Promise<void>): Promise<void> {
     this.#method.set(method);

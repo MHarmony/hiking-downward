@@ -19,6 +19,27 @@ function notFound(router: Router): RedirectCommand {
  */
 export const pendingTwoFactorGuard: CanActivateFn = () =>
   inject(FrontendAuth).hasPendingTwoFactor() || notFound(inject(Router));
+/** Requires an active Better Auth session before entering an account settings route. */
+/**
+ * @param _route Route being activated; unused because the requested URL is on the router state.
+ * @param state Router state containing the destination to preserve through sign-in.
+ * @returns `true` for a valid session, otherwise a redirect to sign-in.
+ */
+export const authenticatedGuard: CanActivateFn = async (_route, state) => {
+  const router = inject(Router);
+  try {
+    const { data, error } = await inject(FrontendAuth).authClient.getSession();
+    if (!error && data) {
+      return true;
+    }
+  } catch {
+    // Treat an unavailable session endpoint like a signed-out user.
+  }
+
+  return new RedirectCommand(
+    router.createUrlTree(['/sign-in'], { queryParams: { returnUrl: state.url } }),
+  );
+};
 
 /**
  * Allows the verification result page only for a registered verification callback.

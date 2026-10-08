@@ -54,7 +54,13 @@ describe('TwoFactor', () => {
     };
     TestBed.configureTestingModule({
       imports: [TwoFactor],
-      providers: [provideRouter([]), { provide: FrontendAuth, useValue: { authClient } }],
+      providers: [
+        provideRouter([]),
+        {
+          provide: FrontendAuth,
+          useValue: { authClient, consumePostAuthRedirectUrl: (): string => '/' },
+        },
+      ],
     });
   });
 
@@ -74,6 +80,7 @@ describe('TwoFactor', () => {
    *
    * @param fixture The component fixture containing the input.
    * @param value The code to enter.
+   * @returns Nothing; dispatches the input event synchronously.
    */
   function setCode(fixture: ComponentFixture<TwoFactor>, value: string): void {
     const input = fixture.nativeElement.querySelector('#code') as HTMLInputElement;

@@ -25,6 +25,9 @@
     "noImplicitThis": true,
     "noUncheckedIndexedAccess": true,
     "paths": {
+      "@hiking-downward/account-settings": [
+        "./libs/frontend/account-settings/src/index.ts"
+      ],
       "@hiking-downward/api-auth": [
         "./libs/api/auth/src/index.ts"
       ],

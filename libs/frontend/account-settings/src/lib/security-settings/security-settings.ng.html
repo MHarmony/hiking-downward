@@ -1,0 +1,443 @@
+<section aria-labelledby="security-heading" class="max-w-4xl space-y-10">
+  <header class="border-b border-gray-200 pb-5 dark:border-white/10">
+    <h2 id="security-heading" class="text-xl font-semibold text-gray-900 dark:text-white">
+      Security
+    </h2>
+    <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">
+      Manage how you sign in and which devices can access your account.
+    </p>
+  </header>
+
+  @if (loading()) {
+  <p role="status" class="text-sm text-gray-600 dark:text-gray-400">Loading security settings…</p>
+  } @else {
+  <section
+    aria-labelledby="email-heading"
+    class="border-b border-gray-200 pb-8 dark:border-white/10">
+    <h3 id="email-heading" class="text-base font-semibold text-gray-900 dark:text-white">
+      Email address
+    </h3>
+    <p class="mt-2 text-sm/6 text-gray-700 dark:text-gray-300">{{ emailAddress() }}</p>
+    <p
+      class="mt-1 text-sm/6"
+      [class.text-green-800]="emailVerified()"
+      [class.text-red-800]="!emailVerified()"
+      [class.dark:text-green-300]="emailVerified()"
+      [class.dark:text-red-300]="!emailVerified()">
+      {{ emailVerified() ? 'Verified' : 'Not verified' }}
+    </p>
+    @if (emailChangePending()) {
+    <p class="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">
+      Check your current inbox to approve the change, then confirm the new address.
+    </p>
+    }
+
+    <form
+      (submit)="requestEmailChange($event)"
+      novalidate
+      class="mt-5 flex flex-col items-start gap-3 sm:flex-row sm:items-end">
+      @let emailErrors = emailForm.newEmail().errors();
+      <div class="w-full max-w-xl">
+        <label for="new-email" class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+          New email address
+        </label>
+        <input
+          id="new-email"
+          type="email"
+          autocomplete="email"
+          [formField]="emailForm.newEmail"
+          [attr.aria-invalid]="emailErrors.length > 0 ? 'true' : null"
+          [attr.aria-describedby]="emailErrors.length > 0 ? 'new-email-error' : null"
+          class="mt-2 block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm dark:bg-white/5 dark:text-white dark:outline-white/10 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+        @if (emailErrors.length > 0) {
+        <div id="new-email-error" class="mt-2 text-sm text-red-800 dark:text-red-300">
+          @for (error of emailErrors; track $index) {
+          <p>{{ error.message }}</p>
+          }
+        </div>
+        }
+      </div>
+      <button
+        type="submit"
+        [disabled]="pendingAction() === 'email'"
+        class="rounded-md bg-indigo-800 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
+        Change email
+      </button>
+    </form>
+  </section>
+
+  <section
+    aria-labelledby="password-heading"
+    class="border-b border-gray-200 pb-8 dark:border-white/10">
+    <h3 id="password-heading" class="text-base font-semibold text-gray-900 dark:text-white">
+      Password
+    </h3>
+    <form (submit)="changePassword($event)" novalidate class="mt-5 grid max-w-xl gap-5">
+      @let currentPasswordErrors = passwordForm.currentPassword().errors(); @let newPasswordErrors =
+      passwordForm.newPassword().errors(); @let confirmationErrors =
+      passwordForm.confirmation().errors();
+      <div>
+        <label
+          for="current-password"
+          class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+          Current password
+        </label>
+        <input
+          id="current-password"
+          type="password"
+          autocomplete="current-password"
+          [formField]="passwordForm.currentPassword"
+          [attr.aria-invalid]="currentPasswordErrors.length > 0 ? 'true' : null"
+          [attr.aria-describedby]="currentPasswordErrors.length > 0 ? 'current-password-error' : null"
+          class="mt-2 block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm dark:bg-white/5 dark:text-white dark:outline-white/10 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+        @if (currentPasswordErrors.length > 0) {
+        <div id="current-password-error" class="mt-2 text-sm text-red-800 dark:text-red-300">
+          @for (error of currentPasswordErrors; track $index) {
+          <p>{{ error.message }}</p>
+          }
+        </div>
+        }
+      </div>
+      <div>
+        <label
+          for="new-password"
+          class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+          New password
+        </label>
+        <input
+          id="new-password"
+          type="password"
+          autocomplete="new-password"
+          [formField]="passwordForm.newPassword"
+          [attr.aria-invalid]="newPasswordErrors.length > 0 ? 'true' : null"
+          [attr.aria-describedby]="newPasswordErrors.length > 0 ? 'new-password-error' : null"
+          class="mt-2 block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm dark:bg-white/5 dark:text-white dark:outline-white/10 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+        @if (newPasswordErrors.length > 0) {
+        <div id="new-password-error" class="mt-2 text-sm text-red-800 dark:text-red-300">
+          @for (error of newPasswordErrors; track $index) {
+          <p>{{ error.message }}</p>
+          }
+        </div>
+        }
+      </div>
+      <div>
+        <label
+          for="confirm-password"
+          class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+          Confirm new password
+        </label>
+        <input
+          id="confirm-password"
+          type="password"
+          autocomplete="new-password"
+          [formField]="passwordForm.confirmation"
+          [attr.aria-invalid]="confirmationErrors.length > 0 ? 'true' : null"
+          [attr.aria-describedby]="confirmationErrors.length > 0 ? 'confirm-password-error' : null"
+          class="mt-2 block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm dark:bg-white/5 dark:text-white dark:outline-white/10 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+        @if (confirmationErrors.length > 0) {
+        <div id="confirm-password-error" class="mt-2 text-sm text-red-800 dark:text-red-300">
+          @for (error of confirmationErrors; track $index) {
+          <p>{{ error.message }}</p>
+          }
+        </div>
+        }
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <button
+          type="submit"
+          [disabled]="pendingAction() === 'password'"
+          class="rounded-md bg-indigo-800 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
+          Change password
+        </button>
+        <button
+          type="button"
+          (click)="requestPasswordSetup()"
+          [disabled]="pendingAction() === 'password-reset'"
+          class="rounded-md bg-white px-4 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-white dark:outline-white/10 dark:hover:bg-white/20">
+          Email a password setup link
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <section
+    aria-labelledby="two-factor-heading"
+    class="border-b border-gray-200 pb-8 dark:border-white/10">
+    <h3 id="two-factor-heading" class="text-base font-semibold text-gray-900 dark:text-white">
+      Two-factor authentication
+    </h3>
+    <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">
+      {{ twoFactorEnabled() ? 'Authenticator app is enabled.' : 'Add an authenticator app as a
+      second sign-in step.' }}
+    </p>
+
+    <div class="mt-5 max-w-xl">
+      <label
+        for="authenticator-password"
+        class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+        Current password
+        <span class="font-normal text-gray-600 dark:text-gray-400">(if set)</span>
+      </label>
+      <input
+        id="authenticator-password"
+        type="password"
+        autocomplete="current-password"
+        [formField]="authenticatorForm.password"
+        class="mt-2 block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm dark:bg-white/5 dark:text-white dark:outline-white/10 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+    </div>
+
+    @if (!twoFactorEnabled() && !setupUri()) {
+    <form (submit)="startAuthenticatorSetup($event)" novalidate class="mt-4">
+      <button
+        type="submit"
+        [disabled]="pendingAction() === 'two-factor'"
+        class="rounded-md bg-indigo-800 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
+        Set up authenticator app
+      </button>
+    </form>
+    } @if (setupUri()) {
+    <form (submit)="verifyAuthenticatorSetup($event)" novalidate class="mt-5 space-y-4">
+      <p class="text-sm/6 text-gray-700 dark:text-gray-300">
+        Scan this QR code in your authenticator app.
+      </p>
+      @if (qrCodeUrl()) {
+      <img
+        [src]="qrCodeUrl()"
+        alt="Authenticator app setup QR code"
+        width="220"
+        height="220"
+        class="size-55 rounded-md bg-white p-2" />
+      }
+      <p class="text-sm text-gray-700 dark:text-gray-300">
+        Or enter setup key
+        <code class="rounded bg-gray-100 px-2 py-1 break-all dark:bg-white/10">
+          {{ manualTotpKey() }}
+        </code>
+      </p>
+      @let totpErrors = authenticatorForm.code().errors();
+      <div class="max-w-xs">
+        <label for="totp-code" class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+          Authenticator code
+        </label>
+        <input
+          id="totp-code"
+          inputmode="numeric"
+          autocomplete="one-time-code"
+          [formField]="authenticatorForm.code"
+          [attr.aria-invalid]="totpErrors.length > 0 ? 'true' : null"
+          [attr.aria-describedby]="totpErrors.length > 0 ? 'totp-code-error' : null"
+          class="mt-2 block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm dark:bg-white/5 dark:text-white dark:outline-white/10 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+        @if (totpErrors.length > 0) {
+        <div id="totp-code-error" class="mt-2 text-sm text-red-800 dark:text-red-300">
+          @for (error of totpErrors; track $index) {
+          <p>{{ error.message }}</p>
+          }
+        </div>
+        }
+      </div>
+      <button
+        type="submit"
+        [disabled]="pendingAction() === 'two-factor'"
+        class="rounded-md bg-indigo-800 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
+        Verify and enable
+      </button>
+    </form>
+    } @if (twoFactorEnabled()) {
+    <div class="mt-5 flex flex-wrap gap-3">
+      <button
+        type="button"
+        (click)="regenerateBackupCodes()"
+        [disabled]="pendingAction() === 'backup-codes'"
+        class="rounded-md bg-white px-4 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-white dark:outline-white/10 dark:hover:bg-white/20">
+        Regenerate backup codes
+      </button>
+      <button
+        type="button"
+        (click)="disableTwoFactor()"
+        [disabled]="pendingAction() === 'two-factor'"
+        class="rounded-md bg-white px-4 py-2 text-sm font-semibold text-red-800 outline-1 -outline-offset-1 outline-red-300 hover:bg-red-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-red-300 dark:outline-red-400/30 dark:hover:bg-red-500/10">
+        Disable two-factor authentication
+      </button>
+    </div>
+    } @if (backupCodes().length > 0) {
+    <div
+      class="mt-5 rounded-md border border-amber-300 bg-amber-50 p-4 dark:border-amber-300/30 dark:bg-amber-500/10">
+      <h4 class="font-semibold text-gray-900 dark:text-white">Save your backup codes</h4>
+      <p class="mt-1 text-sm/6 text-gray-700 dark:text-gray-300">
+        Each code can be used once. Keep them somewhere private.
+      </p>
+      @if (backupCodesNotice()) {
+      <p class="mt-2 text-sm font-medium text-amber-900 dark:text-amber-200">
+        {{ backupCodesNotice() }}
+      </p>
+      }
+      <ul
+        class="mt-3 grid max-w-md grid-cols-2 gap-2 font-mono text-sm text-gray-900 dark:text-white">
+        @for (code of backupCodes(); track code) {
+        <li>{{ code }}</li>
+        }
+      </ul>
+    </div>
+    }
+  </section>
+
+  <section
+    aria-labelledby="passkeys-heading"
+    class="border-b border-gray-200 pb-8 dark:border-white/10">
+    <h3 id="passkeys-heading" class="text-base font-semibold text-gray-900 dark:text-white">
+      Passkeys
+    </h3>
+    @if (!passkeySupported) {
+    <p class="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">
+      Passkeys require a supported browser and a secure connection.
+    </p>
+    } @else {
+    <div class="mt-4 flex max-w-xl flex-col items-start gap-3 sm:flex-row sm:items-end">
+      <div class="w-full">
+        <label
+          for="passkey-name"
+          class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+          Name for this passkey
+        </label>
+        <input
+          id="passkey-name"
+          autocomplete="off"
+          [value]="passkeyName()"
+          (input)="updatePasskeyName($event)"
+          class="mt-2 block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm dark:bg-white/5 dark:text-white dark:outline-white/10 dark:focus:outline-indigo-500" />
+      </div>
+      <button
+        type="button"
+        (click)="addPasskey()"
+        [disabled]="pendingAction() === 'passkey'"
+        class="rounded-md bg-indigo-800 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
+        Add passkey
+      </button>
+    </div>
+    @if (passkeys().length === 0) {
+    <p class="mt-4 text-sm/6 text-gray-600 dark:text-gray-400">No passkeys are registered.</p>
+    } @else {
+    <ul class="mt-5 divide-y divide-gray-200 dark:divide-white/10">
+      @for (passkey of passkeys(); track passkey.id) {
+      <li class="flex flex-col gap-3 py-4 sm:flex-row sm:items-end">
+        <div class="min-w-0 flex-1">
+          <label
+            [for]="'passkey-name-' + passkey.id"
+            class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+            Passkey name
+          </label>
+          <input
+            #passkeyLabel
+            [id]="'passkey-name-' + passkey.id"
+            [value]="passkey.name"
+            class="mt-2 block w-full max-w-md rounded-md bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm dark:bg-white/5 dark:text-white dark:outline-white/10 dark:focus:outline-indigo-500" />
+          <p class="mt-1 text-xs text-gray-600 dark:text-gray-400">
+            Added {{ passkey.createdAt | date: 'mediumDate' }}
+          </p>
+        </div>
+        <button
+          type="button"
+          (click)="renamePasskey(passkey.id, passkeyLabel.value)"
+          class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-white/10 dark:text-white dark:outline-white/10 dark:hover:bg-white/20">
+          Save name
+        </button>
+        @if (passkeyPendingRemoval() === passkey.id) {
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-red-800 dark:text-red-300">Remove this passkey?</span>
+          <button
+            type="button"
+            (click)="removePasskey(passkey.id)"
+            class="rounded-md bg-red-700 px-3 py-2 text-sm font-semibold text-white hover:bg-red-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700">
+            Confirm
+          </button>
+          <button
+            type="button"
+            (click)="cancelRemovePasskey()"
+            class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-white/10 dark:text-white dark:outline-white/10 dark:hover:bg-white/20">
+            Cancel
+          </button>
+        </div>
+        } @else {
+        <button
+          type="button"
+          (click)="askRemovePasskey(passkey.id)"
+          class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-red-800 outline-1 -outline-offset-1 outline-red-300 hover:bg-red-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700 dark:bg-white/10 dark:text-red-300 dark:outline-red-400/30 dark:hover:bg-red-500/10">
+          Remove
+        </button>
+        }
+      </li>
+      }
+    </ul>
+    } }
+  </section>
+
+  <section aria-labelledby="sessions-heading">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <h3 id="sessions-heading" class="text-base font-semibold text-gray-900 dark:text-white">
+          Active sessions
+        </h3>
+        <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">
+          Sign out devices you no longer use.
+        </p>
+      </div>
+      <button
+        type="button"
+        (click)="revokeOtherSessions()"
+        [disabled]="pendingAction() === 'sessions' || sessions().length < 2"
+        class="rounded-md bg-white px-4 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-white dark:outline-white/10 dark:hover:bg-white/20">
+        Sign out other sessions
+      </button>
+    </div>
+    @if (sessionError()) {
+    <p
+      role="alert"
+      class="mt-4 rounded-md bg-red-50 p-3 text-sm text-red-800 dark:bg-red-500/10 dark:text-red-300">
+      {{ sessionError() }}
+    </p>
+    } @else if (sessions().length === 0) {
+    <p class="mt-4 text-sm/6 text-gray-600 dark:text-gray-400">No active sessions found.</p>
+    } @else {
+    <ul class="mt-4 divide-y divide-gray-200 dark:divide-white/10">
+      @for (session of sessions(); track session.id) {
+      <li class="flex flex-wrap items-center justify-between gap-3 py-4">
+        <div>
+          <p class="text-sm font-medium text-gray-900 dark:text-gray-100">
+            {{ session.userAgent || 'Browser session' }} @if (session.isCurrent) {
+            <span class="ml-2 text-indigo-700 dark:text-indigo-300">This device</span>
+            }
+          </p>
+          <p class="mt-1 text-xs text-gray-600 dark:text-gray-400">
+            Started {{ session.createdAt | date: 'medium' }} · Expires {{ session.expiresAt | date:
+            'medium' }} @if (session.ipAddress) { · {{ session.ipAddress }} }
+          </p>
+        </div>
+        <button
+          type="button"
+          (click)="revokeSession(session)"
+          [disabled]="pendingAction() === 'sessions'"
+          class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-white dark:outline-white/10 dark:hover:bg-white/20">
+          {{ session.isCurrent ? 'Sign out this device' : 'Sign out' }}
+        </button>
+      </li>
+      }
+    </ul>
+    }
+  </section>
+  }
+
+  <div role="status" aria-live="polite" class="space-y-2">
+    @if (statusMessage()) {
+    <p
+      class="rounded-md bg-green-50 p-3 text-sm text-green-900 dark:bg-green-500/10 dark:text-green-400">
+      {{ statusMessage() }}
+    </p>
+    } @if (errorMessage()) {
+    <p
+      role="alert"
+      class="rounded-md bg-red-50 p-3 text-sm text-red-800 dark:bg-red-500/10 dark:text-red-300">
+      {{ errorMessage() }}
+    </p>
+    }
+  </div>
+</section>

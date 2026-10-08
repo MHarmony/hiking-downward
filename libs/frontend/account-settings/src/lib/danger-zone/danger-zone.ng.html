@@ -1,0 +1,103 @@
+<section aria-labelledby="account-heading" class="max-w-3xl">
+  <header class="border-b border-gray-200 pb-5 dark:border-white/10">
+    <h2 id="account-heading" class="text-xl font-semibold text-gray-900 dark:text-white">
+      Account
+    </h2>
+    <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">
+      Permanently remove your HikingDownward account.
+    </p>
+  </header>
+
+  <section
+    aria-labelledby="delete-heading"
+    class="mt-8 rounded-md border border-red-300 p-5 dark:border-red-400/40">
+    <h3 id="delete-heading" class="text-base font-semibold text-red-900 dark:text-red-200">
+      Delete account
+    </h3>
+    <p class="mt-2 max-w-2xl text-sm/6 text-gray-700 dark:text-gray-300">
+      This permanently deletes your account. You’ll receive an email confirmation link, and the
+      deletion only completes after you open it.
+    </p>
+    <p class="mt-2 text-sm/6 text-gray-700 dark:text-gray-300">
+      Confirmation will be sent to
+      <strong>{{ emailAddress() }}</strong>
+      .
+    </p>
+
+    <form (submit)="requestDeletion($event)" novalidate class="mt-6 space-y-5">
+      @let passwordErrors = deleteForm.password().errors(); @let confirmationErrors =
+      deleteForm.confirmation().errors();
+
+      <div class="max-w-md">
+        <label
+          for="delete-password"
+          class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+          Current password
+          <span class="font-normal text-gray-600 dark:text-gray-400">(if you have one)</span>
+        </label>
+        <input
+          id="delete-password"
+          type="password"
+          autocomplete="current-password"
+          [formField]="deleteForm.password"
+          [attr.aria-invalid]="passwordErrors.length > 0 ? 'true' : null"
+          [attr.aria-describedby]="passwordErrors.length > 0 ? 'delete-password-error' : null"
+          class="mt-2 block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm dark:bg-white/5 dark:text-white dark:outline-white/10 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+        @if (passwordErrors.length > 0) {
+        <div id="delete-password-error" class="mt-2 text-sm text-red-800 dark:text-red-300">
+          @for (error of passwordErrors; track $index) {
+          <p>{{ error.message }}</p>
+          }
+        </div>
+        }
+        <p class="mt-2 text-xs/5 text-gray-600 dark:text-gray-400">
+          If you don’t use a password, your session must be recent to request deletion.
+        </p>
+      </div>
+
+      <div class="max-w-md">
+        <label
+          for="delete-confirmation"
+          class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+          Type DELETE to confirm
+        </label>
+        <input
+          id="delete-confirmation"
+          autocomplete="off"
+          [formField]="deleteForm.confirmation"
+          [attr.aria-invalid]="confirmationErrors.length > 0 ? 'true' : null"
+          [attr.aria-describedby]="confirmationErrors.length > 0 ? 'delete-confirmation-error' : null"
+          class="mt-2 block w-full rounded-md bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm dark:bg-white/5 dark:text-white dark:outline-white/10 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+        @if (confirmationErrors.length > 0) {
+        <div id="delete-confirmation-error" class="mt-2 text-sm text-red-800 dark:text-red-300">
+          @for (error of confirmationErrors; track $index) {
+          <p>{{ error.message }}</p>
+          }
+        </div>
+        }
+      </div>
+
+      <div role="status" aria-live="polite">
+        @if (statusMessage()) {
+        <p
+          class="rounded-md bg-green-50 p-3 text-sm text-green-900 dark:bg-green-500/10 dark:text-green-400">
+          {{ statusMessage() }}
+        </p>
+        } @if (errorMessage()) {
+        <p
+          role="alert"
+          class="rounded-md bg-red-50 p-3 text-sm text-red-800 dark:bg-red-500/10 dark:text-red-300">
+          {{ errorMessage() }}
+        </p>
+        }
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="pending()"
+        class="rounded-md bg-red-800 px-4 py-2 text-sm font-semibold text-white hover:bg-red-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-red-800 dark:hover:bg-red-800">
+        Send deletion confirmation
+      </button>
+    </form>
+  </section>
+</section>

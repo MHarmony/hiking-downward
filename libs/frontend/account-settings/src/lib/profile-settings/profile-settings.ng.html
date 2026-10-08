@@ -1,0 +1,105 @@
+<section aria-labelledby="profile-heading" class="max-w-3xl">
+  <header class="border-b border-gray-200 pb-5 dark:border-white/10">
+    <h2 id="profile-heading" class="text-xl font-semibold text-gray-900 dark:text-white">
+      Profile
+    </h2>
+    <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">
+      Update the name and username shown on your account.
+    </p>
+  </header>
+
+  @if (loading()) {
+  <p class="py-6 text-sm text-gray-600 dark:text-gray-400" role="status">Loading your profile…</p>
+  } @else {
+  <form (submit)="saveProfile($event)" novalidate class="mt-6 space-y-6">
+    @let nameErrors = profileForm.name().errors(); @let usernameErrors =
+    profileForm.username().errors(); @let displayUsernameErrors =
+    profileForm.displayUsername().errors();
+
+    <div>
+      <label
+        for="display-name"
+        class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+        Display name
+      </label>
+      <input
+        id="display-name"
+        autocomplete="name"
+        [formField]="profileForm.name"
+        [attr.aria-invalid]="nameErrors.length > 0 ? 'true' : null"
+        [attr.aria-describedby]="nameErrors.length > 0 ? 'display-name-error' : null"
+        class="mt-2 block w-full max-w-xl rounded-md bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm dark:bg-white/5 dark:text-white dark:outline-white/10 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+      @if (nameErrors.length > 0) {
+      <div id="display-name-error" class="mt-2 text-sm text-red-800 dark:text-red-300">
+        @for (error of nameErrors; track $index) {
+        <p>{{ error.message }}</p>
+        }
+      </div>
+      }
+    </div>
+
+    <div>
+      <label for="username" class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+        Username
+      </label>
+      <input
+        id="username"
+        autocomplete="username"
+        autocapitalize="none"
+        spellcheck="false"
+        [formField]="profileForm.username"
+        [attr.aria-invalid]="usernameErrors.length > 0 ? 'true' : null"
+        [attr.aria-describedby]="usernameErrors.length > 0 ? 'username-error' : null"
+        class="mt-2 block w-full max-w-xl rounded-md bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm dark:bg-white/5 dark:text-white dark:outline-white/10 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+      @if (usernameErrors.length > 0) {
+      <div id="username-error" class="mt-2 text-sm text-red-800 dark:text-red-300">
+        @for (error of usernameErrors; track $index) {
+        <p>{{ error.message }}</p>
+        }
+      </div>
+      }
+    </div>
+
+    <div>
+      <label
+        for="public-username"
+        class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+        Public username
+      </label>
+      <input
+        id="public-username"
+        [formField]="profileForm.displayUsername"
+        [attr.aria-invalid]="displayUsernameErrors.length > 0 ? 'true' : null"
+        [attr.aria-describedby]="displayUsernameErrors.length > 0 ? 'public-username-error' : null"
+        class="mt-2 block w-full max-w-xl rounded-md bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 aria-invalid:outline-red-500 sm:text-sm dark:bg-white/5 dark:text-white dark:outline-white/10 dark:focus:outline-indigo-500 dark:aria-invalid:outline-red-400" />
+      @if (displayUsernameErrors.length > 0) {
+      <div id="public-username-error" class="mt-2 text-sm text-red-800 dark:text-red-300">
+        @for (error of displayUsernameErrors; track $index) {
+        <p>{{ error.message }}</p>
+        }
+      </div>
+      }
+    </div>
+
+    <div role="status" aria-live="polite">
+      @if (statusMessage()) {
+      <p
+        class="rounded-md bg-green-50 p-3 text-sm text-green-900 dark:bg-green-500/10 dark:text-green-400">
+        {{ statusMessage() }}
+      </p>
+      } @if (errorMessage()) {
+      <p class="rounded-md bg-red-50 p-3 text-sm text-red-800 dark:bg-red-500/10 dark:text-red-300">
+        {{ errorMessage() }}
+      </p>
+      }
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="pending()"
+      class="inline-flex cursor-pointer justify-center rounded-md bg-indigo-800 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
+      Save profile
+    </button>
+  </form>
+  }
+</section>

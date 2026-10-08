@@ -1,13 +1,14 @@
 {
-  "name": "@hiking-downward/sign-in",
+  "name": "@hiking-downward/account-settings",
   "peerDependencies": {
-    "@angular/core": "22.2.2",
     "@angular/common": "22.2.2",
+    "@angular/core": "22.2.2",
     "@angular/forms": "22.2.2",
     "@angular/router": "22.2.2",
     "@hiking-downward/frontend-auth": "0.0.0",
-    "@sentry/angular": "11.6.0"
+    "qrcode": "1.5.4"
   },
+  "private": true,
   "sideEffects": false,
   "type": "module",
   "version": "0.0.0"

@@ -4,12 +4,14 @@ import {
   convertToParamMap,
   provideRouter,
   RedirectCommand,
+  Router,
   type ActivatedRouteSnapshot,
   type RouterStateSnapshot,
 } from '@angular/router';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import {
+  authenticatedGuard,
   emailVerificationResultGuard,
   pendingTwoFactorGuard,
   signUpCompletionGuard,
@@ -20,6 +22,7 @@ describe('auth flow guards', () => {
   let hasPendingTwoFactor: ReturnType<typeof vi.fn<() => boolean>>;
   let hasPendingEmailVerification: ReturnType<typeof vi.fn<(flowId: string | null) => boolean>>;
   let hasPendingSignUpCompletion: ReturnType<typeof vi.fn<(flowId: string | null) => boolean>>;
+  let getSession: ReturnType<typeof vi.fn<() => Promise<{ data: unknown; error: unknown }>>>;
 
   beforeEach(() => {
     hasPendingTwoFactor = vi.fn<() => boolean>().mockReturnValue(false);
@@ -27,6 +30,7 @@ describe('auth flow guards', () => {
       .fn<(flowId: string | null) => boolean>()
       .mockReturnValue(false);
     hasPendingSignUpCompletion = vi.fn<(flowId: string | null) => boolean>().mockReturnValue(false);
+    getSession = vi.fn<() => Promise<{ data: unknown; error: unknown }>>();
     TestBed.configureTestingModule({
       providers: [
         provideRouter([]),
@@ -36,6 +40,7 @@ describe('auth flow guards', () => {
             hasPendingEmailVerification,
             hasPendingSignUpCompletion,
             hasPendingTwoFactor,
+            authClient: { getSession },
           },
         },
       ],
@@ -47,15 +52,17 @@ describe('auth flow guards', () => {
    *
    * @param guard The guard to run.
    * @param queryParams Query parameters on the activated route.
+   * @param url Router-state URL supplied to the guard.
    * @returns The guard result.
    */
   async function run(
     guard: typeof pendingTwoFactorGuard,
     queryParams: Record<string, string> = {},
+    url = '/some-route',
   ): Promise<unknown> {
     const route = { queryParamMap: convertToParamMap(queryParams) } as ActivatedRouteSnapshot;
     return runInInjectionContext(TestBed.inject(EnvironmentInjector), async () =>
-      guard(route, {} as RouterStateSnapshot),
+      guard(route, { url } as RouterStateSnapshot),
     );
   }
 
@@ -63,6 +70,7 @@ describe('auth flow guards', () => {
    * Asserts that a guard result renders the not-found page in place.
    *
    * @param result The guard result.
+   * @returns Nothing; assertion failures are reported by Vitest.
    */
   function expectNotFound(result: unknown): void {
     expect(result).toBeInstanceOf(RedirectCommand);
@@ -76,6 +84,32 @@ describe('auth flow guards', () => {
     hasPendingTwoFactor.mockReturnValue(true);
 
     await expect(run(pendingTwoFactorGuard)).resolves.toBe(true);
+  }, 10_000);
+
+  it('allows an authenticated session into settings', async () => {
+    getSession.mockResolvedValue({ data: { user: { id: 'user-id' } }, error: null });
+
+    await expect(run(authenticatedGuard, {}, '/settings/profile')).resolves.toBe(true);
+  }, 10_000);
+
+  it('redirects signed-out users to sign-in with the requested route', async () => {
+    getSession.mockResolvedValue({ data: null, error: null });
+
+    const result = await run(authenticatedGuard, {}, '/settings/security?tab=sessions');
+    expect(result).toBeInstanceOf(RedirectCommand);
+    expect(TestBed.inject(Router).serializeUrl((result as RedirectCommand).redirectTo)).toBe(
+      '/sign-in?returnUrl=%2Fsettings%2Fsecurity%3Ftab%3Dsessions',
+    );
+  }, 10_000);
+
+  it('redirects to sign-in when the session endpoint fails', async () => {
+    getSession.mockRejectedValue(new Error('Network unavailable'));
+
+    const result = await run(authenticatedGuard, {}, '/settings/account');
+    expect(result).toBeInstanceOf(RedirectCommand);
+    expect(TestBed.inject(Router).serializeUrl((result as RedirectCommand).redirectTo)).toBe(
+      '/sign-in?returnUrl=%2Fsettings%2Faccount',
+    );
   }, 10_000);
 
   it('shows not-found for the two-factor page without a pending challenge', async () => {

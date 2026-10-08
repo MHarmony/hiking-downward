@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page, type Request } from '@playwright/test';
 
 const accessibilityTags = [
   'wcag2aaa',
@@ -12,17 +12,27 @@ const accessibilityTags = [
   'experimental',
 ];
 
-/** Fulfils a cross-origin Better Auth request, answering its CORS preflight first. */
+/**
+ * Fulfils a cross-origin Better Auth request, answering its CORS preflight first.
+ *
+ * @param page Browser page whose request is intercepted.
+ * @param urlPattern Playwright URL pattern identifying the Better Auth endpoint.
+ * @param response Status and JSON body returned to the frontend.
+ * @param onRequest Optional callback receiving the non-preflight request.
+ * @returns A promise settling after the route is registered.
+ * @throws Propagates Playwright route-registration failures.
+ */
 async function mockAuthResponse(
   page: Page,
   urlPattern: string,
   response: { status: number; body: Record<string, unknown> },
+  onRequest?: (request: Request) => void,
 ): Promise<void> {
   await page.route(urlPattern, async (route) => {
     const corsHeaders = {
       'access-control-allow-credentials': 'true',
-      'access-control-allow-headers': 'content-type',
-      'access-control-allow-methods': 'POST, OPTIONS',
+      'access-control-allow-headers': 'content-type, authorization',
+      'access-control-allow-methods': 'GET, POST, OPTIONS',
       'access-control-allow-origin': route.request().headers()['origin'] ?? '*',
     };
 
@@ -31,6 +41,9 @@ async function mockAuthResponse(
       return;
     }
 
+    if (onRequest) {
+      onRequest(route.request());
+    }
     await route.fulfill({
       body: JSON.stringify(response.body),
       headers: { ...corsHeaders, 'content-type': 'application/json' },
@@ -108,6 +121,42 @@ test.describe('sign-in page', () => {
       'emailOrUsername-error',
     );
     expect(magicLinkRequested).toBe(false);
+  });
+
+  test('returns to the requested settings page after password sign-in', async ({ page }) => {
+    await mockAuthResponse(page, '**/sign-in/email', {
+      status: 200,
+      body: {
+        token: 'session-token',
+        user: { id: 'hiker', email: 'hiker@example.com', name: 'Trail Hiker' },
+      },
+    });
+    await mockAuthResponse(page, '**/get-session', {
+      status: 200,
+      body: {
+        session: {
+          id: 'current-session',
+          token: 'session-token',
+          userId: 'hiker',
+          expiresAt: '2026-10-14T12:00:00.000Z',
+        },
+        user: {
+          id: 'hiker',
+          email: 'hiker@example.com',
+          emailVerified: true,
+          name: 'Trail Hiker',
+          username: 'trail_hiker',
+          displayUsername: 'Trail Hiker',
+        },
+      },
+    });
+    await page.goto('/sign-in?returnUrl=%2Fsettings%2Fprofile');
+    await page.getByLabel('Email address or username').fill('hiker@example.com');
+    await page.getByLabel('Password').fill('correct-horse-battery');
+    await page.getByRole('button', { name: 'Sign in', exact: true }).click();
+
+    await expect(page).toHaveURL(/\/settings\/profile$/);
+    await expect(page.getByLabel('Display name')).toHaveValue('Trail Hiker');
   });
 
   test('has an accessible document structure', async ({ page }) => {
@@ -226,17 +275,26 @@ for (const colorScheme of ['light', 'dark'] as const) {
     test.use({ colorScheme });
 
     test('magic-link confirmation has no accessibility violations', async ({ page }) => {
-      await mockAuthResponse(page, '**/sign-in/magic-link', {
-        status: 200,
-        body: { status: true },
-      });
-      await page.goto('/sign-in');
+      let callbackUrl: string | undefined;
+      await mockAuthResponse(
+        page,
+        '**/sign-in/magic-link',
+        {
+          status: 200,
+          body: { status: true },
+        },
+        (request) => {
+          callbackUrl = (request.postDataJSON() as { callbackURL: string }).callbackURL;
+        },
+      );
+      await page.goto('/sign-in?returnUrl=%2Fsettings%2Fsecurity');
       await page.getByLabel('Email address or username').fill('hiker@example.com');
       await page.getByRole('button', { name: 'Email me a magic link' }).click();
 
       await expect(page.getByRole('status')).toContainText(
         'Check your email. We sent a sign-in link to hiker@example.com.',
       );
+      expect(callbackUrl).toBe(`${new URL(page.url()).origin}/settings/security`);
 
       const results = await new AxeBuilder({ page }).withTags(accessibilityTags).analyze();
 
