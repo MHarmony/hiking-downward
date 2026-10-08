@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/elysia';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const noValue = null as never;
@@ -176,8 +177,9 @@ describe('server', () => {
     closeRedisMock.mockResolvedValue(noValue);
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     delete process.env['NODE_ENV'];
+    await Sentry.close();
   });
 
   it('configures the non-production Elysia app', async () => {
@@ -214,7 +216,7 @@ describe('server', () => {
       'apps/api/src/main.ts',
       expect.objectContaining({
         projectRoot: expect.any(String),
-        tsconfigPath: expect.stringContaining('apps/api/tsconfig.app.json'),
+        tsconfigPath: expect.stringMatching(/[\\/]apps[\\/]api[\\/]tsconfig\.app\.json$/),
       }),
     );
     expect(openapiMock).toHaveBeenCalledWith(
@@ -477,7 +479,7 @@ describe('server', () => {
       'apps/api/src/main.ts',
       expect.objectContaining({
         projectRoot: expect.any(String),
-        tsconfigPath: expect.stringContaining('apps/api/tsconfig.app.json'),
+        tsconfigPath: expect.stringMatching(/[\\/]apps[\\/]api[\\/]tsconfig\.app\.json$/),
       }),
     );
     const app = appInstances[0];

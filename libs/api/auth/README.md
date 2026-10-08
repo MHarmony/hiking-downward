@@ -25,7 +25,7 @@ the API:
 - `UPSTASH_REDIS_REST_URL`
 - `UPSTASH_REDIS_REST_TOKEN`
 - `RESEND_API_KEY`
-- `EMAIL_FROM` (optional; defaults to `HikingDownward <no-reply@mharmony.io>`)
+- `EMAIL_FROM` (optional; defaults to `HikingDownward <no-reply@hiking-downward.com>`)
 - `FRONTEND_URL` (optional; defaults to `http://localhost:4200`)
 
 Better Auth trusts the configured `FRONTEND_URL`. Successful password-reset,

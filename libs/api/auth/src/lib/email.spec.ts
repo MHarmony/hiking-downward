@@ -42,7 +42,7 @@ describe('sendTransactionalEmail', () => {
     expect(sendMock).toHaveBeenCalledOnce();
     expect(sendMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        from: 'HikingDownward <no-reply@mharmony.io>',
+        from: 'HikingDownward <no-reply@hiking-downward.com>',
         to: ['person@example.com'],
         subject: 'Subject',
         text: 'Plain text',

@@ -109,7 +109,7 @@ describe('getEmailConfig', () => {
   it('returns the Resend API key', () => {
     expect(getEmailConfig({ RESEND_API_KEY: 're_test-key' })).toEqual({
       resendApiKey: 're_test-key',
-      sender: 'HikingDownward <no-reply@mharmony.io>',
+      sender: 'HikingDownward <no-reply@hiking-downward.com>',
     });
   }, 10_000);
 
