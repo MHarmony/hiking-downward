@@ -70,6 +70,7 @@ for the API E2E job.
 
 - `apps/frontend/` — Angular frontend application
 - `apps/frontend-e2e/` — Playwright end-to-end tests
+- `libs/frontend/account-settings/` — Profile, security, and account-management workflows
 - `apps/api/` — Elysia API application
 - `apps/api-e2e/` — Playwright end-to-end tests
 - `libs/api/auth/` — Better Auth configuration and authentication workflows
