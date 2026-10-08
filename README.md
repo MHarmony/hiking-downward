@@ -1,5 +1,11 @@
 # HikingDownward
 
+[![CI](https://github.com/MHarmony/hiking-downward/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/MHarmony/hiking-downward/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/MHarmony/hiking-downward?label=license)](LICENSE.md)
+[![Contributor Covenant 3.0](https://img.shields.io/badge/Contributor_Covenant-3.0-5e0d73)](CODE_OF_CONDUCT.md)
+![Bun](https://img.shields.io/badge/Bun-1.4.2-f9f1e1?logo=bun)
+![Node.js](https://img.shields.io/badge/Node.js-26.11.1-339933?logo=nodedotjs)
+
 HikingDownward is a re-imagined version of HikingUpward, built as an Angular and Nx workspace. The project is currently in active pre-1.0 development and may introduce breaking changes between releases.
 
 ## Requirements
