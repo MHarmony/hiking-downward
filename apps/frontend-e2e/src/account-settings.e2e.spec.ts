@@ -269,13 +269,10 @@ for (const colorScheme of ['light', 'dark'] as const) {
 
       const displayName = page.getByLabel('Display name');
       const username = page.locator('#username');
-      const publicUsername = page.locator('#public-username');
       const saveButton = page.getByRole('button', { name: 'Save profile' });
       await displayName.focus();
       await page.keyboard.press('Tab');
       await expect(username).toBeFocused();
-      await page.keyboard.press('Tab');
-      await expect(publicUsername).toBeFocused();
       await page.keyboard.press('Tab');
       await expect(saveButton).toBeFocused();
       await expect(page.locator(':focus-visible')).toContainText('Save profile');

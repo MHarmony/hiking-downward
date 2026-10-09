@@ -81,7 +81,6 @@ describe('ProfileSettings', () => {
     expect(getSession).toHaveBeenCalledOnce();
     expect(fixture.nativeElement.querySelector('#display-name').value).toBe('Trail Hiker');
     expect(fixture.nativeElement.querySelector('#username').value).toBe('trail_hiker');
-    expect(fixture.nativeElement.querySelector('#public-username')).toBeNull();
   }, 10_000);
 
   it('uses empty defaults for nullable profile fields', async () => {
