@@ -37,6 +37,24 @@ bun nx serve @hiking-downward/frontend
 
 The development server runs at <http://localhost:4200/> by default.
 
+The frontend is localized with Angular i18n for `en-US` and `es`, served at
+`/en/` and `/es/`. Serve the Spanish development build with:
+
+```sh
+bun nx serve @hiking-downward/frontend --configuration=development-es
+```
+
+The Angular development server serves only its configured locale at `/`. To
+preview both locale-prefixed builds and the language links locally, run
+`bun nx run @hiking-downward/frontend:serve-static` after building the frontend.
+
+Extract source messages with `bun nx run @hiking-downward/frontend:extract-i18n`.
+Update `apps/frontend/src/locale/messages.es.xlf` when messages change. The
+production build emits both locale variants under
+`dist/apps/frontend/browser/en/` and `dist/apps/frontend/browser/es/`.
+Configure the production host to redirect `/` by `Accept-Language`, with
+English as the fallback; explicit locale-prefixed URLs should take precedence.
+
 Start the API locally:
 
 ```sh
@@ -75,18 +93,6 @@ preserving Better Auth responses.
 CI runs migrations and both E2E projects. Configure the `BETTER_AUTH_SECRET`,
 `UPSTASH_REDIS_REST_URL`, and `UPSTASH_REDIS_REST_TOKEN` GitHub Actions secrets
 for the API E2E job.
-
-## Workspace structure
-
-- `apps/frontend/` — Angular frontend application
-- `apps/frontend-e2e/` — Playwright end-to-end tests
-- `libs/frontend/account-settings/` — Profile, security, and account-management workflows
-- `apps/api/` — [Elysia](https://elysiajs.com/) API application
-- `apps/api-e2e/` — Playwright end-to-end tests
-- `libs/api/auth/` — [Better Auth](https://www.better-auth.com/) configuration and authentication workflows
-- `libs/api/database/` — [Drizzle](https://orm.drizzle.team/) database client and PostgreSQL schema
-- `.github/` — GitHub workflows, issue forms, and repository policies
-- `nx.json` — Nx task orchestration and release configuration
 
 ## Validation
 

@@ -4,20 +4,20 @@ import { fromTypes, openapi } from '@elysia/openapi';
 import { auth, checkRedis, closeRedis } from '@hiking-downward/api-auth';
 import { apiConfig } from '@hiking-downward/api-config';
 import { checkDatabase, closeDatabase } from '@hiking-downward/database';
-import * as Sentry from '@sentry/elysia';
+// import * as Sentry from '@sentry/elysia';
 import { Elysia, NotFound, ValidationError, problem, type AnyElysia } from 'elysia';
 import { randomUUID } from 'node:crypto';
 import path from 'node:path';
 
-Sentry.init({
-  dsn: apiConfig.sentryDsn,
-  environment: apiConfig.sentryEnvironment,
-  release: apiConfig.sentryRelease,
-  dataCollection: {
-    userInfo: false,
-  },
-  tracesSampleRate: apiConfig.sentryTracesSampleRate,
-});
+// Sentry.init({
+//   dsn: apiConfig.sentryDsn,
+//   environment: apiConfig.sentryEnvironment,
+//   release: apiConfig.sentryRelease,
+//   dataCollection: {
+//     userInfo: false,
+//   },
+//   tracesSampleRate: apiConfig.sentryTracesSampleRate,
+// });
 
 /* v8 ignore next: built e2e serves the OpenAPI document without source references. */
 const openApiTypeReferences = import.meta.url.endsWith('.mjs')
@@ -318,7 +318,8 @@ export function createApp(): AnyElysia {
 }
 
 /** Configured Elysia application for the HikingDownward API server. */
-export const app = Sentry.withElysia(createApp()).error(normalizeError).listen(3000);
+// export const app = Sentry.withElysia(createApp()).error(normalizeError).listen(3000);
+export const app = createApp().error(normalizeError).listen(3000);
 
 let shutdownPromise: Promise<void> | null = null;
 

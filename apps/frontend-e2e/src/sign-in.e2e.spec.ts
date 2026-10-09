@@ -85,7 +85,7 @@ test.describe('sign-in page', () => {
     );
     await expect(page.locator('#password')).toHaveAttribute('aria-invalid', 'true');
     await expect(page.locator('#password')).toHaveAttribute('aria-describedby', 'password-error');
-    await expect(page).toHaveURL(/\/sign-in$/);
+    await expect(page).toHaveURL(/\/en\/sign-in$/);
 
     const results = await new AxeBuilder({ page })
       .withTags([
@@ -155,14 +155,14 @@ test.describe('sign-in page', () => {
     await page.getByLabel('Password').fill('correct-horse-battery');
     await page.getByRole('button', { name: 'Sign in', exact: true }).click();
 
-    await expect(page).toHaveURL(/\/settings\/profile$/);
+    await expect(page).toHaveURL(/\/en\/settings\/profile$/);
     await expect(page.getByLabel('Display name')).toHaveValue('Trail Hiker');
   });
 
   test('has an accessible document structure', async ({ page }) => {
     await page.goto('/sign-in');
 
-    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en-US');
     await expect(page.getByRole('main')).toBeVisible();
     await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
   });
@@ -234,6 +234,7 @@ test.describe('sign-in page in dark mode', () => {
 
   test('has no accessibility violations before or after validation errors', async ({ page }) => {
     await page.goto('/sign-in');
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
 
     const initialResults = await new AxeBuilder({ page })
       .withTags([
@@ -294,7 +295,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
       await expect(page.getByRole('status')).toContainText(
         'Check your email. We sent a sign-in link to hiker@example.com.',
       );
-      expect(callbackUrl).toBe(`${new URL(page.url()).origin}/settings/security`);
+      expect(callbackUrl).toBe(`${new URL(page.url()).origin}/en/settings/security`);
 
       const results = await new AxeBuilder({ page }).withTags(accessibilityTags).analyze();
 

@@ -1,3 +1,4 @@
+import { LOCALE_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -70,6 +71,26 @@ describe('FrontendAuth', () => {
     expect(FrontendAuth.safePostAuthRedirectUrl('/\\\\example.test')).toBe('/');
   }, 10_000);
 
+  it('prefixes auth callback paths for English and Spanish without duplicating a prefix', () => {
+    const service = TestBed.inject(FrontendAuth);
+
+    expect(service.localizedPath('/settings/profile')).toBe('/en/settings/profile');
+    expect(service.localizedPath('/es/settings/profile')).toBe('/en/settings/profile');
+    expect(service.localizedPath('/en')).toBe('/en/');
+
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: AUTH_BASE_URL, useValue: 'https://auth.example.test' },
+        { provide: LOCALE_ID, useValue: 'es' },
+      ],
+    });
+
+    expect(TestBed.inject(FrontendAuth).localizedPath('/settings/profile')).toBe(
+      '/es/settings/profile',
+    );
+  }, 10_000);
+
   it('stores and consumes a post-authentication return URL once', () => {
     const service = TestBed.inject(FrontendAuth);
     service.rememberPostAuthRedirectUrl('/settings/security');
@@ -118,7 +139,7 @@ describe('FrontendAuth', () => {
     const callbackUrl = service.emailVerificationCallbackUrl('https://app.example.test');
     const flowId = new URL(callbackUrl).searchParams.get('flow');
 
-    expect(callbackUrl).toMatch(/^https:\/\/app\.example\.test\/verify-email\/result\?flow=/);
+    expect(callbackUrl).toMatch(/^https:\/\/app\.example\.test\/en\/verify-email\/result\?flow=/);
     expect(service.hasPendingEmailVerification(flowId)).toBe(true);
     expect(service.hasPendingEmailVerification('different-flow')).toBe(false);
   }, 10_000);
@@ -146,7 +167,7 @@ describe('FrontendAuth', () => {
     const callbackUrl = service.signUpCompletionCallbackUrl('https://app.example.test');
     const flowId = new URL(callbackUrl).searchParams.get('flow');
 
-    expect(callbackUrl).toMatch(/^https:\/\/app\.example\.test\/sign-up\/complete\?flow=/);
+    expect(callbackUrl).toMatch(/^https:\/\/app\.example\.test\/en\/sign-up\/complete\?flow=/);
     expect(service.hasPendingSignUpCompletion(flowId)).toBe(true);
     expect(service.hasPendingSignUpCompletion('different-flow')).toBe(false);
   }, 10_000);

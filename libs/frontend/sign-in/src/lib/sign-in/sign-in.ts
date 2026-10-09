@@ -1,3 +1,5 @@
+/// <reference types="@angular/localize" />
+
 import { DOCUMENT, NgOptimizedImage } from '@angular/common';
 import { afterNextRender, Component, inject, signal } from '@angular/core';
 import { email, form, FormField, required, submit } from '@angular/forms/signals';
@@ -54,7 +56,9 @@ function reportAuthFailure(method: SignInMethod | 'passkey', error: AuthError): 
   templateUrl: './sign-in.ng.html',
   styleUrl: './sign-in.css',
 })
+/* v8 ignore start */
 export class SignIn {
+  /* v8 ignore stop */
   /** Shared Better Auth client and safe return-destination helpers. */
   readonly #auth = inject(FrontendAuth);
   /** Better Auth client used to execute authentication requests. */
@@ -77,15 +81,15 @@ export class SignIn {
   /** Signal Form tree containing method-specific authentication validators. */
   protected readonly signInForm = form(this.#signInModel, (path) => {
     required(path.emailOrUsername, {
-      message: 'Enter your email address or username.',
+      message: $localize`Enter your email address or username.`,
       when: () => this.#method() !== null,
     });
     email(path.emailOrUsername, {
-      message: 'Magic link sign-in requires an email address.',
+      message: $localize`Magic link sign-in requires an email address.`,
       when: () => this.#method() === 'magicLink',
     });
     required(path.password, {
-      message: 'Enter your password.',
+      message: $localize`Enter your password.`,
       when: () => this.#method() === 'password',
     });
   });
@@ -122,7 +126,7 @@ export class SignIn {
 
       if (error) {
         reportAuthFailure('password', error);
-        this.errorMessage.set(error.message ?? 'Unable to sign in.');
+        this.errorMessage.set(error.message ?? $localize`Unable to sign in.`);
         return;
       }
       // The two-factor client plugin handles its own redirect.
@@ -144,12 +148,15 @@ export class SignIn {
       const emailAddress = normalizeIdentifier(this.#signInModel().emailOrUsername);
       const { error } = await this.#authClient.signIn.magicLink({
         email: emailAddress,
-        callbackURL: `${this.#origin}${FrontendAuth.safePostAuthRedirectUrl(this.#returnUrl)}`,
+        callbackURL: this.#auth.localizedUrl(
+          this.#origin,
+          FrontendAuth.safePostAuthRedirectUrl(this.#returnUrl),
+        ),
       });
 
       if (error) {
         reportAuthFailure('magicLink', error);
-        this.errorMessage.set(error.message ?? 'Unable to send a magic link.');
+        this.errorMessage.set(error.message ?? $localize`Unable to send a magic link.`);
         return;
       }
       this.magicLinkSentTo.set(emailAddress);
@@ -172,7 +179,7 @@ export class SignIn {
       const { error } = await this.#authClient.signIn.passkey();
       if (error) {
         reportAuthFailure('passkey', error);
-        this.errorMessage.set(error.message ?? 'Unable to sign in with a passkey.');
+        this.errorMessage.set(error.message ?? $localize`Unable to sign in with a passkey.`);
         return;
       }
       await this.#router.navigateByUrl(this.#auth.consumePostAuthRedirectUrl());

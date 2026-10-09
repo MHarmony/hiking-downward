@@ -1,0 +1,2073 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en-US" trgLang="es">
+  <file id="ngi18n" original="ng.template">
+    <unit id="2826581353496868063">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.ng.html:2</note>
+      </notes>
+      <segment>
+        <source>Language</source>
+        <target>Idioma</target>
+      </segment>
+    </unit>
+    <unit id="6148240505915136274">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.ng.html:8,9</note>
+      </notes>
+      <segment>
+        <source> English </source>
+        <target>Inglés</target>
+      </segment>
+    </unit>
+    <unit id="8909326324754435888">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.ng.html:15,16</note>
+      </notes>
+      <segment>
+        <source> Spanish </source>
+        <target>Español</target>
+      </segment>
+    </unit>
+    <unit id="4611052982328581158">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.routes.ts:17</note>
+      </notes>
+      <segment>
+        <source>HikingDownward</source>
+        <target>HikingDownward</target>
+      </segment>
+    </unit>
+    <unit id="2082968184233147080">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.routes.ts:22</note>
+      </notes>
+      <segment>
+        <source>HikingDownward - Contact Us</source>
+        <target>HikingDownward - Contacto</target>
+      </segment>
+    </unit>
+    <unit id="3756200702483899867">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.routes.ts:27</note>
+      </notes>
+      <segment>
+        <source>HikingDownward - Sign In</source>
+        <target>HikingDownward - Iniciar sesión</target>
+      </segment>
+    </unit>
+    <unit id="9209551595278757284">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.routes.ts:32</note>
+      </notes>
+      <segment>
+        <source>HikingDownward - Sign Up</source>
+        <target>HikingDownward - Crear cuenta</target>
+      </segment>
+    </unit>
+    <unit id="4772843556949780681">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.routes.ts:38</note>
+      </notes>
+      <segment>
+        <source>HikingDownward - Sign Up Complete</source>
+        <target>HikingDownward - Registro completado</target>
+      </segment>
+    </unit>
+    <unit id="8237465837474535970">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.routes.ts:44</note>
+      </notes>
+      <segment>
+        <source>HikingDownward - Two-Factor Authentication</source>
+        <target>HikingDownward - Autenticación en dos pasos</target>
+      </segment>
+    </unit>
+    <unit id="2674925940895611174">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.routes.ts:50</note>
+      </notes>
+      <segment>
+        <source>HikingDownward - Forgot Password</source>
+        <target>HikingDownward - Recuperar contraseña</target>
+      </segment>
+    </unit>
+    <unit id="568349170976053760">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.routes.ts:56</note>
+      </notes>
+      <segment>
+        <source>HikingDownward - Reset Password</source>
+        <target>HikingDownward - Restablecer contraseña</target>
+      </segment>
+    </unit>
+    <unit id="8755143352211359067">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.routes.ts:63</note>
+      </notes>
+      <segment>
+        <source>HikingDownward - Verify Email</source>
+        <target>HikingDownward - Verificar correo electrónico</target>
+      </segment>
+    </unit>
+    <unit id="8942868418919304423">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.routes.ts:70</note>
+      </notes>
+      <segment>
+        <source>HikingDownward - Account Settings</source>
+        <target>HikingDownward - Configuración de la cuenta</target>
+      </segment>
+    </unit>
+    <unit id="5715115418546391362">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.routes.ts:76</note>
+      </notes>
+      <segment>
+        <source>HikingDownward - Account Deleted</source>
+        <target>HikingDownward - Cuenta eliminada</target>
+      </segment>
+    </unit>
+    <unit id="8948214177951924658">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.routes.ts:81</note>
+      </notes>
+      <segment>
+        <source>HikingDownward - 401</source>
+        <target>HikingDownward - 401</target>
+      </segment>
+    </unit>
+    <unit id="2451897508093054067">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.routes.ts:86</note>
+      </notes>
+      <segment>
+        <source>HikingDownward - 403</source>
+        <target>HikingDownward - 403</target>
+      </segment>
+    </unit>
+    <unit id="8646319875079658849">
+      <notes>
+        <note category="location">apps/frontend/src/app/app.routes.ts:91</note>
+      </notes>
+      <segment>
+        <source>HikingDownward - 404</source>
+        <target>HikingDownward - 404</target>
+      </segment>
+    </unit>
+    <unit id="8507166195543036644">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/account-deleted/account-deleted.ng.html:2,3</note>
+      </notes>
+      <segment>
+        <source>Account deleted</source>
+        <target>Cuenta eliminada</target>
+      </segment>
+    </unit>
+    <unit id="3711485155769994123">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/account-deleted/account-deleted.ng.html:4,6</note>
+      </notes>
+      <segment>
+        <source> Your HikingDownward account has been permanently deleted. </source>
+        <target>Tu cuenta de HikingDownward se eliminó de forma permanente.</target>
+      </segment>
+    </unit>
+    <unit id="1499582720686889735">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/account-deleted/account-deleted.ng.html:10,12</note>
+      </notes>
+      <segment>
+        <source> Return home </source>
+        <target>Volver al inicio</target>
+      </segment>
+    </unit>
+    <unit id="4247400351982331798">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/account-settings/account-settings.ng.html:3,4</note>
+      </notes>
+      <segment>
+        <source>Account settings</source>
+        <target>Configuración de la cuenta</target>
+      </segment>
+    </unit>
+    <unit id="3364358008161637365">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/account-settings/account-settings.ng.html:5,6</note>
+      </notes>
+      <segment>
+        <source> Manage your profile, sign-in methods, and account access. </source>
+        <target>Administra tu perfil, tus métodos de inicio de sesión y el acceso a tu cuenta.</target>
+      </segment>
+    </unit>
+    <unit id="594354884381349781">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/account-settings/account-settings.ng.html:10</note>
+      </notes>
+      <segment>
+        <source>Account settings sections</source>
+        <target>Secciones de configuración de la cuenta</target>
+      </segment>
+    </unit>
+    <unit id="5799438277111148696">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/account-settings/account-settings.ng.html:19</note>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ng.html:4,5</note>
+      </notes>
+      <segment>
+        <source> Profile </source>
+        <target>Perfil</target>
+      </segment>
+    </unit>
+    <unit id="4642207799424721579">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/account-settings/account-settings.ng.html:28</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:4,5</note>
+      </notes>
+      <segment>
+        <source> Security </source>
+        <target>Seguridad</target>
+      </segment>
+    </unit>
+    <unit id="460769596304503399">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/account-settings/account-settings.ng.html:37</note>
+      </notes>
+      <segment>
+        <source> Account </source>
+        <target>Cuenta</target>
+      </segment>
+    </unit>
+    <unit id="7966994841744211507">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ng.html:15,16</note>
+      </notes>
+      <segment>
+        <source> Delete account </source>
+        <target>Eliminar cuenta</target>
+      </segment>
+    </unit>
+    <unit id="2489186806733155813">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ng.html:18,19</note>
+      </notes>
+      <segment>
+        <source> This permanently deletes your account. You’ll receive an email confirmation link, and the deletion only completes after you open it. </source>
+        <target>Esta acción elimina tu cuenta de forma permanente. Recibirás un enlace de confirmación por correo electrónico y la eliminación solo se completará cuando lo abras.</target>
+      </segment>
+    </unit>
+    <unit id="2900691884161214550">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ng.html:22,27</note>
+      </notes>
+      <segment>
+        <source> Confirmation will be sent to <pc id="0" equivStart="START_TAG_STRONG" equivEnd="CLOSE_TAG_STRONG" type="other" dispStart="&lt;strong&gt;" dispEnd="&lt;/strong&gt;"><ph id="1" equiv="INTERPOLATION" disp="{{ emailAddress() }}" /></pc> . </source>
+        <target>La confirmación se enviará a <pc id="0" equivStart="START_TAG_STRONG" equivEnd="CLOSE_TAG_STRONG" type="other" dispStart="&lt;strong&gt;" dispEnd="&lt;/strong&gt;"><ph id="1" equiv="INTERPOLATION" disp="{{ emailAddress() }}" /></pc>.</target>
+      </segment>
+    </unit>
+    <unit id="436194547298374957">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ng.html:36,39</note>
+      </notes>
+      <segment>
+        <source> Current password <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span class=&quot;font-normal text-gray-600 dark:text-gray-400&quot;&gt;" dispEnd="&lt;/span&gt;">(if you have one)</pc></source>
+        <target>Contraseña actual <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span class=&quot;font-normal text-gray-600 dark:text-gray-400&quot;&gt;" dispEnd="&lt;/span&gt;">(si tienes una)</pc></target>
+      </segment>
+    </unit>
+    <unit id="4173491183807538157">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ng.html:55,56</note>
+      </notes>
+      <segment>
+        <source> If you don’t use a password, your session must be recent to request deletion. </source>
+        <target>Si no usas contraseña, tu sesión debe ser reciente para solicitar la eliminación.</target>
+      </segment>
+    </unit>
+    <unit id="7866786557241008626">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ng.html:64,65</note>
+      </notes>
+      <segment>
+        <source> Type DELETE to confirm </source>
+        <target>Escribe DELETE para confirmar</target>
+      </segment>
+    </unit>
+    <unit id="4724384241360862410">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ng.html:102,103</note>
+      </notes>
+      <segment>
+        <source> Send deletion confirmation </source>
+        <target>Enviar confirmación de eliminación</target>
+      </segment>
+    </unit>
+    <unit id="6785988725371964672">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:30</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:56</note>
+      </notes>
+      <segment>
+        <source>Password must be no more than 128 characters.</source>
+        <target>La contraseña no puede superar los 128 caracteres.</target>
+      </segment>
+    </unit>
+    <unit id="16413049577373733">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:36</note>
+      </notes>
+      <segment>
+        <source>Type DELETE to confirm account deletion.</source>
+        <target>Escribe DELETE para confirmar la eliminación de la cuenta.</target>
+      </segment>
+    </unit>
+    <unit id="7007076451885734546">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:51</note>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:109</note>
+      </notes>
+      <segment>
+        <source>your account email address</source>
+        <target>la dirección de correo electrónico de tu cuenta</target>
+      </segment>
+    </unit>
+    <unit id="6259765537947007531">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:77</note>
+      </notes>
+      <segment>
+        <source>Unable to request account deletion.</source>
+        <target>No se pudo solicitar la eliminación de la cuenta.</target>
+      </segment>
+    </unit>
+    <unit id="6403387466235798986">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:83</note>
+      </notes>
+      <segment>
+        <source>A confirmation link was sent to <ph id="0" equiv="emailAddress" disp="this.emailAddress()" />. Use that link to complete deletion.</source>
+        <target>Se envió un enlace de confirmación a <ph id="0" equiv="emailAddress" disp="this.emailAddress()" />. Úsalo para completar la eliminación.</target>
+      </segment>
+    </unit>
+    <unit id="4744589444219445795">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:87</note>
+      </notes>
+      <segment>
+        <source>Unable to request account deletion. Check your connection and try again.</source>
+        <target>No se pudo solicitar la eliminación de la cuenta. Comprueba tu conexión e inténtalo de nuevo.</target>
+      </segment>
+    </unit>
+    <unit id="6065256442019317931">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ng.html:7,8</note>
+      </notes>
+      <segment>
+        <source> Update the name and username shown on your account. </source>
+        <target>Actualiza el nombre y el nombre de usuario que aparecen en tu cuenta.</target>
+      </segment>
+    </unit>
+    <unit id="8597307603992498874">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ng.html:13,15</note>
+      </notes>
+      <segment>
+        <source> Loading your profile… </source>
+        <target>Cargando tu perfil…</target>
+      </segment>
+    </unit>
+    <unit id="7573363145042178302">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ng.html:26,27</note>
+      </notes>
+      <segment>
+        <source> Display name </source>
+        <target>Nombre visible</target>
+      </segment>
+    </unit>
+    <unit id="5381513611853730068">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ng.html:49,50</note>
+      </notes>
+      <segment>
+        <source> Username </source>
+        <target>Nombre de usuario</target>
+      </segment>
+    </unit>
+    <unit id="7581144485449120695">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ng.html:74,75</note>
+      </notes>
+      <segment>
+        <source> Public username </source>
+        <target>Nombre de usuario público</target>
+      </segment>
+    </unit>
+    <unit id="3923063526031081896">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ng.html:109,110</note>
+      </notes>
+      <segment>
+        <source> Save profile </source>
+        <target>Guardar perfil</target>
+      </segment>
+    </unit>
+    <unit id="285348894812690558">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:28</note>
+      </notes>
+      <segment>
+        <source>Enter your display name.</source>
+        <target>Escribe tu nombre visible.</target>
+      </segment>
+    </unit>
+    <unit id="4424822059426238054">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:29</note>
+      </notes>
+      <segment>
+        <source>Display name must be 80 characters or fewer.</source>
+        <target>El nombre visible no puede superar los 80 caracteres.</target>
+      </segment>
+    </unit>
+    <unit id="1204369468971061187">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:31</note>
+      </notes>
+      <segment>
+        <source>Public username must be 50 characters or fewer.</source>
+        <target>El nombre de usuario público no puede superar los 50 caracteres.</target>
+      </segment>
+    </unit>
+    <unit id="3097807716859260337">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:39</note>
+      </notes>
+      <segment>
+        <source>Username must be 3 to 30 characters.</source>
+        <target>El nombre de usuario debe tener entre 3 y 30 caracteres.</target>
+      </segment>
+    </unit>
+    <unit id="4539460434431346009">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:44</note>
+      </notes>
+      <segment>
+        <source>Use letters, numbers, underscores, and hyphens only.</source>
+        <target>Usa solo letras, números, guiones bajos y guiones.</target>
+      </segment>
+    </unit>
+    <unit id="3916390336655266144">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:48</note>
+      </notes>
+      <segment>
+        <source>That username is reserved.</source>
+        <target>Ese nombre de usuario está reservado.</target>
+      </segment>
+    </unit>
+    <unit id="379178500204227116">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:62</note>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:128</note>
+      </notes>
+      <segment>
+        <source>Unable to load your profile. Refresh the page to try again.</source>
+        <target>No se pudo cargar tu perfil. Actualiza la página e inténtalo de nuevo.</target>
+      </segment>
+    </unit>
+    <unit id="4263558935127234324">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:99</note>
+      </notes>
+      <segment>
+        <source>Unable to save your profile.</source>
+        <target>No se pudo guardar tu perfil.</target>
+      </segment>
+    </unit>
+    <unit id="3894326505098597614">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:102</note>
+      </notes>
+      <segment>
+        <source>Profile saved.</source>
+        <target>Perfil guardado.</target>
+      </segment>
+    </unit>
+    <unit id="8683828232798554719">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:105</note>
+      </notes>
+      <segment>
+        <source>Unable to save your profile. Check your connection and try again.</source>
+        <target>No se pudo guardar tu perfil. Comprueba tu conexión e inténtalo de nuevo.</target>
+      </segment>
+    </unit>
+    <unit id="5799570930764065890">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:7,8</note>
+      </notes>
+      <segment>
+        <source> Manage how you sign in and which devices can access your account. </source>
+        <target>Administra cómo inicias sesión y qué dispositivos pueden acceder a tu cuenta.</target>
+      </segment>
+    </unit>
+    <unit id="4323729083648805304">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:13,15</note>
+      </notes>
+      <segment>
+        <source> Loading security settings… </source>
+        <target>Cargando la configuración de seguridad…</target>
+      </segment>
+    </unit>
+    <unit id="6235392592614223053">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:20,21</note>
+        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ng.html:29,30</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ng.html:29,30</note>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ng.html:46,47</note>
+      </notes>
+      <segment>
+        <source> Email address </source>
+        <target>Dirección de correo electrónico</target>
+      </segment>
+    </unit>
+    <unit id="5014960004929658159">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:30</note>
+      </notes>
+      <segment>
+        <source>Verified</source>
+        <target>Verificada</target>
+      </segment>
+    </unit>
+    <unit id="991761096918819245">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:32</note>
+      </notes>
+      <segment>
+        <source>Not verified</source>
+        <target>Sin verificar</target>
+      </segment>
+    </unit>
+    <unit id="6301321530539595027">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:37,38</note>
+      </notes>
+      <segment>
+        <source> Check your current inbox to approve the change, then confirm the new address. </source>
+        <target>Revisa tu bandeja de entrada actual para aprobar el cambio y luego confirma la nueva dirección.</target>
+      </segment>
+    </unit>
+    <unit id="6266915623772003681">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:51,52</note>
+      </notes>
+      <segment>
+        <source> New email address </source>
+        <target>Nueva dirección de correo electrónico</target>
+      </segment>
+    </unit>
+    <unit id="4765112978550197527">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:74,75</note>
+      </notes>
+      <segment>
+        <source> Change email </source>
+        <target>Cambiar correo electrónico</target>
+      </segment>
+    </unit>
+    <unit id="1557080315836233628">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:83,84</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ng.html:57,58</note>
+      </notes>
+      <segment>
+        <source> Password </source>
+        <target>Contraseña</target>
+      </segment>
+    </unit>
+    <unit id="8902911588875274311">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:94,95</note>
+      </notes>
+      <segment>
+        <source> Current password </source>
+        <target>Contraseña actual</target>
+      </segment>
+    </unit>
+    <unit id="5952081203335339113">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:117,118</note>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ng.html:35,36</note>
+      </notes>
+      <segment>
+        <source> New password </source>
+        <target>Nueva contraseña</target>
+      </segment>
+    </unit>
+    <unit id="1207177626237229346">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:140,141</note>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ng.html:61,62</note>
+      </notes>
+      <segment>
+        <source> Confirm new password </source>
+        <target>Confirmar nueva contraseña</target>
+      </segment>
+    </unit>
+    <unit id="8626615958100222841">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:164,165</note>
+      </notes>
+      <segment>
+        <source> Change password </source>
+        <target>Cambiar contraseña</target>
+      </segment>
+    </unit>
+    <unit id="2968461939460650342">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:172,173</note>
+      </notes>
+      <segment>
+        <source> Email a password setup link </source>
+        <target>Enviar enlace para configurar una contraseña</target>
+      </segment>
+    </unit>
+    <unit id="2958172451655489935">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:182,183</note>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ng.html:14,15</note>
+      </notes>
+      <segment>
+        <source> Two-factor authentication </source>
+        <target>Autenticación en dos pasos</target>
+      </segment>
+    </unit>
+    <unit id="7150052164225072379">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:186</note>
+      </notes>
+      <segment>
+        <source>Authenticator app is enabled.</source>
+        <target>La aplicación de autenticación está activada.</target>
+      </segment>
+    </unit>
+    <unit id="7940627317130219512">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:188</note>
+      </notes>
+      <segment>
+        <source>Add an authenticator app as a second sign-in step.</source>
+        <target>Añade una aplicación de autenticación como segundo paso para iniciar sesión.</target>
+      </segment>
+    </unit>
+    <unit id="2983328487277084050">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:197,200</note>
+      </notes>
+      <segment>
+        <source> Current password <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span class=&quot;font-normal text-gray-600 dark:text-gray-400&quot;&gt;" dispEnd="&lt;/span&gt;">(if set)</pc></source>
+        <target>Contraseña actual <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span class=&quot;font-normal text-gray-600 dark:text-gray-400&quot;&gt;" dispEnd="&lt;/span&gt;">(si está configurada)</pc></target>
+      </segment>
+    </unit>
+    <unit id="7216588093831679357">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:215,216</note>
+      </notes>
+      <segment>
+        <source> Set up authenticator app </source>
+        <target>Configurar aplicación de autenticación</target>
+      </segment>
+    </unit>
+    <unit id="6187212119801401519">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:221,222</note>
+      </notes>
+      <segment>
+        <source> Scan this QR code in your authenticator app. </source>
+        <target>Escanea este código QR con tu aplicación de autenticación.</target>
+      </segment>
+    </unit>
+    <unit id="8770874733321859899">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:227,228</note>
+      </notes>
+      <segment>
+        <source>Authenticator app setup QR code</source>
+        <target>Código QR para configurar la aplicación de autenticación</target>
+      </segment>
+    </unit>
+    <unit id="878689872478127617">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:233,238</note>
+      </notes>
+      <segment>
+        <source> Or enter setup key <pc id="0" equivStart="START_TAG_CODE" equivEnd="CLOSE_TAG_CODE" type="other" dispStart="&lt;code class=&quot;rounded bg-gray-100 px-2 py-1 break-all dark:bg-white/10&quot;&gt;" dispEnd="&lt;/code&gt;"><ph id="1" equiv="INTERPOLATION" disp="{{ manualTotpKey() }}" /></pc></source>
+        <target>O introduce la clave de configuración <pc id="0" equivStart="START_TAG_CODE" equivEnd="CLOSE_TAG_CODE" type="other" dispStart="&lt;code class=&quot;rounded bg-gray-100 px-2 py-1 break-all dark:bg-white/10&quot;&gt;" dispEnd="&lt;/code&gt;"><ph id="1" equiv="INTERPOLATION" disp="{{ manualTotpKey() }}" /></pc></target>
+      </segment>
+    </unit>
+    <unit id="4892917841493787224">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:244,245</note>
+      </notes>
+      <segment>
+        <source> Authenticator code </source>
+        <target>Código de autenticación</target>
+      </segment>
+    </unit>
+    <unit id="346177827074043290">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:267,268</note>
+      </notes>
+      <segment>
+        <source> Verify and enable </source>
+        <target>Verificar y activar</target>
+      </segment>
+    </unit>
+    <unit id="5636864430676503879">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:278,279</note>
+      </notes>
+      <segment>
+        <source> Regenerate backup codes </source>
+        <target>Generar nuevos códigos de respaldo</target>
+      </segment>
+    </unit>
+    <unit id="9104072115884252833">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:286,287</note>
+      </notes>
+      <segment>
+        <source> Disable two-factor authentication </source>
+        <target>Desactivar la autenticación en dos pasos</target>
+      </segment>
+    </unit>
+    <unit id="5653699239734075539">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:292,293</note>
+      </notes>
+      <segment>
+        <source>Save your backup codes</source>
+        <target>Guarda tus códigos de respaldo</target>
+      </segment>
+    </unit>
+    <unit id="3548504336236782816">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:294,295</note>
+      </notes>
+      <segment>
+        <source> Each code can be used once. Keep them somewhere private. </source>
+        <target>Cada código se puede usar una sola vez. Guárdalos en un lugar privado.</target>
+      </segment>
+    </unit>
+    <unit id="182813902273790930">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:315,316</note>
+      </notes>
+      <segment>
+        <source> Passkeys </source>
+        <target>Llaves de acceso</target>
+      </segment>
+    </unit>
+    <unit id="6973160112616982215">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:319,320</note>
+      </notes>
+      <segment>
+        <source> Passkeys require a supported browser and a secure connection. </source>
+        <target>Las llaves de acceso requieren un navegador compatible y una conexión segura.</target>
+      </segment>
+    </unit>
+    <unit id="7989429316487385448">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:328,329</note>
+      </notes>
+      <segment>
+        <source> Name for this passkey </source>
+        <target>Nombre para esta llave de acceso</target>
+      </segment>
+    </unit>
+    <unit id="8482153247740250355">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:343,344</note>
+      </notes>
+      <segment>
+        <source> Add passkey </source>
+        <target>Añadir llave de acceso</target>
+      </segment>
+    </unit>
+    <unit id="8963624956355483796">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:347,348</note>
+      </notes>
+      <segment>
+        <source>No passkeys are registered.</source>
+        <target>No hay llaves de acceso registradas.</target>
+      </segment>
+    </unit>
+    <unit id="3886227861353735944">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:357</note>
+      </notes>
+      <segment>
+        <source> Passkey name </source>
+        <target>Nombre de la llave de acceso</target>
+      </segment>
+    </unit>
+    <unit id="7827819847218677784">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:365,367</note>
+      </notes>
+      <segment>
+        <source> Added <ph id="0" equiv="INTERPOLATION" disp="{{ passkey.createdAt | date: 'mediumDate' }}" /></source>
+        <target>Fecha de alta: <ph id="0" equiv="INTERPOLATION" disp="{{ passkey.createdAt | date: 'mediumDate' }}" /></target>
+      </segment>
+    </unit>
+    <unit id="388882202161885541">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:373,374</note>
+      </notes>
+      <segment>
+        <source> Save name </source>
+        <target>Guardar nombre</target>
+      </segment>
+    </unit>
+    <unit id="1757461646387590800">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:377,378</note>
+      </notes>
+      <segment>
+        <source>Remove this passkey?</source>
+        <target>¿Quieres eliminar esta llave de acceso?</target>
+      </segment>
+    </unit>
+    <unit id="6249484391846924804">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:383</note>
+      </notes>
+      <segment>
+        <source> Confirm </source>
+        <target>Confirmar</target>
+      </segment>
+    </unit>
+    <unit id="2330577642930707695">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:390</note>
+      </notes>
+      <segment>
+        <source> Cancel </source>
+        <target>Cancelar</target>
+      </segment>
+    </unit>
+    <unit id="8212177249756365917">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:399,400</note>
+      </notes>
+      <segment>
+        <source> Remove </source>
+        <target>Eliminar</target>
+      </segment>
+    </unit>
+    <unit id="2651997006575927803">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:415,416</note>
+      </notes>
+      <segment>
+        <source> Active sessions </source>
+        <target>Sesiones activas</target>
+      </segment>
+    </unit>
+    <unit id="8358951986840008811">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:418,419</note>
+      </notes>
+      <segment>
+        <source> Sign out devices you no longer use. </source>
+        <target>Cierra sesión en los dispositivos que ya no uses.</target>
+      </segment>
+    </unit>
+    <unit id="6609943962734904663">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:427,428</note>
+      </notes>
+      <segment>
+        <source> Sign out other sessions </source>
+        <target>Cerrar las demás sesiones</target>
+      </segment>
+    </unit>
+    <unit id="6278023279767192906">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:437,438</note>
+      </notes>
+      <segment>
+        <source>No active sessions found.</source>
+        <target>No se encontraron sesiones activas.</target>
+      </segment>
+    </unit>
+    <unit id="4524360285249710665">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:445</note>
+      </notes>
+      <segment>
+        <source>Browser session</source>
+        <target>Sesión del navegador</target>
+      </segment>
+    </unit>
+    <unit id="3489203600912379870">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:447,448</note>
+      </notes>
+      <segment>
+        <source>This device</source>
+        <target>Este dispositivo</target>
+      </segment>
+    </unit>
+    <unit id="1035870164068608777">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:452,454</note>
+      </notes>
+      <segment>
+        <source> Started <ph id="0" equiv="INTERPOLATION" disp="{{ session.createdAt | date: 'medium' }}" /> · Expires <ph id="1" equiv="INTERPOLATION_1" disp="{{ session.expiresAt |               date: 'medium' }}" /></source>
+        <target>Inicio: <ph id="0" equiv="INTERPOLATION" disp="{{ session.createdAt | date: 'medium' }}" /> · Vence: <ph id="1" equiv="INTERPOLATION_1" disp="{{ session.expiresAt |               date: 'medium' }}" /></target>
+      </segment>
+    </unit>
+    <unit id="6073550374587889802">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:456,457</note>
+      </notes>
+      <segment>
+        <source>· <ph id="0" equiv="INTERPOLATION" disp="{{ session.ipAddress }}" /></source>
+        <target>· <ph id="0" equiv="INTERPOLATION" disp="{{ session.ipAddress }}" /></target>
+      </segment>
+    </unit>
+    <unit id="3643550915375207273">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:466</note>
+      </notes>
+      <segment>
+        <source>Sign out this device</source>
+        <target>Cerrar sesión en este dispositivo</target>
+      </segment>
+    </unit>
+    <unit id="2949848596707725099">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ng.html:468</note>
+      </notes>
+      <segment>
+        <source>Sign out</source>
+        <target>Cerrar sesión</target>
+      </segment>
+    </unit>
+    <unit id="6646688803486199365">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:47</note>
+      </notes>
+      <segment>
+        <source>Enter your new email address.</source>
+        <target>Escribe tu nueva dirección de correo electrónico.</target>
+      </segment>
+    </unit>
+    <unit id="2112768397949905814">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:48</note>
+        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ts:68</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:92</note>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ts:78</note>
+      </notes>
+      <segment>
+        <source>Enter a valid email address.</source>
+        <target>Escribe una dirección de correo electrónico válida.</target>
+      </segment>
+    </unit>
+    <unit id="9121424381282805046">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:52</note>
+      </notes>
+      <segment>
+        <source>Enter your current password.</source>
+        <target>Escribe tu contraseña actual.</target>
+      </segment>
+    </unit>
+    <unit id="9192150750427245378">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:53</note>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:84</note>
+      </notes>
+      <segment>
+        <source>Enter a new password.</source>
+        <target>Escribe una nueva contraseña.</target>
+      </segment>
+    </unit>
+    <unit id="5906359199564086241">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:54</note>
+      </notes>
+      <segment>
+        <source>Password must be at least 8 characters.</source>
+        <target>La contraseña debe tener al menos 8 caracteres.</target>
+      </segment>
+    </unit>
+    <unit id="5182539120711458362">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:58</note>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:96</note>
+      </notes>
+      <segment>
+        <source>Confirm your new password.</source>
+        <target>Confirma tu nueva contraseña.</target>
+      </segment>
+    </unit>
+    <unit id="2561326148159407958">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:61</note>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:101</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:116</note>
+      </notes>
+      <segment>
+        <source>Passwords must match.</source>
+        <target>Las contraseñas deben coincidir.</target>
+      </segment>
+    </unit>
+    <unit id="804793265126552077">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:72</note>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ng.html:18</note>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.utils.ts:39</note>
+      </notes>
+      <segment>
+        <source>Enter the 6-digit code from your authenticator app.</source>
+        <target>Escribe el código de 6 dígitos de tu aplicación de autenticación.</target>
+      </segment>
+    </unit>
+    <unit id="7907116368491097057">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:111</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:441</note>
+      </notes>
+      <segment>
+        <source>Unable to load security settings. Refresh the page to try again.</source>
+        <target>No se pudo cargar la configuración de seguridad. Actualiza la página e inténtalo de nuevo.</target>
+      </segment>
+    </unit>
+    <unit id="7861562218064676514">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:135</note>
+      </notes>
+      <segment>
+        <source>Unable to request an email change.</source>
+        <target>No se pudo solicitar el cambio de correo electrónico.</target>
+      </segment>
+    </unit>
+    <unit id="7632096107403805438">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:141</note>
+      </notes>
+      <segment>
+        <source>Confirmation instructions were sent to <ph id="0" equiv="emailAddress" disp="this.emailAddress()" />. Follow them to finish changing your email.</source>
+        <target>Se enviaron instrucciones de confirmación a <ph id="0" equiv="emailAddress" disp="this.emailAddress()" />. Sigue los pasos para terminar de cambiar tu correo electrónico.</target>
+      </segment>
+    </unit>
+    <unit id="5924732138040865931">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:173</note>
+      </notes>
+      <segment>
+        <source>Unable to change your password.</source>
+        <target>No se pudo cambiar la contraseña.</target>
+      </segment>
+    </unit>
+    <unit id="6556865132351795235">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:178</note>
+      </notes>
+      <segment>
+        <source>Password changed. Other sessions were signed out.</source>
+        <target>Se cambió la contraseña. Se cerraron las demás sesiones.</target>
+      </segment>
+    </unit>
+    <unit id="1093358842876886490">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:200</note>
+      </notes>
+      <segment>
+        <source>Unable to send a password setup link.</source>
+        <target>No se pudo enviar un enlace para configurar la contraseña.</target>
+      </segment>
+    </unit>
+    <unit id="1223745264067059978">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:205</note>
+      </notes>
+      <segment>
+        <source>A password setup link was sent to <ph id="0" equiv="emailAddress" disp="this.emailAddress()" />.</source>
+        <target>Se envió un enlace para configurar la contraseña a <ph id="0" equiv="emailAddress" disp="this.emailAddress()" />. </target>
+      </segment>
+    </unit>
+    <unit id="8089692315169013023">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:228</note>
+      </notes>
+      <segment>
+        <source>Unable to start authenticator setup.</source>
+        <target>No se pudo iniciar la configuración de la aplicación de autenticación.</target>
+      </segment>
+    </unit>
+    <unit id="2730525274401089757">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:238</note>
+      </notes>
+      <segment>
+        <source>Unable to create the setup QR code. Use the setup key instead.</source>
+        <target>No se pudo crear el código QR de configuración. Usa la clave de configuración.</target>
+      </segment>
+    </unit>
+    <unit id="7816103001137822517">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:262</note>
+      </notes>
+      <segment>
+        <source>Unable to verify this authenticator code.</source>
+        <target>No se pudo verificar este código de autenticación.</target>
+      </segment>
+    </unit>
+    <unit id="2560268464180088571">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:273</note>
+      </notes>
+      <segment>
+        <source>Two-factor authentication is enabled. Save your backup codes.</source>
+        <target>La autenticación en dos pasos está activada. Guarda tus códigos de respaldo.</target>
+      </segment>
+    </unit>
+    <unit id="5767650259795109024">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:293</note>
+      </notes>
+      <segment>
+        <source>Unable to disable two-factor authentication.</source>
+        <target>No se pudo desactivar la autenticación en dos pasos.</target>
+      </segment>
+    </unit>
+    <unit id="4892838806625807337">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:301</note>
+      </notes>
+      <segment>
+        <source>Two-factor authentication is disabled.</source>
+        <target>La autenticación en dos pasos está desactivada.</target>
+      </segment>
+    </unit>
+    <unit id="2453753329405843002">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:315</note>
+      </notes>
+      <segment>
+        <source>Unable to generate backup codes.</source>
+        <target>No se pudieron generar los códigos de respaldo.</target>
+      </segment>
+    </unit>
+    <unit id="4040366258700651500">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:320</note>
+      </notes>
+      <segment>
+        <source>These new codes replace all previously issued backup codes.</source>
+        <target>Estos códigos nuevos reemplazan todos los anteriores.</target>
+      </segment>
+    </unit>
+    <unit id="3500974886501797910">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:322</note>
+      </notes>
+      <segment>
+        <source>New backup codes generated. Save them now.</source>
+        <target>Se generaron nuevos códigos de respaldo. Guárdalos ahora.</target>
+      </segment>
+    </unit>
+    <unit id="8396867529514529579">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:333</note>
+      </notes>
+      <segment>
+        <source>Unable to add this passkey.</source>
+        <target>No se pudo añadir esta llave de acceso.</target>
+      </segment>
+    </unit>
+    <unit id="631000244808948820">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:337</note>
+      </notes>
+      <segment>
+        <source>Passkey added.</source>
+        <target>Llave de acceso añadida.</target>
+      </segment>
+    </unit>
+    <unit id="748604126515731273">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:366</note>
+      </notes>
+      <segment>
+        <source>Unable to rename this passkey.</source>
+        <target>No se pudo cambiar el nombre de esta llave de acceso.</target>
+      </segment>
+    </unit>
+    <unit id="2197291451354752941">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:369</note>
+      </notes>
+      <segment>
+        <source>Passkey renamed.</source>
+        <target>Nombre de la llave de acceso actualizado.</target>
+      </segment>
+    </unit>
+    <unit id="6640807627031916898">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:383</note>
+      </notes>
+      <segment>
+        <source>Unable to remove this passkey.</source>
+        <target>No se pudo eliminar esta llave de acceso.</target>
+      </segment>
+    </unit>
+    <unit id="251356013038434452">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:386</note>
+      </notes>
+      <segment>
+        <source>Passkey removed.</source>
+        <target>Llave de acceso eliminada.</target>
+      </segment>
+    </unit>
+    <unit id="1309399351322514414">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:398</note>
+      </notes>
+      <segment>
+        <source>Unable to sign out this session.</source>
+        <target>No se pudo cerrar la sesión de este dispositivo.</target>
+      </segment>
+    </unit>
+    <unit id="4562673020845265081">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:405</note>
+      </notes>
+      <segment>
+        <source>Session signed out.</source>
+        <target>Se cerró la sesión.</target>
+      </segment>
+    </unit>
+    <unit id="2173471906224650335">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:417</note>
+      </notes>
+      <segment>
+        <source>Unable to sign out other sessions.</source>
+        <target>No se pudo cerrar la sesión en los demás dispositivos.</target>
+      </segment>
+    </unit>
+    <unit id="4784800066220710618">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:421</note>
+      </notes>
+      <segment>
+        <source>Other sessions were signed out.</source>
+        <target>Se cerraron las demás sesiones.</target>
+      </segment>
+    </unit>
+    <unit id="7064959157597407158">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:466</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:481</note>
+      </notes>
+      <segment>
+        <source>Unable to load active sessions.</source>
+        <target>No se pudieron cargar las sesiones activas.</target>
+      </segment>
+    </unit>
+    <unit id="4193403352510434378">
+      <notes>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:492</note>
+      </notes>
+      <segment>
+        <source>The request could not be completed. Check your connection and try again.</source>
+        <target>No se pudo completar la solicitud. Comprueba tu conexión e inténtalo de nuevo.</target>
+      </segment>
+    </unit>
+    <unit id="5432555688172514704">
+      <notes>
+        <note category="location">libs/frontend/contact-us/src/lib/contact-us/contact-us.ng.html:6,7</note>
+      </notes>
+      <segment>
+        <source> Contact support </source>
+        <target>Contactar con soporte</target>
+      </segment>
+    </unit>
+    <unit id="7749283915695282945">
+      <notes>
+        <note category="location">libs/frontend/contact-us/src/lib/contact-us/contact-us.ng.html:9,10</note>
+      </notes>
+      <segment>
+        <source> Have a question or need assistance? We're here to help. </source>
+        <target>¿Tienes alguna pregunta o necesitas ayuda? Estamos aquí para ayudarte.</target>
+      </segment>
+    </unit>
+    <unit id="2654186826663646452">
+      <notes>
+        <note category="location">libs/frontend/contact-us/src/lib/contact-us/contact-us.ng.html:32,33</note>
+      </notes>
+      <segment>
+        <source> General support </source>
+        <target>Soporte general</target>
+      </segment>
+    </unit>
+    <unit id="3097939303560010672">
+      <notes>
+        <note category="location">libs/frontend/contact-us/src/lib/contact-us/contact-us.ng.html:35,36</note>
+      </notes>
+      <segment>
+        <source> Send us an email for any general inquiries. </source>
+        <target>Escríbenos para consultas generales.</target>
+      </segment>
+    </unit>
+    <unit id="8038640529251232595">
+      <notes>
+        <note category="location">libs/frontend/contact-us/src/lib/contact-us/contact-us.ng.html:43,46</note>
+      </notes>
+      <segment>
+        <source> Email support <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></source>
+        <target>Soporte por correo electrónico <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></target>
+      </segment>
+    </unit>
+    <unit id="2473851928589730348">
+      <notes>
+        <note category="location">libs/frontend/contact-us/src/lib/contact-us/contact-us.ng.html:67,68</note>
+      </notes>
+      <segment>
+        <source>Bug reports</source>
+        <target>Informes de errores</target>
+      </segment>
+    </unit>
+    <unit id="5184767536448982813">
+      <notes>
+        <note category="location">libs/frontend/contact-us/src/lib/contact-us/contact-us.ng.html:69,70</note>
+      </notes>
+      <segment>
+        <source> Report any bugs or issues you encounter while using our platform. </source>
+        <target>Informa de cualquier error o problema que encuentres al usar la plataforma.</target>
+      </segment>
+    </unit>
+    <unit id="2042208627700150310">
+      <notes>
+        <note category="location">libs/frontend/contact-us/src/lib/contact-us/contact-us.ng.html:77,80</note>
+      </notes>
+      <segment>
+        <source> Report a bug <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></source>
+        <target>Informar de un error <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></target>
+      </segment>
+    </unit>
+    <unit id="hiking-illustration.alt">
+      <notes>
+        <note category="location">libs/frontend/home/src/lib/home/home.ng.html:8,10</note>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ng.html:9,11</note>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ng.html:9,11</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ng.html:9,11</note>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ng.html:9,11</note>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ng.html:9,11</note>
+      </notes>
+      <segment>
+        <source>Stick figure hiking toward a mountain</source>
+        <target>Figura de senderismo rumbo a una montaña</target>
+      </segment>
+    </unit>
+    <unit id="home.title">
+      <notes>
+        <note category="location">libs/frontend/home/src/lib/home/home.ng.html:13,15</note>
+        <note category="description">Welcome headline on the home page</note>
+        <note category="meaning">home page headline</note>
+      </notes>
+      <segment>
+        <source> Welcome to HikingDownward </source>
+        <target>Te damos la bienvenida a HikingDownward</target>
+      </segment>
+    </unit>
+    <unit id="2739660291517463208">
+      <notes>
+        <note category="location">libs/frontend/home/src/lib/home/home.ng.html:16,18</note>
+      </notes>
+      <segment>
+        <source> We're getting things ready. Sign in or create an account to get started. </source>
+        <target>Estamos preparando todo. Inicia sesión o crea una cuenta para comenzar.</target>
+      </segment>
+    </unit>
+    <unit id="6663783128602596673">
+      <notes>
+        <note category="location">libs/frontend/home/src/lib/home/home.ng.html:23,24</note>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ng.html:121,122</note>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ng.html:107,108</note>
+      </notes>
+      <segment>
+        <source> Sign in </source>
+        <target>Iniciar sesión</target>
+      </segment>
+    </unit>
+    <unit id="5260020783801223797">
+      <notes>
+        <note category="location">libs/frontend/home/src/lib/home/home.ng.html:29,32</note>
+      </notes>
+      <segment>
+        <source> Create an account <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></source>
+        <target>Crear una cuenta <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></target>
+      </segment>
+    </unit>
+    <unit id="3257605143052145807">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ng.html:13,14</note>
+      </notes>
+      <segment>
+        <source> Reset your password </source>
+        <target>Restablecer tu contraseña</target>
+      </segment>
+    </unit>
+    <unit id="8477168918531089344">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ng.html:16,17</note>
+      </notes>
+      <segment>
+        <source> Enter your account's email address and we'll send you a link to choose a new password. </source>
+        <target>Escribe el correo electrónico de tu cuenta y te enviaremos un enlace para elegir una contraseña nueva.</target>
+      </segment>
+    </unit>
+    <unit id="8988972272735242827">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ng.html:62,64</note>
+      </notes>
+      <segment>
+        <source> If an account exists for <ph id="0" equiv="INTERPOLATION" disp="{{ sentTo }}" />, we sent it a password reset link. </source>
+        <target>Si existe una cuenta para <ph id="0" equiv="INTERPOLATION" disp="{{ sentTo }}" />, enviamos un enlace para restablecer la contraseña.</target>
+      </segment>
+    </unit>
+    <unit id="3464219762040406305">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ng.html:72,73</note>
+      </notes>
+      <segment>
+        <source> Send reset link </source>
+        <target>Enviar enlace de restablecimiento</target>
+      </segment>
+    </unit>
+    <unit id="9155752269182001378">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ng.html:81,82</note>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ng.html:128,129</note>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ng.html:109,110</note>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ng.html:98,99</note>
+      </notes>
+      <segment>
+        <source> Back to sign in </source>
+        <target>Volver a iniciar sesión</target>
+      </segment>
+    </unit>
+    <unit id="3538634276910895484">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ts:64</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:88</note>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ts:74</note>
+      </notes>
+      <segment>
+        <source>Enter your email address.</source>
+        <target>Escribe tu dirección de correo electrónico.</target>
+      </segment>
+    </unit>
+    <unit id="4299992624267335773">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ts:124</note>
+      </notes>
+      <segment>
+        <source>Unable to send a password reset link.</source>
+        <target>No se pudo enviar un enlace para restablecer la contraseña.</target>
+      </segment>
+    </unit>
+    <unit id="5483966806334054405">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ng.html:14,15</note>
+      </notes>
+      <segment>
+        <source> Choose a new password </source>
+        <target>Elige una contraseña nueva</target>
+      </segment>
+    </unit>
+    <unit id="529062116797324606">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ng.html:23,24</note>
+      </notes>
+      <segment>
+        <source> This password reset link is invalid or has expired. </source>
+        <target>Este enlace para restablecer la contraseña no es válido o ha caducado.</target>
+      </segment>
+    </unit>
+    <unit id="913157326139146194">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ng.html:89,90</note>
+      </notes>
+      <segment>
+        <source> Reset password </source>
+        <target>Restablecer contraseña</target>
+      </segment>
+    </unit>
+    <unit id="5676598242879329322">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ng.html:102,103</note>
+      </notes>
+      <segment>
+        <source> Your password has been reset. Sign in with your new password. </source>
+        <target>Se restableció tu contraseña. Inicia sesión con la nueva contraseña.</target>
+      </segment>
+    </unit>
+    <unit id="5372949084318344737">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ng.html:114,115</note>
+      </notes>
+      <segment>
+        <source> Request a new reset link </source>
+        <target>Solicitar un nuevo enlace</target>
+      </segment>
+    </unit>
+    <unit id="5625603433986567101">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:88</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:100</note>
+      </notes>
+      <segment>
+        <source>Password must be at least <ph id="0" equiv="minLength" disp="MIN_PASSWORD_LENGTH" /> characters.</source>
+        <target>La contraseña debe tener al menos <ph id="0" equiv="minLength" disp="MIN_PASSWORD_LENGTH" /> caracteres.</target>
+      </segment>
+    </unit>
+    <unit id="142165942262266218">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:92</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:104</note>
+      </notes>
+      <segment>
+        <source>Password must be no more than <ph id="0" equiv="maxLength" disp="MAX_PASSWORD_LENGTH" /> characters.</source>
+        <target>La contraseña no puede superar los <ph id="0" equiv="maxLength" disp="MAX_PASSWORD_LENGTH" /> caracteres.</target>
+      </segment>
+    </unit>
+    <unit id="9014047478111512177">
+      <notes>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:156</note>
+      </notes>
+      <segment>
+        <source>Unable to reset your password.</source>
+        <target>No se pudo restablecer la contraseña.</target>
+      </segment>
+    </unit>
+    <unit id="8149605815986033050">
+      <notes>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ng.html:14,15</note>
+      </notes>
+      <segment>
+        <source> Sign in to your account </source>
+        <target>Inicia sesión en tu cuenta</target>
+      </segment>
+    </unit>
+    <unit id="1274988551431896061">
+      <notes>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ng.html:28,29</note>
+      </notes>
+      <segment>
+        <source> Email address or username </source>
+        <target>Correo electrónico o nombre de usuario</target>
+      </segment>
+    </unit>
+    <unit id="6700602410602956637">
+      <notes>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ng.html:59,65</note>
+      </notes>
+      <segment>
+        <source> Password <pc id="0" equivStart="START_LINK" equivEnd="CLOSE_LINK" type="link" dispStart="&lt;a               routerLink=&quot;/forgot-password&quot;               class=&quot;font-semibold text-indigo-700 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-indigo-200&quot;&gt;" dispEnd="&lt;/a&gt;"> Forgot password? </pc></source>
+        <target>Contraseña <pc id="0" equivStart="START_LINK" equivEnd="CLOSE_LINK" type="link" dispStart="&lt;a               routerLink=&quot;/forgot-password&quot;               class=&quot;font-semibold text-indigo-700 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-indigo-200&quot;&gt;" dispEnd="&lt;/a&gt;">¿Olvidaste la contraseña?</pc></target>
+      </segment>
+    </unit>
+    <unit id="321501623957074444">
+      <notes>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ng.html:96,98</note>
+      </notes>
+      <segment>
+        <source> Check your email. We sent a sign-in link to <ph id="0" equiv="INTERPOLATION" disp="{{ sentTo }}" />. </source>
+        <target>Revisa tu correo. Enviamos un enlace para iniciar sesión a <ph id="0" equiv="INTERPOLATION" disp="{{ sentTo }}" />.</target>
+      </segment>
+    </unit>
+    <unit id="6627551976444260400">
+      <notes>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ng.html:112,113</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ng.html:132,133</note>
+      </notes>
+      <segment>
+        <source>or</source>
+        <target>o</target>
+      </segment>
+    </unit>
+    <unit id="1554028577536416243">
+      <notes>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ng.html:122,123</note>
+      </notes>
+      <segment>
+        <source> Email me a magic link </source>
+        <target>Enviarme un enlace de acceso</target>
+      </segment>
+    </unit>
+    <unit id="6352340738028477751">
+      <notes>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ng.html:131,132</note>
+      </notes>
+      <segment>
+        <source> Sign in with a passkey </source>
+        <target>Iniciar sesión con una llave de acceso</target>
+      </segment>
+    </unit>
+    <unit id="1478902149310215923">
+      <notes>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ng.html:137,144</note>
+      </notes>
+      <segment>
+        <source> Don't have an account? <pc id="0" equivStart="START_LINK" equivEnd="CLOSE_LINK" type="link" dispStart="&lt;a         routerLink=&quot;/sign-up&quot;         class=&quot;font-semibold text-indigo-700 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-indigo-200&quot;&gt;" dispEnd="&lt;/a&gt;"> Sign up </pc></source>
+        <target>¿No tienes una cuenta? <pc id="0" equivStart="START_LINK" equivEnd="CLOSE_LINK" type="link" dispStart="&lt;a         routerLink=&quot;/sign-up&quot;         class=&quot;font-semibold text-indigo-700 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-indigo-200&quot;&gt;" dispEnd="&lt;/a&gt;">Regístrate</pc></target>
+      </segment>
+    </unit>
+    <unit id="5704488174033898372">
+      <notes>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:82</note>
+      </notes>
+      <segment>
+        <source>Enter your email address or username.</source>
+        <target>Escribe tu correo electrónico o nombre de usuario.</target>
+      </segment>
+    </unit>
+    <unit id="1739034957686187865">
+      <notes>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:86</note>
+      </notes>
+      <segment>
+        <source>Magic link sign-in requires an email address.</source>
+        <target>Para iniciar sesión con un enlace, necesitas una dirección de correo electrónico.</target>
+      </segment>
+    </unit>
+    <unit id="7206690825838385338">
+      <notes>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:90</note>
+      </notes>
+      <segment>
+        <source>Enter your password.</source>
+        <target>Escribe tu contraseña.</target>
+      </segment>
+    </unit>
+    <unit id="6087688606580921787">
+      <notes>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:127</note>
+      </notes>
+      <segment>
+        <source>Unable to sign in.</source>
+        <target>No se pudo iniciar sesión.</target>
+      </segment>
+    </unit>
+    <unit id="2968448101649938026">
+      <notes>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:157</note>
+      </notes>
+      <segment>
+        <source>Unable to send a magic link.</source>
+        <target>No se pudo enviar un enlace de acceso.</target>
+      </segment>
+    </unit>
+    <unit id="3525984796552568891">
+      <notes>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:180</note>
+      </notes>
+      <segment>
+        <source>Unable to sign in with a passkey.</source>
+        <target>No se pudo iniciar sesión con una llave de acceso.</target>
+      </segment>
+    </unit>
+    <unit id="8718308546847711046">
+      <notes>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up-complete.ng.html:3,4</note>
+      </notes>
+      <segment>
+        <source> Your sign-up link is ready </source>
+        <target>Tu enlace de registro está listo</target>
+      </segment>
+    </unit>
+    <unit id="3229537984603784559">
+      <notes>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up-complete.ng.html:6,8</note>
+      </notes>
+      <segment>
+        <source> Your email link was processed. You can continue to HikingDownward now. </source>
+        <target>Se procesó el enlace de correo. Ya puedes continuar a HikingDownward.</target>
+      </segment>
+    </unit>
+    <unit id="293542102660994648">
+      <notes>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up-complete.ng.html:12,14</note>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ng.html:35,36</note>
+      </notes>
+      <segment>
+        <source> Continue to HikingDownward </source>
+        <target>Continuar a HikingDownward</target>
+      </segment>
+    </unit>
+    <unit id="1302996453805682357">
+      <notes>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ng.html:14,15</note>
+      </notes>
+      <segment>
+        <source> Create your account </source>
+        <target>Crea tu cuenta</target>
+      </segment>
+    </unit>
+    <unit id="1165858694690603315">
+      <notes>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ng.html:83,84</note>
+      </notes>
+      <segment>
+        <source> Confirm password </source>
+        <target>Confirmar contraseña</target>
+      </segment>
+    </unit>
+    <unit id="6564552511822226210">
+      <notes>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ng.html:116,118</note>
+      </notes>
+      <segment>
+        <source> Check your email. We sent verification instructions to <ph id="0" equiv="INTERPOLATION" disp="{{ sentTo }}" />. </source>
+        <target>Revisa tu correo. Enviamos instrucciones de verificación a <ph id="0" equiv="INTERPOLATION" disp="{{ sentTo }}" />.</target>
+      </segment>
+    </unit>
+    <unit id="7504752777131062423">
+      <notes>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ng.html:127,128</note>
+      </notes>
+      <segment>
+        <source> Create account </source>
+        <target>Crear cuenta</target>
+      </segment>
+    </unit>
+    <unit id="4792570797201785823">
+      <notes>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ng.html:142,143</note>
+      </notes>
+      <segment>
+        <source> Email me a sign-up link </source>
+        <target>Enviarme un enlace de registro</target>
+      </segment>
+    </unit>
+    <unit id="2488406017314481770">
+      <notes>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ng.html:148,155</note>
+      </notes>
+      <segment>
+        <source> Already have an account? <pc id="0" equivStart="START_LINK" equivEnd="CLOSE_LINK" type="link" dispStart="&lt;a         routerLink=&quot;/sign-in&quot;         class=&quot;font-semibold text-indigo-700 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-indigo-200&quot;&gt;" dispEnd="&lt;/a&gt;"> Sign in </pc></source>
+        <target>¿Ya tienes una cuenta? <pc id="0" equivStart="START_LINK" equivEnd="CLOSE_LINK" type="link" dispStart="&lt;a         routerLink=&quot;/sign-in&quot;         class=&quot;font-semibold text-indigo-700 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-indigo-200&quot;&gt;" dispEnd="&lt;/a&gt;">Inicia sesión</pc></target>
+      </segment>
+    </unit>
+    <unit id="4809217652591352979">
+      <notes>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:96</note>
+      </notes>
+      <segment>
+        <source>Enter a password.</source>
+        <target>Escribe una contraseña.</target>
+      </segment>
+    </unit>
+    <unit id="8596711597112316583">
+      <notes>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:108</note>
+      </notes>
+      <segment>
+        <source>Confirm your password.</source>
+        <target>Confirma tu contraseña.</target>
+      </segment>
+    </unit>
+    <unit id="7187327934595262809">
+      <notes>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:150</note>
+      </notes>
+      <segment>
+        <source>Unable to create your account.</source>
+        <target>No se pudo crear tu cuenta.</target>
+      </segment>
+    </unit>
+    <unit id="759003055972359633">
+      <notes>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:179</note>
+      </notes>
+      <segment>
+        <source>Unable to send a sign-up link.</source>
+        <target>No se pudo enviar un enlace de registro.</target>
+      </segment>
+    </unit>
+    <unit id="3511239665776204882">
+      <notes>
+        <note category="location">libs/frontend/status-page/src/lib/forbidden/forbidden.ng.html:5,6</note>
+      </notes>
+      <segment>
+        <source>Forbidden</source>
+        <target>Prohibido</target>
+      </segment>
+    </unit>
+    <unit id="8108032945706896800">
+      <notes>
+        <note category="location">libs/frontend/status-page/src/lib/forbidden/forbidden.ng.html:6,7</note>
+      </notes>
+      <segment>
+        <source>You do not have permission to view this page.</source>
+        <target>No tienes permiso para ver esta página.</target>
+      </segment>
+    </unit>
+    <unit id="2275328567992347600">
+      <notes>
+        <note category="location">libs/frontend/status-page/src/lib/not-found/not-found.ng.html:5,6</note>
+      </notes>
+      <segment>
+        <source>Page not found</source>
+        <target>Página no encontrada</target>
+      </segment>
+    </unit>
+    <unit id="6046695518782826322">
+      <notes>
+        <note category="location">libs/frontend/status-page/src/lib/not-found/not-found.ng.html:6,7</note>
+      </notes>
+      <segment>
+        <source>Sorry, we couldn't find the page you're looking for.</source>
+        <target>Lo sentimos, no encontramos la página que buscas.</target>
+      </segment>
+    </unit>
+    <unit id="8025744565853695379">
+      <notes>
+        <note category="location">libs/frontend/status-page/src/lib/status-page/status-page.ng.html:16,17</note>
+      </notes>
+      <segment>
+        <source> Go back home </source>
+        <target>Volver al inicio</target>
+      </segment>
+    </unit>
+    <unit id="185502375739415721">
+      <notes>
+        <note category="location">libs/frontend/status-page/src/lib/status-page/status-page.ng.html:19,22</note>
+      </notes>
+      <segment>
+        <source> Contact support <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></source>
+        <target>Contactar con soporte <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></target>
+      </segment>
+    </unit>
+    <unit id="1834844445344817694">
+      <notes>
+        <note category="location">libs/frontend/status-page/src/lib/unauthorized/unauthorized.ng.html:5,6</note>
+      </notes>
+      <segment>
+        <source>Unauthorized</source>
+        <target>No autorizado</target>
+      </segment>
+    </unit>
+    <unit id="5644980722835406514">
+      <notes>
+        <note category="location">libs/frontend/status-page/src/lib/unauthorized/unauthorized.ng.html:6,7</note>
+      </notes>
+      <segment>
+        <source>Please sign in to continue.</source>
+        <target>Inicia sesión para continuar.</target>
+      </segment>
+    </unit>
+    <unit id="996685186805065566">
+      <notes>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ng.html:21,22</note>
+      </notes>
+      <segment>
+        <source> Enter one of the backup codes you saved when you set up two-factor authentication. </source>
+        <target>Escribe uno de tus códigos de respaldo que guardaste al configurar la autenticación en dos pasos.</target>
+      </segment>
+    </unit>
+    <unit id="4391396003512056892">
+      <notes>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ng.html:34</note>
+      </notes>
+      <segment>
+        <source>Authentication code</source>
+        <target>Código de autenticación</target>
+      </segment>
+    </unit>
+    <unit id="1182482422836666206">
+      <notes>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ng.html:36</note>
+      </notes>
+      <segment>
+        <source>Backup code</source>
+        <target>Código de respaldo</target>
+      </segment>
+    </unit>
+    <unit id="2232111933304764050">
+      <notes>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ng.html:68,69</note>
+      </notes>
+      <segment>
+        <source> Trust this device for 30 days </source>
+        <target>Confiar en este dispositivo durante 30 días</target>
+      </segment>
+    </unit>
+    <unit id="1812429098722823159">
+      <notes>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ng.html:87,88</note>
+      </notes>
+      <segment>
+        <source> Verify </source>
+        <target>Verificar</target>
+      </segment>
+    </unit>
+    <unit id="5022010581025972405">
+      <notes>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ng.html:96</note>
+      </notes>
+      <segment>
+        <source>Use a backup code instead</source>
+        <target>Usar un código de respaldo</target>
+      </segment>
+    </unit>
+    <unit id="5532886316823165188">
+      <notes>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ng.html:98</note>
+      </notes>
+      <segment>
+        <source>Use your authenticator app instead</source>
+        <target>Usar la aplicación de autenticación</target>
+      </segment>
+    </unit>
+    <unit id="2097056172158128827">
+      <notes>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ts:143</note>
+      </notes>
+      <segment>
+        <source>Unable to verify your code.</source>
+        <target>No se pudo verificar el código.</target>
+      </segment>
+    </unit>
+    <unit id="2868730540886575600">
+      <notes>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.utils.ts:36</note>
+      </notes>
+      <segment>
+        <source>Enter one of your backup codes.</source>
+        <target>Escribe uno de tus códigos de respaldo.</target>
+      </segment>
+    </unit>
+    <unit id="1102963281700943360">
+      <notes>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.utils.ts:41</note>
+      </notes>
+      <segment>
+        <source>Authenticator codes are 6 digits.</source>
+        <target>Los códigos de autenticación tienen 6 dígitos.</target>
+      </segment>
+    </unit>
+    <unit id="5414508119278809913">
+      <notes>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ng.html:13</note>
+      </notes>
+      <segment>
+        <source>Your email is verified</source>
+        <target>Tu correo electrónico está verificado</target>
+      </segment>
+    </unit>
+    <unit id="218590953119817106">
+      <notes>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ng.html:15</note>
+      </notes>
+      <segment>
+        <source>We couldn't verify your email</source>
+        <target>No pudimos verificar tu correo electrónico</target>
+      </segment>
+    </unit>
+    <unit id="7453990566675011955">
+      <notes>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ng.html:20</note>
+      </notes>
+      <segment>
+        <source>Thanks for confirming your email address.</source>
+        <target>Gracias por confirmar tu dirección de correo electrónico.</target>
+      </segment>
+    </unit>
+    <unit id="2930597146421229722">
+      <notes>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ng.html:23,24</note>
+      </notes>
+      <segment>
+        <source>
+          <ph id="0" equiv="INTERPOLATION" disp="{{ failureMessage }}" /> Enter your email address and we'll send you a new verification link. </source>
+        <target>
+          <ph id="0" equiv="INTERPOLATION" disp="{{ failureMessage }}" /> Escribe tu dirección de correo electrónico y te enviaremos un nuevo enlace de verificación.</target>
+      </segment>
+    </unit>
+    <unit id="8242258379810339964">
+      <notes>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ng.html:79,81</note>
+      </notes>
+      <segment>
+        <source> If <ph id="0" equiv="INTERPOLATION" disp="{{ sentTo }}" /> needs verification, we sent it a new link. </source>
+        <target>Si <ph id="0" equiv="INTERPOLATION" disp="{{ sentTo }}" /> necesita verificación, le enviamos un nuevo enlace.</target>
+      </segment>
+    </unit>
+    <unit id="7774420904363866319">
+      <notes>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ng.html:89,90</note>
+      </notes>
+      <segment>
+        <source> Send a new verification link </source>
+        <target>Enviar un nuevo enlace de verificación</target>
+      </segment>
+    </unit>
+    <unit id="5777841360616715126">
+      <notes>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ts:134</note>
+      </notes>
+      <segment>
+        <source>Unable to send a verification email.</source>
+        <target>No se pudo enviar un correo de verificación.</target>
+      </segment>
+    </unit>
+    <unit id="1249456778790589663">
+      <notes>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email.utils.ts:22</note>
+      </notes>
+      <segment>
+        <source>This verification link has expired.</source>
+        <target>Este enlace de verificación ha caducado.</target>
+      </segment>
+    </unit>
+    <unit id="6567991680396488310">
+      <notes>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email.utils.ts:24</note>
+      </notes>
+      <segment>
+        <source>This verification link is invalid.</source>
+        <target>Este enlace de verificación no es válido.</target>
+      </segment>
+    </unit>
+    <unit id="3479427687201555363">
+      <notes>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email.utils.ts:26</note>
+      </notes>
+      <segment>
+        <source>We couldn't find an account for this verification link.</source>
+        <target>No encontramos una cuenta asociada a este enlace de verificación.</target>
+      </segment>
+    </unit>
+    <unit id="7014518511109299710">
+      <notes>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email.utils.ts:28</note>
+      </notes>
+      <segment>
+        <source>We couldn't verify your email address.</source>
+        <target>No pudimos verificar tu dirección de correo electrónico.</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

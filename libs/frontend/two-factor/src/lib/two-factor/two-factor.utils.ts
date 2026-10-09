@@ -1,3 +1,5 @@
+/// <reference types="@angular/localize" />
+
 /** Verification method used to complete a pending two-factor sign-in. */
 export type TwoFactorMethod = 'totp' | 'backupCode';
 
@@ -31,12 +33,12 @@ export function isTotpCode(code: string): boolean {
 export function codeError(method: TwoFactorMethod, rawCode: string): string | null {
   const code = normalizeCode(rawCode);
   if (method === 'backupCode') {
-    return code === '' ? 'Enter one of your backup codes.' : null;
+    return code === '' ? $localize`Enter one of your backup codes.` : null;
   }
   if (code === '') {
-    return 'Enter the 6-digit code from your authenticator app.';
+    return $localize`Enter the 6-digit code from your authenticator app.`;
   }
-  return isTotpCode(code) ? null : 'Authenticator codes are 6 digits.';
+  return isTotpCode(code) ? null : $localize`Authenticator codes are 6 digits.`;
 }
 
 /**

@@ -187,7 +187,16 @@ describe('SecuritySettings', () => {
     };
     TestBed.configureTestingModule({
       imports: [SecuritySettings],
-      providers: [provideRouter([]), { provide: FrontendAuth, useValue: { authClient } }],
+      providers: [
+        provideRouter([]),
+        {
+          provide: FrontendAuth,
+          useValue: {
+            authClient,
+            localizedUrl: (origin: string, path: string): string => `${origin}/en${path}`,
+          },
+        },
+      ],
     });
   });
 
@@ -369,7 +378,7 @@ describe('SecuritySettings', () => {
     expect(changeEmail).toHaveBeenCalledWith(
       expect.objectContaining({
         newEmail: 'new@example.com',
-        callbackURL: expect.stringContaining('/settings/security'),
+        callbackURL: expect.stringContaining('/en/settings/security'),
       }),
     );
     expect(fixture.nativeElement.querySelector('[role="status"]').textContent).toContain(
@@ -451,7 +460,7 @@ describe('SecuritySettings', () => {
     expect(requestPasswordReset).toHaveBeenCalledWith(
       expect.objectContaining({
         email: 'hiker@example.com',
-        redirectTo: expect.stringContaining('/reset-password'),
+        redirectTo: expect.stringContaining('/en/reset-password'),
       }),
     );
   }, 10_000);

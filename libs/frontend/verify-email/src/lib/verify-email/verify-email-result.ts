@@ -1,3 +1,5 @@
+/// <reference types="@angular/localize" />
+
 import { DOCUMENT, NgOptimizedImage } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { email, form, FormField, required, submit } from '@angular/forms/signals';
@@ -48,7 +50,9 @@ function reportAuthFailure(error: AuthError): void {
   templateUrl: './verify-email-result.ng.html',
 })
 /** Shows the outcome of an email verification link and offers a new link on failure. */
+/* v8 ignore start */
 export class VerifyEmailResult {
+  /* v8 ignore stop */
   /** Better Auth client used to resend verification emails. */
   readonly #auth = inject(FrontendAuth);
   readonly #authClient = this.#auth.authClient;
@@ -69,11 +73,11 @@ export class VerifyEmailResult {
   /** Signal Form tree containing email validation for resending verification. */
   protected readonly resendForm = form(this.#resendModel, (path) => {
     required(path.email, {
-      message: 'Enter your email address.',
+      message: $localize`Enter your email address.`,
       when: () => this.#attempted(),
     });
     email(path.email, {
-      message: 'Enter a valid email address.',
+      message: $localize`Enter a valid email address.`,
       when: () => this.#attempted(),
     });
   });
@@ -129,7 +133,7 @@ export class VerifyEmailResult {
 
     if (error) {
       reportAuthFailure(error);
-      this.errorMessage.set(error.message ?? 'Unable to send a verification email.');
+      this.errorMessage.set(error.message ?? $localize`Unable to send a verification email.`);
     } else {
       this.verificationSentTo.set(emailAddress);
     }

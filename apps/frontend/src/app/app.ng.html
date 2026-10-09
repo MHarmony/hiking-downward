@@ -1,3 +1,21 @@
 <main class="min-h-full px-6 py-8 sm:py-16 lg:px-8">
+  @if (showLocaleSwitcher) {
+  <nav class="mb-8 flex justify-end gap-4 text-sm" aria-label="Language" i18n-aria-label>
+    <a
+      [href]="localeHref('en')"
+      hreflang="en-US"
+      i18n
+      class="text-gray-700 hover:text-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:text-gray-200 dark:hover:text-white">
+      English
+    </a>
+    <a
+      [href]="localeHref('es')"
+      hreflang="es"
+      i18n
+      class="text-gray-700 hover:text-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:text-gray-200 dark:hover:text-white">
+      Spanish
+    </a>
+  </nav>
+  }
   <router-outlet />
 </main>

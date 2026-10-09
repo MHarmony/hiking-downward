@@ -5,15 +5,24 @@
       width="240"
       height="180"
       priority
+      i18n-alt="@@hiking-illustration.alt"
       alt="Stick figure hiking toward a mountain"
       class="mx-auto h-24 w-32" />
     <h1 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white">
-      @if (failureMessage === null) { Your email is verified } @else { We couldn't verify your email
+      @if (failureMessage === null) {
+      <ng-container i18n>Your email is verified</ng-container>
+      } @else {
+      <ng-container i18n>We couldn't verify your email</ng-container>
       }
     </h1>
     <p class="mt-2 text-center text-sm/6 text-gray-600 dark:text-gray-400">
-      @if (failureMessage === null) { Thanks for confirming your email address. } @else { {{
-      failureMessage }} Enter your email address and we'll send you a new verification link. }
+      @if (failureMessage === null) {
+      <ng-container i18n>Thanks for confirming your email address.</ng-container>
+      } @else {
+      <ng-container i18n>
+        {{ failureMessage }} Enter your email address and we'll send you a new verification link.
+      </ng-container>
+      }
     </p>
   </div>
 
@@ -21,6 +30,7 @@
     @if (failureMessage === null) {
     <a
       routerLink="/"
+      i18n
       class="flex w-full justify-center rounded-md bg-indigo-800 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 dark:bg-indigo-700 dark:shadow-none dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
       Continue to HikingDownward
     </a>
@@ -29,7 +39,10 @@
       @let emailErrors = resendForm.email().errors();
 
       <div>
-        <label for="email" class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+        <label
+          for="email"
+          class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
+          i18n>
           Email address
         </label>
         <div class="mt-2">
@@ -61,6 +74,7 @@
         </p>
         } @if (verificationSentTo(); as sentTo) {
         <p
+          i18n
           class="rounded-md bg-green-50 p-3 text-sm text-green-900 dark:bg-green-500/10 dark:text-green-400">
           If {{ sentTo }} needs verification, we sent it a new link.
         </p>
@@ -69,6 +83,7 @@
 
       <button
         type="submit"
+        i18n
         [disabled]="pending()"
         class="flex w-full cursor-pointer justify-center rounded-md bg-indigo-800 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:shadow-none dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
         Send a new verification link
@@ -78,6 +93,7 @@
     <p class="mt-10 text-center text-sm/6 text-gray-600 dark:text-gray-400">
       <a
         routerLink="/sign-in"
+        i18n
         class="font-semibold text-indigo-700 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-indigo-200">
         Back to sign in
       </a>

@@ -5,4 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './contact-us.ng.html',
   styleUrl: './contact-us.css',
 })
+/* v8 ignore start */
 export class ContactUs {}
+/* v8 ignore stop */

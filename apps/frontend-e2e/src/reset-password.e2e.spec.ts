@@ -36,7 +36,7 @@ test.describe('reset-password page', () => {
     ).toBeVisible();
     await expect(page.getByRole('link', { name: 'Request a new reset link' })).toHaveAttribute(
       'href',
-      '/forgot-password',
+      '/en/forgot-password',
     );
     await expect(page.locator('form')).toHaveCount(0);
   });
@@ -85,7 +85,10 @@ test.describe('reset-password page', () => {
     await expect(page.getByRole('status')).toContainText(
       'Your password has been reset. Sign in with your new password.',
     );
-    await expect(page.getByRole('link', { name: 'Sign in' })).toHaveAttribute('href', '/sign-in');
+    await expect(page.getByRole('link', { name: 'Sign in' })).toHaveAttribute(
+      'href',
+      '/en/sign-in',
+    );
     expect(requestBody).toEqual({ newPassword: 'correct horse', token: 'valid-reset-token' });
   });
 
@@ -105,6 +108,7 @@ test.describe('reset-password page', () => {
 
   test('has no accessibility violations for both link states', async ({ page }) => {
     await page.goto('/reset-password?error=INVALID_TOKEN');
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     let results = await new AxeBuilder({ page })
       .withTags([
         'wcag2aaa',
@@ -120,6 +124,7 @@ test.describe('reset-password page', () => {
     expect(results.violations).toEqual([]);
 
     await page.goto('/reset-password?token=valid-reset-token');
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     results = await new AxeBuilder({ page })
       .withTags([
         'wcag2aaa',

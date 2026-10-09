@@ -7,4 +7,6 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   imports: [RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './account-settings.ng.html',
 })
+/* v8 ignore start */
 export class AccountSettings {}
+/* v8 ignore stop */

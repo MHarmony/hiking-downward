@@ -45,6 +45,7 @@ describe('DangerZone', () => {
         {
           provide: FrontendAuth,
           useValue: {
+            localizedUrl: (origin: string, path: string): string => `${origin}/en${path}`,
             authClient: {
               deleteUser,
               getSession,

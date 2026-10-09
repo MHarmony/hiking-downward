@@ -1,5 +1,17 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "i18n": {
+    "locales": {
+      "es": {
+        "subPath": "es",
+        "translation": "apps/frontend/src/locale/messages.es.xlf"
+      }
+    },
+    "sourceLocale": {
+      "code": "en-US",
+      "subPath": "en"
+    }
+  },
   "name": "@hiking-downward/frontend",
   "prefix": "hiking-downward",
   "projectType": "application",
@@ -12,6 +24,17 @@
       "configurations": {
         "development": {
           "extractLicenses": false,
+          "localize": [
+            "en-US"
+          ],
+          "optimization": false,
+          "sourceMap": true
+        },
+        "development-es": {
+          "extractLicenses": false,
+          "localize": [
+            "es"
+          ],
           "optimization": false,
           "sourceMap": true
         },
@@ -28,6 +51,7 @@
               "type": "anyComponentStyle"
             }
           ],
+          "localize": true,
           "outputHashing": "all"
         }
       },
@@ -41,7 +65,11 @@
           }
         ],
         "browser": "apps/frontend/src/main.ts",
+        "i18nMissingTranslation": "error",
         "outputPath": "dist/apps/frontend",
+        "polyfills": [
+          "@angular/localize/init"
+        ],
         "styles": [
           "apps/frontend/src/styles.css"
         ],
@@ -51,10 +79,22 @@
         "{options.outputPath}"
       ]
     },
+    "extract-i18n": {
+      "executor": "@angular/build:extract-i18n",
+      "options": {
+        "buildTarget": "@hiking-downward/frontend:build",
+        "format": "xlf2",
+        "outFile": "messages.xlf",
+        "outputPath": "apps/frontend/src/locale"
+      }
+    },
     "serve": {
       "configurations": {
         "development": {
           "buildTarget": "@hiking-downward/frontend:build:development"
+        },
+        "development-es": {
+          "buildTarget": "@hiking-downward/frontend:build:development-es"
         },
         "production": {
           "buildTarget": "@hiking-downward/frontend:build:production"
@@ -73,13 +113,15 @@
       "executor": "@angular/build:dev-server"
     },
     "serve-static": {
+      "cache": false,
       "continuous": true,
-      "executor": "@nx/web:file-server",
+      "dependsOn": [
+        "build"
+      ],
+      "executor": "nx:run-commands",
       "options": {
-        "buildTarget": "@hiking-downward/frontend:build",
-        "port": 4200,
-        "spa": true,
-        "staticFilePath": "dist/apps/frontend/browser"
+        "command": "node apps/frontend-e2e/serve-localized-static.mjs",
+        "cwd": "."
       }
     },
     "test": {

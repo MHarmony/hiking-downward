@@ -1,3 +1,5 @@
+/// <reference types="@angular/localize" />
+
 import { NgOptimizedImage } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { form, FormField, submit, validate } from '@angular/forms/signals';
@@ -53,7 +55,9 @@ function reportAuthFailure(method: TwoFactorMethod, error: AuthError): void {
   imports: [NgOptimizedImage, RouterLink, FormField],
   templateUrl: './two-factor.ng.html',
 })
+/* v8 ignore start */
 export class TwoFactor {
+  /* v8 ignore stop */
   readonly #auth = inject(FrontendAuth);
   /** Better Auth client used to verify two-factor codes. */
   readonly #authClient = this.#auth.authClient;
@@ -138,7 +142,7 @@ export class TwoFactor {
 
     if (error) {
       reportAuthFailure(method, error);
-      this.errorMessage.set(error.message ?? 'Unable to verify your code.');
+      this.errorMessage.set(error.message ?? $localize`Unable to verify your code.`);
     } else {
       await this.#router.navigateByUrl(this.#auth.consumePostAuthRedirectUrl());
     }

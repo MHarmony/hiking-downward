@@ -9,7 +9,6 @@ const baseURL = process.env['BASE_URL'] || 'http://localhost:4200';
 export default defineConfig({
   ...nxE2EPreset(import.meta.dirname, { testDir: './src' }),
   reporter: [['list'], ['html', { open: 'never' }]],
-  workers: 2,
   use: {
     baseURL,
     trace: 'on-first-retry' as const,

@@ -1,4 +1,4 @@
-import { inject, InjectionToken, Service } from '@angular/core';
+import { inject, InjectionToken, LOCALE_ID, Service } from '@angular/core';
 import { Router } from '@angular/router';
 import { passkeyClient } from '@better-auth/passkey/client';
 import { createAuthClient } from 'better-auth/client';
@@ -45,6 +45,7 @@ export class FrontendAuth {
   readonly #localStorage = localStorage;
   readonly #router = inject(Router);
   readonly #sessionStorage = sessionStorage;
+  readonly #localePrefix = inject(LOCALE_ID) === 'es' ? '/es' : '/en';
 
   /** Better Auth client configured with the application's enabled auth plugins. */
   public authClient = createAuthClient({
@@ -95,6 +96,17 @@ export class FrontendAuth {
     return url;
   }
 
+  /** Adds the active locale prefix to an application route used outside Angular Router. */
+  public localizedPath(path: string): string {
+    const pathWithoutLocale = path.replace(/^\/(?:en|es)(?=\/|$)/u, '') || '/';
+    return `${this.#localePrefix}${pathWithoutLocale}`;
+  }
+
+  /** Builds a locale-prefixed absolute URL for authentication callbacks. */
+  public localizedUrl(origin: string, path: string): string {
+    return `${origin}${this.localizedPath(path)}`;
+  }
+
   /**
    * Stores a safe local destination so it survives a two-factor challenge.
    *
@@ -102,7 +114,8 @@ export class FrontendAuth {
    * @returns Nothing; the session-storage value is replaced synchronously.
    */
   public rememberPostAuthRedirectUrl(url: string | null): void {
-    this.#sessionStorage.setItem(POST_AUTH_REDIRECT_KEY, FrontendAuth.safePostAuthRedirectUrl(url));
+    const safeUrl = FrontendAuth.safePostAuthRedirectUrl(url);
+    this.#sessionStorage.setItem(POST_AUTH_REDIRECT_KEY, safeUrl);
   }
 
   /**
@@ -131,7 +144,7 @@ export class FrontendAuth {
       id: crypto.randomUUID(),
     };
     this.#localStorage.setItem(EMAIL_VERIFICATION_FLOW_KEY, JSON.stringify(flow));
-    return `${origin}/verify-email/result?flow=${encodeURIComponent(flow.id)}`;
+    return `${this.localizedUrl(origin, '/verify-email/result')}?flow=${encodeURIComponent(flow.id)}`;
   }
 
   /**
@@ -172,7 +185,7 @@ export class FrontendAuth {
       id: crypto.randomUUID(),
     };
     this.#localStorage.setItem(SIGN_UP_COMPLETION_FLOW_KEY, JSON.stringify(flow));
-    return `${origin}/sign-up/complete?flow=${encodeURIComponent(flow.id)}`;
+    return `${this.localizedUrl(origin, '/sign-up/complete')}?flow=${encodeURIComponent(flow.id)}`;
   }
 
   /**

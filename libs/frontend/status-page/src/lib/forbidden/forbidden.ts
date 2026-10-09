@@ -1,3 +1,5 @@
+/// <reference types="@angular/localize" />
+
 import { Component } from '@angular/core';
 
 import { StatusPage } from '../status-page/status-page';
@@ -7,4 +9,7 @@ import { StatusPage } from '../status-page/status-page';
   imports: [StatusPage],
   templateUrl: './forbidden.ng.html',
 })
-export class Forbidden {}
+export class Forbidden {
+  protected readonly heading = $localize`Forbidden`;
+  protected readonly description = $localize`You do not have permission to view this page.`;
+}

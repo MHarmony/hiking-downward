@@ -8,11 +8,15 @@ test.describe('homepage', () => {
     await expect(page).toHaveTitle('HikingDownward');
     await expect(page.getByRole('heading', { name: 'Welcome to HikingDownward' })).toBeVisible();
     await expect(page.getByAltText('Stick figure hiking toward a mountain')).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Sign in' })).toHaveAttribute('href', '/sign-in');
+    await expect(page.getByRole('link', { name: 'Sign in' })).toHaveAttribute(
+      'href',
+      '/en/sign-in',
+    );
     await expect(page.getByRole('link', { name: /Create an account/ })).toHaveAttribute(
       'href',
-      '/sign-up',
+      '/en/sign-up',
     );
+    await expect(page.getByRole('navigation', { name: 'Language' })).toBeVisible();
   });
 
   test('has an accessible main landmark and one page heading', async ({ page }) => {
@@ -33,5 +37,20 @@ test.describe('homepage', () => {
       ])
       .analyze();
     expect(results.violations).toEqual([]);
+  });
+});
+
+test.describe('Spanish browser preference', () => {
+  test.use({ locale: 'es-ES' });
+
+  test('redirects to and renders the Spanish locale', async ({ page }) => {
+    await page.goto('/');
+
+    await expect(page).toHaveURL(/\/es\/$/);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+    await expect(
+      page.getByRole('heading', { name: 'Te damos la bienvenida a HikingDownward' }),
+    ).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Inglés' })).toHaveAttribute('href', '/en/');
   });
 });

@@ -1,3 +1,5 @@
+/// <reference types="@angular/localize" />
+
 import { DOCUMENT, NgOptimizedImage } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { email, form, FormField, required, submit } from '@angular/forms/signals';
@@ -44,9 +46,12 @@ function reportAuthFailure(error: AuthError): void {
   templateUrl: './forgot-password.ng.html',
 })
 /** Requests a password reset email for an account. */
+/* v8 ignore start */
 export class ForgotPassword {
+  /* v8 ignore stop */
   /** Better Auth client used to request password reset emails. */
-  readonly #authClient = inject(FrontendAuth).authClient;
+  readonly #auth = inject(FrontendAuth);
+  readonly #authClient = this.#auth.authClient;
   /** Origin used to build the reset-password redirect URL. */
   readonly #origin = inject(DOCUMENT).location.origin;
 
@@ -58,11 +63,11 @@ export class ForgotPassword {
   /** Signal Form tree containing email validation. */
   protected readonly forgotPasswordForm = form(this.#forgotPasswordModel, (path) => {
     required(path.email, {
-      message: 'Enter your email address.',
+      message: $localize`Enter your email address.`,
       when: () => this.#attempted(),
     });
     email(path.email, {
-      message: 'Enter a valid email address.',
+      message: $localize`Enter a valid email address.`,
       when: () => this.#attempted(),
     });
   });
@@ -113,12 +118,12 @@ export class ForgotPassword {
     const emailAddress = normalizeEmail(this.#forgotPasswordModel().email);
     const { error } = await this.#authClient.requestPasswordReset({
       email: emailAddress,
-      redirectTo: `${this.#origin}/reset-password`,
+      redirectTo: this.#auth.localizedUrl(this.#origin, '/reset-password'),
     });
 
     if (error) {
       reportAuthFailure(error);
-      this.errorMessage.set(error.message ?? 'Unable to send a password reset link.');
+      this.errorMessage.set(error.message ?? $localize`Unable to send a password reset link.`);
     } else {
       this.resetLinkSentTo.set(emailAddress);
     }

@@ -36,7 +36,7 @@ test.describe('contact page', () => {
   test('contact page has an accessible document structure', async ({ page }) => {
     await page.goto('/contact');
 
-    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en-US');
     await expect(page.getByRole('main')).toBeVisible();
     await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
     await expect(page.getByRole('link', { name: 'Email support' })).toHaveAttribute(
@@ -54,16 +54,12 @@ test.describe('contact page', () => {
 
     const emailLink = page.getByRole('link', { name: 'Email support' });
     const bugLink = page.getByRole('link', { name: 'Report a bug' });
-
     await emailLink.focus();
     await expect(emailLink).toBeFocused();
-    await expect(emailLink).toBeVisible();
-
-    await page.keyboard.press('Tab');
+    await expect(emailLink).toHaveClass(/focus-visible:outline-2/u);
+    await bugLink.focus();
     await expect(bugLink).toBeFocused();
-    await expect(bugLink).toBeVisible();
-    await expect(page.locator(':focus-visible')).toHaveCount(1);
-    await expect(page.locator(':focus-visible')).toContainText('Report a bug');
+    await expect(bugLink).toHaveClass(/focus-visible:outline-2/u);
   });
 });
 

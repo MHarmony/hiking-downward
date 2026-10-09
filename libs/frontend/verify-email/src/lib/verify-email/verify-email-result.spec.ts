@@ -59,7 +59,7 @@ describe('VerifyEmailResult', () => {
       },
       emailVerificationCallbackUrl: vi
         .fn<(origin: string) => string>()
-        .mockReturnValue('http://localhost:3000/verify-email/result?flow=test-flow'),
+        .mockReturnValue('http://localhost:3000/en/verify-email/result?flow=test-flow'),
     };
   });
 
@@ -197,7 +197,7 @@ describe('VerifyEmailResult', () => {
 
     expect(auth.authClient.sendVerificationEmail).toHaveBeenCalledWith({
       email: 'hiker@example.com',
-      callbackURL: 'http://localhost:3000/verify-email/result?flow=test-flow',
+      callbackURL: 'http://localhost:3000/en/verify-email/result?flow=test-flow',
     });
     expect(fixture.nativeElement.textContent).toContain(
       'If hiker@example.com needs verification, we sent it a new link.',

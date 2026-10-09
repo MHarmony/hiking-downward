@@ -92,7 +92,7 @@ test.describe('two-factor page', () => {
     await page.getByLabel('Authentication code').fill('123456');
     await page.getByRole('button', { name: 'Verify' }).click();
 
-    await expect(page).toHaveURL('/');
+    await expect(page).toHaveURL('/en/');
     await expect(page.getByRole('heading', { name: 'Welcome to HikingDownward' })).toBeVisible();
   });
 
@@ -138,12 +138,12 @@ test.describe('two-factor page', () => {
     await page.getByLabel('Email address or username').fill('hiker@example.com');
     await page.getByLabel('Password').fill('correct-horse-battery');
     await page.getByRole('button', { name: 'Sign in', exact: true }).click();
-    await expect(page).toHaveURL(/\/two-factor$/);
+    await expect(page).toHaveURL(/\/en\/two-factor$/);
 
     await page.getByLabel('Authentication code').fill('123456');
     await page.getByRole('button', { name: 'Verify' }).click();
 
-    await expect(page).toHaveURL(/\/settings\/security$/);
+    await expect(page).toHaveURL(/\/en\/settings\/security$/);
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   });
 
@@ -154,7 +154,7 @@ test.describe('two-factor page', () => {
     await page.getByRole('button', { name: 'Verify' }).click();
 
     await expect(page.getByRole('status')).toContainText('Unable to verify your code.');
-    await expect(page).toHaveURL('/two-factor');
+    await expect(page).toHaveURL('/en/two-factor');
   });
 
   test('has no accessibility violations', async ({ page }) => {

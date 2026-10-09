@@ -1,15 +1,17 @@
 <section aria-labelledby="profile-heading" class="max-w-3xl">
   <header class="border-b border-gray-200 pb-5 dark:border-white/10">
-    <h2 id="profile-heading" class="text-xl font-semibold text-gray-900 dark:text-white">
+    <h2 id="profile-heading" class="text-xl font-semibold text-gray-900 dark:text-white" i18n>
       Profile
     </h2>
-    <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">
+    <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400" i18n>
       Update the name and username shown on your account.
     </p>
   </header>
 
   @if (loading()) {
-  <p class="py-6 text-sm text-gray-600 dark:text-gray-400" role="status">Loading your profile…</p>
+  <p class="py-6 text-sm text-gray-600 dark:text-gray-400" role="status" i18n>
+    Loading your profile…
+  </p>
   } @else {
   <form (submit)="saveProfile($event)" novalidate class="mt-6 space-y-6">
     @let nameErrors = profileForm.name().errors(); @let usernameErrors =
@@ -19,6 +21,7 @@
     <div>
       <label
         for="display-name"
+        i18n
         class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
         Display name
       </label>
@@ -39,7 +42,10 @@
     </div>
 
     <div>
-      <label for="username" class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+      <label
+        for="username"
+        class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
+        i18n>
         Username
       </label>
       <input
@@ -63,6 +69,7 @@
     <div>
       <label
         for="public-username"
+        i18n
         class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
         Public username
       </label>
@@ -96,6 +103,7 @@
 
     <button
       type="submit"
+      i18n
       [disabled]="pending()"
       class="inline-flex cursor-pointer justify-center rounded-md bg-indigo-800 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
       Save profile

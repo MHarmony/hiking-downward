@@ -42,7 +42,16 @@ describe('ForgotPassword', () => {
     };
     TestBed.configureTestingModule({
       imports: [ForgotPassword],
-      providers: [provideRouter([]), { provide: FrontendAuth, useValue: { authClient } }],
+      providers: [
+        provideRouter([]),
+        {
+          provide: FrontendAuth,
+          useValue: {
+            authClient,
+            localizedUrl: (origin: string, path: string): string => `${origin}/en${path}`,
+          },
+        },
+      ],
     });
   });
 
@@ -101,7 +110,7 @@ describe('ForgotPassword', () => {
 
           expect(authClient.requestPasswordReset).toHaveBeenLastCalledWith({
             email: value,
-            redirectTo: 'http://localhost:3000/reset-password',
+            redirectTo: 'http://localhost:3000/en/reset-password',
           });
         } finally {
           fixture.destroy();

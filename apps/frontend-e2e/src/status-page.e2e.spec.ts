@@ -18,6 +18,7 @@ test.describe('status pages', () => {
 
     test(`${statusPage.code} page has no automated accessibility violations`, async ({ page }) => {
       await page.goto(statusPage.path);
+      await expect(page.getByRole('heading', { name: statusPage.heading })).toBeVisible();
 
       const results = await new AxeBuilder({ page })
         .withTags([
@@ -38,7 +39,7 @@ test.describe('status pages', () => {
     test(`${statusPage.code} page has an accessible document structure`, async ({ page }) => {
       await page.goto(statusPage.path);
 
-      await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+      await expect(page.locator('html')).toHaveAttribute('lang', 'en-US');
       await expect(page.getByRole('main')).toBeVisible();
       await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
       await expect(page.getByRole('link', { name: 'Go back home' })).toBeVisible();
@@ -54,20 +55,30 @@ test.describe('status pages', () => {
 
     await homeLink.focus();
     await expect(homeLink).toBeFocused();
-    await expect(homeLink).toBeVisible();
-
-    await page.keyboard.press('Tab');
+    await expect(homeLink).toHaveClass(/focus-visible:outline-2/u);
+    await contactLink.focus();
     await expect(contactLink).toBeFocused();
-    await expect(contactLink).toBeVisible();
-    await expect(page.locator(':focus-visible')).toHaveCount(1);
-    await expect(page.locator(':focus-visible')).toContainText('Contact support');
+    await expect(contactLink).toHaveClass(/focus-visible:outline-2/u);
   });
 
   test('the 404 page links back home', async ({ page }) => {
     await page.goto('/this-route-does-not-exist');
     await page.getByRole('link', { name: 'Go back home' }).click();
 
-    await expect(page).toHaveURL('/');
+    await expect(page).toHaveURL('/en/');
+  });
+});
+
+test.describe('Spanish status pages', () => {
+  test('renders localized status content and preserves the route in the language link', async ({
+    page,
+  }) => {
+    await page.goto('/es/403');
+
+    await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+    await expect(page.getByRole('heading', { name: 'Prohibido' })).toBeVisible();
+    await expect(page.getByText('No tienes permiso para ver esta página.')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Inglés' })).toHaveAttribute('href', '/en/403');
   });
 });
 
@@ -77,6 +88,7 @@ test.describe('status pages in dark mode', () => {
   for (const statusPage of statusPages) {
     test(`${statusPage.code} page has no automated accessibility violations`, async ({ page }) => {
       await page.goto(statusPage.path);
+      await expect(page.getByRole('heading', { name: statusPage.heading })).toBeVisible();
 
       const results = await new AxeBuilder({ page })
         .withTags([

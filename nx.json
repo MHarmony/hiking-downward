@@ -40,6 +40,7 @@
       "{workspaceRoot}/.github/workflows/ci.yml"
     ]
   },
+  "parallel": 4,
   "plugins": [
     {
       "options": {
@@ -95,7 +96,12 @@
       "inputs": [
         "default",
         "^production"
-      ]
+      ],
+      "options": {
+        "setupFiles": [
+          "libs/frontend/test-setup.ts"
+        ]
+      }
     },
     "@nx/angular:package": {
       "cache": true,
@@ -112,7 +118,12 @@
       "inputs": [
         "default",
         "^production"
-      ]
+      ],
+      "options": {
+        "setupFiles": [
+          "libs/frontend/test-setup.ts"
+        ]
+      }
     },
     "@nx/esbuild:esbuild": {
       "cache": true,

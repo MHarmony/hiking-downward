@@ -1,3 +1,5 @@
+/// <reference types="@angular/localize" />
+
 /**
  * Removes surrounding whitespace and normalizes an email for account identity.
  *
@@ -17,13 +19,13 @@ export function normalizeEmail(email: string): string {
 export function verificationErrorMessage(code: string): string {
   switch (code) {
     case 'TOKEN_EXPIRED':
-      return 'This verification link has expired.';
+      return $localize`This verification link has expired.`;
     case 'INVALID_TOKEN':
-      return 'This verification link is invalid.';
+      return $localize`This verification link is invalid.`;
     case 'USER_NOT_FOUND':
-      return "We couldn't find an account for this verification link.";
+      return $localize`We couldn't find an account for this verification link.`;
     default:
-      return "We couldn't verify your email address.";
+      return $localize`We couldn't verify your email address.`;
   }
 }
 

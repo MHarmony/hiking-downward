@@ -1,3 +1,5 @@
+/// <reference types="@angular/localize" />
+
 import { DatePipe, DOCUMENT } from '@angular/common';
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import {
@@ -20,14 +22,16 @@ import type {
   PasswordChangeData,
   SessionSummary,
 } from './security-settings.types';
-
 /** Manages the signed-in user's email, credentials, factors, passkeys, and sessions. */
 @Component({
   imports: [DatePipe, FormField],
   templateUrl: './security-settings.ng.html',
 })
+/* v8 ignore start */
 export class SecuritySettings {
-  readonly #authClient = inject(FrontendAuth).authClient;
+  /* v8 ignore stop */
+  readonly #auth = inject(FrontendAuth);
+  readonly #authClient = this.#auth.authClient;
   readonly #origin = inject(DOCUMENT).location.origin;
   readonly #router = inject(Router);
   readonly #passkeyQuery = this.#authClient.useListPasskeys;
@@ -41,19 +45,21 @@ export class SecuritySettings {
   readonly #authenticatorModel = signal<AuthenticatorData>({ password: '', code: '' });
 
   protected readonly emailForm = form(this.#emailModel, (path) => {
-    required(path.newEmail, { message: 'Enter your new email address.' });
-    email(path.newEmail, { message: 'Enter a valid email address.' });
+    required(path.newEmail, { message: $localize`Enter your new email address.` });
+    email(path.newEmail, { message: $localize`Enter a valid email address.` });
   });
 
   protected readonly passwordForm = form(this.#passwordModel, (path) => {
-    required(path.currentPassword, { message: 'Enter your current password.' });
-    required(path.newPassword, { message: 'Enter a new password.' });
-    minLength(path.newPassword, 8, { message: 'Password must be at least 8 characters.' });
-    maxLength(path.newPassword, 128, { message: 'Password must be no more than 128 characters.' });
-    required(path.confirmation, { message: 'Confirm your new password.' });
+    required(path.currentPassword, { message: $localize`Enter your current password.` });
+    required(path.newPassword, { message: $localize`Enter a new password.` });
+    minLength(path.newPassword, 8, { message: $localize`Password must be at least 8 characters.` });
+    maxLength(path.newPassword, 128, {
+      message: $localize`Password must be no more than 128 characters.`,
+    });
+    required(path.confirmation, { message: $localize`Confirm your new password.` });
     validate(path.confirmation, (context) => {
       if (context.value() !== context.valueOf(path.newPassword)) {
-        return { kind: 'passwordMismatch', message: 'Passwords must match.' };
+        return { kind: 'passwordMismatch', message: $localize`Passwords must match.` };
       }
       return;
     });
@@ -62,7 +68,10 @@ export class SecuritySettings {
   protected readonly authenticatorForm = form(this.#authenticatorModel, (path) => {
     validate(path.code, (context) => {
       if (this.setupUri() && !/^[0-9]{6}$/u.test(context.value().trim())) {
-        return { kind: 'totpCode', message: 'Enter the 6-digit code from your authenticator app.' };
+        return {
+          kind: 'totpCode',
+          message: $localize`Enter the 6-digit code from your authenticator app.`,
+        };
       }
       return;
     });
@@ -99,17 +108,14 @@ export class SecuritySettings {
     });
     destroyRef.onDestroy(unsubscribe);
     this.#loadSecurityState().catch(() => {
-      this.errorMessage.set('Unable to load security settings. Refresh the page to try again.');
+      this.errorMessage.set(
+        $localize`Unable to load security settings. Refresh the page to try again.`,
+      );
       this.loading.set(false);
     });
   }
 
-  /**
-   * Requests an email change and reports where its confirmation was sent.
-   *
-   * @param event Form-submit event to prevent from navigating.
-   * @returns Promise settling after validation and the change request.
-   */
+  /** Requests an email change and reports where its confirmation was sent. */
   protected async requestEmailChange(event: Event): Promise<void> {
     event.preventDefault();
     this.#clearMessages();
@@ -118,15 +124,17 @@ export class SecuritySettings {
         await this.#runAction('email', async () => {
           const { error } = await this.#authClient.changeEmail({
             newEmail: this.#emailModel().newEmail.trim(),
-            callbackURL: `${this.#origin}/settings/security`,
+            callbackURL: this.#auth.localizedUrl(this.#origin, '/settings/security'),
           });
           if (error) {
-            this.errorMessage.set(authErrorMessage(error, 'Unable to request an email change.'));
+            this.errorMessage.set(
+              authErrorMessage(error, $localize`Unable to request an email change.`),
+            );
             return;
           }
           this.emailChangePending.set(true);
           this.statusMessage.set(
-            `Confirmation instructions were sent to ${this.emailAddress()}. Follow them to finish changing your email.`,
+            $localize`Confirmation instructions were sent to ${this.emailAddress()}:emailAddress:. Follow them to finish changing your email.`,
           );
         });
       },
@@ -157,11 +165,13 @@ export class SecuritySettings {
             revokeOtherSessions: true,
           });
           if (error) {
-            this.errorMessage.set(authErrorMessage(error, 'Unable to change your password.'));
+            this.errorMessage.set(
+              authErrorMessage(error, $localize`Unable to change your password.`),
+            );
             return;
           }
           this.#passwordModel.set({ currentPassword: '', newPassword: '', confirmation: '' });
-          this.statusMessage.set('Password changed. Other sessions were signed out.');
+          this.statusMessage.set($localize`Password changed. Other sessions were signed out.`);
           await this.#loadSessions();
         });
       },
@@ -179,13 +189,17 @@ export class SecuritySettings {
     await this.#runAction('password-reset', async () => {
       const { error } = await this.#authClient.requestPasswordReset({
         email: this.emailAddress(),
-        redirectTo: `${this.#origin}/reset-password`,
+        redirectTo: this.#auth.localizedUrl(this.#origin, '/reset-password'),
       });
       if (error) {
-        this.errorMessage.set(authErrorMessage(error, 'Unable to send a password setup link.'));
+        this.errorMessage.set(
+          authErrorMessage(error, $localize`Unable to send a password setup link.`),
+        );
         return;
       }
-      this.statusMessage.set(`A password setup link was sent to ${this.emailAddress()}.`);
+      this.statusMessage.set(
+        $localize`A password setup link was sent to ${this.emailAddress()}:emailAddress:.`,
+      );
     });
   }
 
@@ -207,7 +221,7 @@ export class SecuritySettings {
           );
           if (error || !data || !('totpURI' in data)) {
             const message = error ? error.message : null;
-            this.errorMessage.set(message ?? 'Unable to start authenticator setup.');
+            this.errorMessage.set(message ?? $localize`Unable to start authenticator setup.`);
             return;
           }
           this.setupUri.set(data.totpURI);
@@ -216,7 +230,9 @@ export class SecuritySettings {
             const { default: QRCode } = await import('qrcode');
             this.qrCodeUrl.set(await QRCode.toDataURL(data.totpURI, { margin: 1, width: 220 }));
           } catch {
-            this.errorMessage.set('Unable to create the setup QR code. Use the setup key instead.');
+            this.errorMessage.set(
+              $localize`Unable to create the setup QR code. Use the setup key instead.`,
+            );
           }
         });
       },
@@ -239,7 +255,7 @@ export class SecuritySettings {
           const { error } = await this.#authClient.twoFactor.verifyTotp({ code: code.trim() });
           if (error) {
             this.errorMessage.set(
-              authErrorMessage(error, 'Unable to verify this authenticator code.'),
+              authErrorMessage(error, $localize`Unable to verify this authenticator code.`),
             );
             return;
           }
@@ -249,7 +265,9 @@ export class SecuritySettings {
           this.setupUri.set('');
           this.qrCodeUrl.set('');
           this.#authenticatorModel.update((current) => ({ ...current, password: '', code: '' }));
-          this.statusMessage.set('Two-factor authentication is enabled. Save your backup codes.');
+          this.statusMessage.set(
+            $localize`Two-factor authentication is enabled. Save your backup codes.`,
+          );
         });
       },
       onInvalid: (field) => {
@@ -268,7 +286,7 @@ export class SecuritySettings {
       const { error } = await this.#authClient.twoFactor.disable(password ? { password } : {});
       if (error) {
         this.errorMessage.set(
-          authErrorMessage(error, 'Unable to disable two-factor authentication.'),
+          authErrorMessage(error, $localize`Unable to disable two-factor authentication.`),
         );
         return;
       }
@@ -276,7 +294,7 @@ export class SecuritySettings {
       this.backupCodes.set([]);
       this.#pendingBackupCodes = [];
       this.backupCodesNotice.set('');
-      this.statusMessage.set('Two-factor authentication is disabled.');
+      this.statusMessage.set($localize`Two-factor authentication is disabled.`);
     });
   }
 
@@ -290,12 +308,14 @@ export class SecuritySettings {
       );
       if (error || !data || !('backupCodes' in data) || !data.backupCodes) {
         const message = error ? error.message : null;
-        this.errorMessage.set(message ?? 'Unable to generate backup codes.');
+        this.errorMessage.set(message ?? $localize`Unable to generate backup codes.`);
         return;
       }
       this.backupCodes.set(data.backupCodes);
-      this.backupCodesNotice.set('These new codes replace all previously issued backup codes.');
-      this.statusMessage.set('New backup codes generated. Save them now.');
+      this.backupCodesNotice.set(
+        $localize`These new codes replace all previously issued backup codes.`,
+      );
+      this.statusMessage.set($localize`New backup codes generated. Save them now.`);
     });
   }
 
@@ -306,11 +326,11 @@ export class SecuritySettings {
       const name = this.passkeyName().trim();
       const { error } = await this.#authClient.passkey.addPasskey(name ? { name } : {});
       if (error) {
-        this.errorMessage.set(authErrorMessage(error, 'Unable to add this passkey.'));
+        this.errorMessage.set(authErrorMessage(error, $localize`Unable to add this passkey.`));
         return;
       }
       this.passkeyName.set('');
-      this.statusMessage.set('Passkey added.');
+      this.statusMessage.set($localize`Passkey added.`);
       await this.#passkeyQuery.get().refetch();
     });
   }
@@ -339,10 +359,10 @@ export class SecuritySettings {
         body: { id, name: name.trim() },
       });
       if (error) {
-        this.errorMessage.set(authErrorMessage(error, 'Unable to rename this passkey.'));
+        this.errorMessage.set(authErrorMessage(error, $localize`Unable to rename this passkey.`));
         return;
       }
-      this.statusMessage.set('Passkey renamed.');
+      this.statusMessage.set($localize`Passkey renamed.`);
       await this.#passkeyQuery.get().refetch();
     });
   }
@@ -356,10 +376,10 @@ export class SecuritySettings {
         body: { id },
       });
       if (error) {
-        this.errorMessage.set(authErrorMessage(error, 'Unable to remove this passkey.'));
+        this.errorMessage.set(authErrorMessage(error, $localize`Unable to remove this passkey.`));
         return;
       }
-      this.statusMessage.set('Passkey removed.');
+      this.statusMessage.set($localize`Passkey removed.`);
       this.passkeyPendingRemoval.set('');
       await this.#passkeyQuery.get().refetch();
     });
@@ -371,14 +391,14 @@ export class SecuritySettings {
     await this.#runAction('sessions', async () => {
       const { error } = await this.#authClient.revokeSession({ token: session.token });
       if (error) {
-        this.sessionError.set(authErrorMessage(error, 'Unable to sign out this session.'));
+        this.sessionError.set(authErrorMessage(error, $localize`Unable to sign out this session.`));
         return;
       }
       if (session.isCurrent) {
         await this.#router.navigateByUrl('/sign-in');
         return;
       }
-      this.statusMessage.set('Session signed out.');
+      this.statusMessage.set($localize`Session signed out.`);
       await this.#loadSessions();
     });
   }
@@ -389,10 +409,12 @@ export class SecuritySettings {
     await this.#runAction('sessions', async () => {
       const { error } = await this.#authClient.revokeOtherSessions();
       if (error) {
-        this.sessionError.set(authErrorMessage(error, 'Unable to sign out other sessions.'));
+        this.sessionError.set(
+          authErrorMessage(error, $localize`Unable to sign out other sessions.`),
+        );
         return;
       }
-      this.statusMessage.set('Other sessions were signed out.');
+      this.statusMessage.set($localize`Other sessions were signed out.`);
       await this.#loadSessions();
     });
   }
@@ -411,7 +433,9 @@ export class SecuritySettings {
     try {
       const { data, error } = await this.#authClient.getSession();
       if (error || !data) {
-        this.errorMessage.set('Unable to load security settings. Refresh the page to try again.');
+        this.errorMessage.set(
+          $localize`Unable to load security settings. Refresh the page to try again.`,
+        );
         return;
       }
       const user = data.user as {
@@ -435,7 +459,7 @@ export class SecuritySettings {
     try {
       const { data, error } = await this.#authClient.listSessions();
       if (error) {
-        this.sessionError.set(authErrorMessage(error, 'Unable to load active sessions.'));
+        this.sessionError.set(authErrorMessage(error, $localize`Unable to load active sessions.`));
         return;
       }
       this.sessions.set(
@@ -450,7 +474,7 @@ export class SecuritySettings {
         })),
       );
     } catch {
-      this.sessionError.set('Unable to load active sessions.');
+      this.sessionError.set($localize`Unable to load active sessions.`);
     }
   }
 
@@ -461,7 +485,7 @@ export class SecuritySettings {
       await operation();
     } catch {
       this.errorMessage.set(
-        'The request could not be completed. Check your connection and try again.',
+        $localize`The request could not be completed. Check your connection and try again.`,
       );
     } finally {
       this.pendingAction.set('');

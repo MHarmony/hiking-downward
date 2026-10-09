@@ -1,3 +1,5 @@
+/// <reference types="@angular/localize" />
+
 import { DOCUMENT } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormField, form, maxLength, submit, validate } from '@angular/forms/signals';
@@ -17,16 +19,24 @@ interface DeleteAccountData {
   imports: [FormField],
   templateUrl: './danger-zone.ng.html',
 })
+/* v8 ignore start */
 export class DangerZone {
-  readonly #authClient = inject(FrontendAuth).authClient;
+  /* v8 ignore stop */
+  readonly #auth = inject(FrontendAuth);
+  readonly #authClient = this.#auth.authClient;
   readonly #origin = inject(DOCUMENT).location.origin;
   readonly #deleteModel = signal<DeleteAccountData>({ password: '', confirmation: '' });
 
   protected readonly deleteForm = form(this.#deleteModel, (path) => {
-    maxLength(path.password, 128, { message: 'Password must be no more than 128 characters.' });
+    maxLength(path.password, 128, {
+      message: $localize`Password must be no more than 128 characters.`,
+    });
     validate(path.confirmation, (context) => {
       if (context.value().trim() !== 'DELETE') {
-        return { kind: 'confirmation', message: 'Type DELETE to confirm account deletion.' };
+        return {
+          kind: 'confirmation',
+          message: $localize`Type DELETE to confirm account deletion.`,
+        };
       }
       return;
     });
@@ -40,7 +50,7 @@ export class DangerZone {
   /** Loads the account email shown with the deletion confirmation request. */
   public constructor() {
     this.#loadEmail().catch(() => {
-      this.emailAddress.set('your account email address');
+      this.emailAddress.set($localize`your account email address`);
     });
   }
 
@@ -61,20 +71,22 @@ export class DangerZone {
         try {
           const password = this.#deleteModel().password.trim();
           const options = password
-            ? { password, callbackURL: `${this.#origin}/account-deleted` }
-            : { callbackURL: `${this.#origin}/account-deleted` };
+            ? { password, callbackURL: this.#auth.localizedUrl(this.#origin, '/account-deleted') }
+            : { callbackURL: this.#auth.localizedUrl(this.#origin, '/account-deleted') };
           const { error } = await this.#authClient.deleteUser(options);
           if (error) {
-            this.errorMessage.set(authErrorMessage(error, 'Unable to request account deletion.'));
+            this.errorMessage.set(
+              authErrorMessage(error, $localize`Unable to request account deletion.`),
+            );
             return;
           }
           this.#deleteModel.set({ password: '', confirmation: '' });
           this.statusMessage.set(
-            `A confirmation link was sent to ${this.emailAddress()}. Use that link to complete deletion.`,
+            $localize`A confirmation link was sent to ${this.emailAddress()}:emailAddress:. Use that link to complete deletion.`,
           );
         } catch {
           this.errorMessage.set(
-            'Unable to request account deletion. Check your connection and try again.',
+            $localize`Unable to request account deletion. Check your connection and try again.`,
           );
         } finally {
           this.pending.set(false);
@@ -96,6 +108,6 @@ export class DangerZone {
    */
   async #loadEmail(): Promise<void> {
     const { data } = await this.#authClient.getSession();
-    this.emailAddress.set(data ? data.user.email : 'your account email address');
+    this.emailAddress.set(data ? data.user.email : $localize`your account email address`);
   }
 }

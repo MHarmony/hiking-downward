@@ -48,10 +48,10 @@ describe('SignUp', () => {
       signUp: { email: vi.fn<AuthMethod>() },
       emailVerificationCallbackUrl: vi
         .fn<(origin: string) => string>()
-        .mockReturnValue('http://localhost:3000/verify-email/result?flow=test-flow'),
+        .mockReturnValue('http://localhost:3000/en/verify-email/result?flow=test-flow'),
       signUpCompletionCallbackUrl: vi
         .fn<(origin: string) => string>()
-        .mockReturnValue('http://localhost:3000/sign-up/complete?flow=test-flow'),
+        .mockReturnValue('http://localhost:3000/en/sign-up/complete?flow=test-flow'),
       signIn: { magicLink: vi.fn<AuthMethod>() },
     };
     TestBed.configureTestingModule({
@@ -62,6 +62,7 @@ describe('SignUp', () => {
           provide: FrontendAuth,
           useValue: {
             authClient,
+            localizedUrl: (origin: string, path: string): string => `${origin}/en${path}`,
             emailVerificationCallbackUrl: authClient.emailVerificationCallbackUrl,
             signUpCompletionCallbackUrl: authClient.signUpCompletionCallbackUrl,
           },
@@ -193,7 +194,7 @@ describe('SignUp', () => {
       email: 'person@example.com',
       name: 'person@example.com',
       password: 'correct horse',
-      callbackURL: 'http://localhost:3000/verify-email/result?flow=test-flow',
+      callbackURL: 'http://localhost:3000/en/verify-email/result?flow=test-flow',
     });
     expect(fixture.nativeElement.textContent).toContain(
       'Check your email. We sent verification instructions to person@example.com.',
@@ -246,8 +247,8 @@ describe('SignUp', () => {
     expect(authClient.signIn.magicLink).toHaveBeenCalledWith({
       email: 'person@example.com',
       name: 'person@example.com',
-      callbackURL: 'http://localhost:3000/',
-      newUserCallbackURL: 'http://localhost:3000/sign-up/complete?flow=test-flow',
+      callbackURL: 'http://localhost:3000/en/',
+      newUserCallbackURL: 'http://localhost:3000/en/sign-up/complete?flow=test-flow',
     });
     expect(fixture.nativeElement.textContent).toContain('person@example.com');
   }, 10_000);

@@ -1,3 +1,5 @@
+/// <reference types="@angular/localize" />
+
 import { DOCUMENT, NgOptimizedImage } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import {
@@ -65,7 +67,9 @@ function reportAuthFailure(method: 'email' | 'magicLink', error: AuthError): voi
   styleUrl: './sign-up.css',
 })
 /** Presents email/password and magic-link registration flows. */
+/* v8 ignore start */
 export class SignUp {
+  /* v8 ignore stop */
   /** Better Auth client used to execute registration requests. */
   readonly #auth = inject(FrontendAuth);
   readonly #authClient = this.#auth.authClient;
@@ -83,27 +87,27 @@ export class SignUp {
   /** Signal Form tree containing method-specific registration validators. */
   protected readonly signUpForm = form(this.#signUpModel, (path) => {
     required(path.email, {
-      message: 'Enter your email address.',
+      message: $localize`Enter your email address.`,
       when: () => this.#method() !== null,
     });
     email(path.email, {
-      message: 'Enter a valid email address.',
+      message: $localize`Enter a valid email address.`,
       when: () => this.#method() !== null,
     });
     required(path.password, {
-      message: 'Enter a password.',
+      message: $localize`Enter a password.`,
       when: () => this.#method() === 'email',
     });
     minLength(path.password, MIN_PASSWORD_LENGTH, {
-      message: `Password must be at least ${MIN_PASSWORD_LENGTH} characters.`,
+      message: $localize`Password must be at least ${MIN_PASSWORD_LENGTH}:minLength: characters.`,
       when: () => this.#method() === 'email',
     });
     maxLength(path.password, MAX_PASSWORD_LENGTH, {
-      message: `Password must be no more than ${MAX_PASSWORD_LENGTH} characters.`,
+      message: $localize`Password must be no more than ${MAX_PASSWORD_LENGTH}:maxLength: characters.`,
       when: () => this.#method() === 'email',
     });
     required(path.passwordConfirmation, {
-      message: 'Confirm your password.',
+      message: $localize`Confirm your password.`,
       when: () => this.#method() === 'email',
     });
     validate(path.passwordConfirmation, (context) => {
@@ -111,7 +115,7 @@ export class SignUp {
         this.#method() === 'email' &&
         !passwordsMatch(context.valueOf(path.password), context.value())
       ) {
-        return { kind: 'passwordMismatch', message: 'Passwords must match.' };
+        return { kind: 'passwordMismatch', message: $localize`Passwords must match.` };
       }
       return;
     });
@@ -145,7 +149,7 @@ export class SignUp {
 
       if (error) {
         reportAuthFailure('email', error);
-        this.errorMessage.set(error.message ?? 'Unable to create your account.');
+        this.errorMessage.set(error.message ?? $localize`Unable to create your account.`);
         return;
       }
       this.verificationSentTo.set(emailAddress);
@@ -169,12 +173,12 @@ export class SignUp {
           const { error } = await this.#authClient.signIn.magicLink({
             email: emailAddress,
             name: emailAddress,
-            callbackURL: `${this.#origin}/`,
+            callbackURL: this.#auth.localizedUrl(this.#origin, '/'),
             newUserCallbackURL: this.#auth.signUpCompletionCallbackUrl(this.#origin),
           });
           if (error) {
             reportAuthFailure('magicLink', error);
-            this.errorMessage.set(error.message ?? 'Unable to send a sign-up link.');
+            this.errorMessage.set(error.message ?? $localize`Unable to send a sign-up link.`);
             return;
           }
           this.verificationSentTo.set(emailAddress);

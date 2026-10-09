@@ -1,3 +1,5 @@
+/// <reference types="@angular/localize" />
+
 import { NgOptimizedImage } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import {
@@ -57,7 +59,9 @@ function reportAuthFailure(error: AuthError): void {
   templateUrl: './reset-password.ng.html',
 })
 /** Sets a new password using the token from a password reset email. */
+/* v8 ignore start */
 export class ResetPassword {
+  /* v8 ignore stop */
   /** Better Auth client used to reset passwords. */
   readonly #authClient = inject(FrontendAuth).authClient;
   /** Query parameters Better Auth appended when redirecting from the reset email. */
@@ -79,24 +83,24 @@ export class ResetPassword {
   /** Signal Form tree containing password policy validators. */
   protected readonly resetPasswordForm = form(this.#resetPasswordModel, (path) => {
     required(path.password, {
-      message: 'Enter a new password.',
+      message: $localize`Enter a new password.`,
       when: () => this.#attempted(),
     });
     minLength(path.password, MIN_PASSWORD_LENGTH, {
-      message: `Password must be at least ${MIN_PASSWORD_LENGTH} characters.`,
+      message: $localize`Password must be at least ${MIN_PASSWORD_LENGTH}:minLength: characters.`,
       when: () => this.#attempted(),
     });
     maxLength(path.password, MAX_PASSWORD_LENGTH, {
-      message: `Password must be no more than ${MAX_PASSWORD_LENGTH} characters.`,
+      message: $localize`Password must be no more than ${MAX_PASSWORD_LENGTH}:maxLength: characters.`,
       when: () => this.#attempted(),
     });
     required(path.passwordConfirmation, {
-      message: 'Confirm your new password.',
+      message: $localize`Confirm your new password.`,
       when: () => this.#attempted(),
     });
     validate(path.passwordConfirmation, (context) => {
       if (this.#attempted() && !passwordsMatch(context.valueOf(path.password), context.value())) {
-        return { kind: 'passwordMismatch', message: 'Passwords must match.' };
+        return { kind: 'passwordMismatch', message: $localize`Passwords must match.` };
       }
       return;
     });
@@ -151,7 +155,7 @@ export class ResetPassword {
 
     if (error) {
       reportAuthFailure(error);
-      this.errorMessage.set(error.message ?? 'Unable to reset your password.');
+      this.errorMessage.set(error.message ?? $localize`Unable to reset your password.`);
     } else {
       this.passwordReset.set(true);
     }

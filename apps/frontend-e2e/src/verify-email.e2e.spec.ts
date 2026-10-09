@@ -47,7 +47,7 @@ test.describe('verify-email result page', () => {
     await expect(page.getByText('Thanks for confirming your email address.')).toBeVisible();
     await expect(page.getByRole('link', { name: 'Continue to HikingDownward' })).toHaveAttribute(
       'href',
-      '/',
+      '/en/',
     );
     await expect(page.locator('form')).toHaveCount(0);
   });

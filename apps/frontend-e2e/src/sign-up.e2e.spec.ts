@@ -125,7 +125,7 @@ test.describe('sign-up page', () => {
   test('has accessible structure and keyboard controls', async ({ page }) => {
     await page.goto('/sign-up');
 
-    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en-US');
     await expect(page.getByRole('main')).toBeVisible();
     await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
 
@@ -159,7 +159,7 @@ test.describe('sign-up page', () => {
     await expect(page.getByRole('heading', { name: 'Your sign-up link is ready' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Continue to HikingDownward' })).toHaveAttribute(
       'href',
-      '/',
+      '/en/',
     );
   });
 

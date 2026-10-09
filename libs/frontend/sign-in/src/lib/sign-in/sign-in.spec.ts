@@ -45,6 +45,7 @@ describe('SignIn', () => {
     safePostAuthRedirectUrl: (url: string | null) => string;
     rememberPostAuthRedirectUrl: (url: string | null) => void;
     consumePostAuthRedirectUrl: () => string;
+    localizedUrl: (origin: string, path: string) => string;
   };
 
   beforeEach(() => {
@@ -70,6 +71,7 @@ describe('SignIn', () => {
         postAuthRedirectUrl = '/';
         return url;
       },
+      localizedUrl: (origin: string, path: string): string => `${origin}/en${path}`,
     };
 
     TestBed.configureTestingModule({
@@ -142,7 +144,7 @@ describe('SignIn', () => {
 
           expect(authClient.signIn.magicLink).toHaveBeenLastCalledWith({
             email: value,
-            callbackURL: 'http://localhost:3000/',
+            callbackURL: 'http://localhost:3000/en/',
           });
         } finally {
           fixture.destroy();
@@ -303,7 +305,7 @@ describe('SignIn', () => {
 
     expect(authClient.signIn.magicLink).toHaveBeenCalledWith({
       email: 'person@example.com',
-      callbackURL: 'http://localhost:3000/',
+      callbackURL: 'http://localhost:3000/en/',
     });
     expect(fixture.nativeElement.textContent).toContain('Check your email');
   }, 10_000);

@@ -5,9 +5,12 @@
       width="240"
       height="180"
       priority
+      i18n-alt="@@hiking-illustration.alt"
       alt="Stick figure hiking toward a mountain"
       class="mx-auto h-24 w-32" />
-    <h1 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white">
+    <h1
+      class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white"
+      i18n>
       Create your account
     </h1>
   </div>
@@ -19,7 +22,10 @@
       signUpForm.passwordConfirmation().errors();
 
       <div>
-        <label for="email" class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+        <label
+          for="email"
+          class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
+          i18n>
           Email address
         </label>
         <div class="mt-2">
@@ -44,7 +50,10 @@
       </div>
 
       <div>
-        <label for="password" class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+        <label
+          for="password"
+          class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
+          i18n>
           Password
         </label>
         <div class="mt-2">
@@ -69,6 +78,7 @@
       <div>
         <label
           for="passwordConfirmation"
+          i18n
           class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
           Confirm password
         </label>
@@ -101,6 +111,7 @@
         </p>
         } @if (verificationSentTo(); as sentTo) {
         <p
+          i18n
           class="rounded-md bg-green-50 p-3 text-sm text-green-900 dark:bg-green-500/10 dark:text-green-400">
           Check your email. We sent verification instructions to {{ sentTo }}.
         </p>
@@ -110,6 +121,7 @@
       <div class="space-y-3">
         <button
           type="submit"
+          i18n
           [disabled]="pending()"
           class="flex w-full cursor-pointer justify-center rounded-md bg-indigo-800 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:shadow-none dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
           Create account
@@ -117,13 +129,14 @@
 
         <div class="flex items-center gap-x-4" aria-hidden="true">
           <div class="h-px flex-1 bg-gray-200 dark:bg-white/10"></div>
-          <span class="text-sm/6 text-gray-600 dark:text-gray-400">or</span>
+          <span class="text-sm/6 text-gray-600 dark:text-gray-400" i18n>or</span>
           <div class="h-px flex-1 bg-gray-200 dark:bg-white/10"></div>
         </div>
 
         <button
           type="button"
           (click)="sendMagicLink()"
+          i18n
           [disabled]="pending()"
           class="flex w-full cursor-pointer justify-center rounded-md bg-white px-3 py-1.5 text-sm/6 font-semibold text-gray-900 shadow-xs outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-white dark:shadow-none dark:outline-white/10 dark:hover:bg-white/20">
           Email me a sign-up link
@@ -131,7 +144,7 @@
       </div>
     </form>
 
-    <p class="mt-10 text-center text-sm/6 text-gray-600 dark:text-gray-400">
+    <p class="mt-10 text-center text-sm/6 text-gray-600 dark:text-gray-400" i18n>
       Already have an account?
       <a
         routerLink="/sign-in"

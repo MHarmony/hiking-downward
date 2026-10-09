@@ -36,7 +36,7 @@ test.describe('forgot-password page', () => {
     await expect(page.getByRole('button', { name: 'Send reset link' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Back to sign in' })).toHaveAttribute(
       'href',
-      '/sign-in',
+      '/en/sign-in',
     );
   });
 
@@ -90,7 +90,7 @@ test.describe('forgot-password page', () => {
     );
     expect(requestBody).toEqual({
       email: 'hiker@example.com',
-      redirectTo: 'http://localhost:4200/reset-password',
+      redirectTo: 'http://localhost:4200/en/reset-password',
     });
   });
 

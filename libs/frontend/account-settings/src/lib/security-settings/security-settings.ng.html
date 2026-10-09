@@ -1,20 +1,22 @@
 <section aria-labelledby="security-heading" class="max-w-4xl space-y-10">
   <header class="border-b border-gray-200 pb-5 dark:border-white/10">
-    <h2 id="security-heading" class="text-xl font-semibold text-gray-900 dark:text-white">
+    <h2 id="security-heading" class="text-xl font-semibold text-gray-900 dark:text-white" i18n>
       Security
     </h2>
-    <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">
+    <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400" i18n>
       Manage how you sign in and which devices can access your account.
     </p>
   </header>
 
   @if (loading()) {
-  <p role="status" class="text-sm text-gray-600 dark:text-gray-400">Loading security settings…</p>
+  <p role="status" class="text-sm text-gray-600 dark:text-gray-400" i18n>
+    Loading security settings…
+  </p>
   } @else {
   <section
     aria-labelledby="email-heading"
     class="border-b border-gray-200 pb-8 dark:border-white/10">
-    <h3 id="email-heading" class="text-base font-semibold text-gray-900 dark:text-white">
+    <h3 id="email-heading" class="text-base font-semibold text-gray-900 dark:text-white" i18n>
       Email address
     </h3>
     <p class="mt-2 text-sm/6 text-gray-700 dark:text-gray-300">{{ emailAddress() }}</p>
@@ -24,10 +26,14 @@
       [class.text-red-800]="!emailVerified()"
       [class.dark:text-green-300]="emailVerified()"
       [class.dark:text-red-300]="!emailVerified()">
-      {{ emailVerified() ? 'Verified' : 'Not verified' }}
+      @if (emailVerified()) {
+      <ng-container i18n>Verified</ng-container>
+      } @else {
+      <ng-container i18n>Not verified</ng-container>
+      }
     </p>
     @if (emailChangePending()) {
-    <p class="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">
+    <p class="mt-2 text-sm/6 text-gray-600 dark:text-gray-400" i18n>
       Check your current inbox to approve the change, then confirm the new address.
     </p>
     }
@@ -38,7 +44,10 @@
       class="mt-5 flex flex-col items-start gap-3 sm:flex-row sm:items-end">
       @let emailErrors = emailForm.newEmail().errors();
       <div class="w-full max-w-xl">
-        <label for="new-email" class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+        <label
+          for="new-email"
+          class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
+          i18n>
           New email address
         </label>
         <input
@@ -59,6 +68,7 @@
       </div>
       <button
         type="submit"
+        i18n
         [disabled]="pendingAction() === 'email'"
         class="rounded-md bg-indigo-800 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
         Change email
@@ -69,7 +79,7 @@
   <section
     aria-labelledby="password-heading"
     class="border-b border-gray-200 pb-8 dark:border-white/10">
-    <h3 id="password-heading" class="text-base font-semibold text-gray-900 dark:text-white">
+    <h3 id="password-heading" class="text-base font-semibold text-gray-900 dark:text-white" i18n>
       Password
     </h3>
     <form (submit)="changePassword($event)" novalidate class="mt-5 grid max-w-xl gap-5">
@@ -79,6 +89,7 @@
       <div>
         <label
           for="current-password"
+          i18n
           class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
           Current password
         </label>
@@ -101,6 +112,7 @@
       <div>
         <label
           for="new-password"
+          i18n
           class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
           New password
         </label>
@@ -123,6 +135,7 @@
       <div>
         <label
           for="confirm-password"
+          i18n
           class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
           Confirm new password
         </label>
@@ -145,6 +158,7 @@
       <div class="flex flex-wrap items-center gap-3">
         <button
           type="submit"
+          i18n
           [disabled]="pendingAction() === 'password'"
           class="rounded-md bg-indigo-800 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
           Change password
@@ -152,6 +166,7 @@
         <button
           type="button"
           (click)="requestPasswordSetup()"
+          i18n
           [disabled]="pendingAction() === 'password-reset'"
           class="rounded-md bg-white px-4 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-white dark:outline-white/10 dark:hover:bg-white/20">
           Email a password setup link
@@ -163,17 +178,21 @@
   <section
     aria-labelledby="two-factor-heading"
     class="border-b border-gray-200 pb-8 dark:border-white/10">
-    <h3 id="two-factor-heading" class="text-base font-semibold text-gray-900 dark:text-white">
+    <h3 id="two-factor-heading" class="text-base font-semibold text-gray-900 dark:text-white" i18n>
       Two-factor authentication
     </h3>
     <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">
-      {{ twoFactorEnabled() ? 'Authenticator app is enabled.' : 'Add an authenticator app as a
-      second sign-in step.' }}
+      @if (twoFactorEnabled()) {
+      <ng-container i18n>Authenticator app is enabled.</ng-container>
+      } @else {
+      <ng-container i18n>Add an authenticator app as a second sign-in step.</ng-container>
+      }
     </p>
 
     <div class="mt-5 max-w-xl">
       <label
         for="authenticator-password"
+        i18n
         class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
         Current password
         <span class="font-normal text-gray-600 dark:text-gray-400">(if set)</span>
@@ -190,6 +209,7 @@
     <form (submit)="startAuthenticatorSetup($event)" novalidate class="mt-4">
       <button
         type="submit"
+        i18n
         [disabled]="pendingAction() === 'two-factor'"
         class="rounded-md bg-indigo-800 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
         Set up authenticator app
@@ -197,18 +217,19 @@
     </form>
     } @if (setupUri()) {
     <form (submit)="verifyAuthenticatorSetup($event)" novalidate class="mt-5 space-y-4">
-      <p class="text-sm/6 text-gray-700 dark:text-gray-300">
+      <p class="text-sm/6 text-gray-700 dark:text-gray-300" i18n>
         Scan this QR code in your authenticator app.
       </p>
       @if (qrCodeUrl()) {
       <img
         [src]="qrCodeUrl()"
+        i18n-alt
         alt="Authenticator app setup QR code"
         width="220"
         height="220"
         class="size-55 rounded-md bg-white p-2" />
       }
-      <p class="text-sm text-gray-700 dark:text-gray-300">
+      <p class="text-sm text-gray-700 dark:text-gray-300" i18n>
         Or enter setup key
         <code class="rounded bg-gray-100 px-2 py-1 break-all dark:bg-white/10">
           {{ manualTotpKey() }}
@@ -216,7 +237,10 @@
       </p>
       @let totpErrors = authenticatorForm.code().errors();
       <div class="max-w-xs">
-        <label for="totp-code" class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
+        <label
+          for="totp-code"
+          class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100"
+          i18n>
           Authenticator code
         </label>
         <input
@@ -237,6 +261,7 @@
       </div>
       <button
         type="submit"
+        i18n
         [disabled]="pendingAction() === 'two-factor'"
         class="rounded-md bg-indigo-800 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
         Verify and enable
@@ -247,6 +272,7 @@
       <button
         type="button"
         (click)="regenerateBackupCodes()"
+        i18n
         [disabled]="pendingAction() === 'backup-codes'"
         class="rounded-md bg-white px-4 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-white dark:outline-white/10 dark:hover:bg-white/20">
         Regenerate backup codes
@@ -254,6 +280,7 @@
       <button
         type="button"
         (click)="disableTwoFactor()"
+        i18n
         [disabled]="pendingAction() === 'two-factor'"
         class="rounded-md bg-white px-4 py-2 text-sm font-semibold text-red-800 outline-1 -outline-offset-1 outline-red-300 hover:bg-red-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-red-300 dark:outline-red-400/30 dark:hover:bg-red-500/10">
         Disable two-factor authentication
@@ -262,8 +289,8 @@
     } @if (backupCodes().length > 0) {
     <div
       class="mt-5 rounded-md border border-amber-300 bg-amber-50 p-4 dark:border-amber-300/30 dark:bg-amber-500/10">
-      <h4 class="font-semibold text-gray-900 dark:text-white">Save your backup codes</h4>
-      <p class="mt-1 text-sm/6 text-gray-700 dark:text-gray-300">
+      <h4 class="font-semibold text-gray-900 dark:text-white" i18n>Save your backup codes</h4>
+      <p class="mt-1 text-sm/6 text-gray-700 dark:text-gray-300" i18n>
         Each code can be used once. Keep them somewhere private.
       </p>
       @if (backupCodesNotice()) {
@@ -284,11 +311,11 @@
   <section
     aria-labelledby="passkeys-heading"
     class="border-b border-gray-200 pb-8 dark:border-white/10">
-    <h3 id="passkeys-heading" class="text-base font-semibold text-gray-900 dark:text-white">
+    <h3 id="passkeys-heading" class="text-base font-semibold text-gray-900 dark:text-white" i18n>
       Passkeys
     </h3>
     @if (!passkeySupported) {
-    <p class="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">
+    <p class="mt-2 text-sm/6 text-gray-600 dark:text-gray-400" i18n>
       Passkeys require a supported browser and a secure connection.
     </p>
     } @else {
@@ -296,6 +323,7 @@
       <div class="w-full">
         <label
           for="passkey-name"
+          i18n
           class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
           Name for this passkey
         </label>
@@ -309,13 +337,14 @@
       <button
         type="button"
         (click)="addPasskey()"
+        i18n
         [disabled]="pendingAction() === 'passkey'"
         class="rounded-md bg-indigo-800 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
         Add passkey
       </button>
     </div>
     @if (passkeys().length === 0) {
-    <p class="mt-4 text-sm/6 text-gray-600 dark:text-gray-400">No passkeys are registered.</p>
+    <p class="mt-4 text-sm/6 text-gray-600 dark:text-gray-400" i18n>No passkeys are registered.</p>
     } @else {
     <ul class="mt-5 divide-y divide-gray-200 dark:divide-white/10">
       @for (passkey of passkeys(); track passkey.id) {
@@ -323,6 +352,7 @@
         <div class="min-w-0 flex-1">
           <label
             [for]="'passkey-name-' + passkey.id"
+            i18n
             class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
             Passkey name
           </label>
@@ -331,28 +361,31 @@
             [id]="'passkey-name-' + passkey.id"
             [value]="passkey.name"
             class="mt-2 block w-full max-w-md rounded-md bg-white px-3 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm dark:bg-white/5 dark:text-white dark:outline-white/10 dark:focus:outline-indigo-500" />
-          <p class="mt-1 text-xs text-gray-600 dark:text-gray-400">
+          <p class="mt-1 text-xs text-gray-600 dark:text-gray-400" i18n>
             Added {{ passkey.createdAt | date: 'mediumDate' }}
           </p>
         </div>
         <button
           type="button"
           (click)="renamePasskey(passkey.id, passkeyLabel.value)"
+          i18n
           class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-white/10 dark:text-white dark:outline-white/10 dark:hover:bg-white/20">
           Save name
         </button>
         @if (passkeyPendingRemoval() === passkey.id) {
         <div class="flex items-center gap-2">
-          <span class="text-sm text-red-800 dark:text-red-300">Remove this passkey?</span>
+          <span class="text-sm text-red-800 dark:text-red-300" i18n>Remove this passkey?</span>
           <button
             type="button"
             (click)="removePasskey(passkey.id)"
+            i18n
             class="rounded-md bg-red-700 px-3 py-2 text-sm font-semibold text-white hover:bg-red-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700">
             Confirm
           </button>
           <button
             type="button"
             (click)="cancelRemovePasskey()"
+            i18n
             class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-white/10 dark:text-white dark:outline-white/10 dark:hover:bg-white/20">
             Cancel
           </button>
@@ -361,6 +394,7 @@
         <button
           type="button"
           (click)="askRemovePasskey(passkey.id)"
+          i18n
           class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-red-800 outline-1 -outline-offset-1 outline-red-300 hover:bg-red-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700 dark:bg-white/10 dark:text-red-300 dark:outline-red-400/30 dark:hover:bg-red-500/10">
           Remove
         </button>
@@ -374,16 +408,20 @@
   <section aria-labelledby="sessions-heading">
     <div class="flex flex-wrap items-center justify-between gap-3">
       <div>
-        <h3 id="sessions-heading" class="text-base font-semibold text-gray-900 dark:text-white">
+        <h3
+          id="sessions-heading"
+          class="text-base font-semibold text-gray-900 dark:text-white"
+          i18n>
           Active sessions
         </h3>
-        <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">
+        <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400" i18n>
           Sign out devices you no longer use.
         </p>
       </div>
       <button
         type="button"
         (click)="revokeOtherSessions()"
+        i18n
         [disabled]="pendingAction() === 'sessions' || sessions().length < 2"
         class="rounded-md bg-white px-4 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-white dark:outline-white/10 dark:hover:bg-white/20">
         Sign out other sessions
@@ -396,20 +434,27 @@
       {{ sessionError() }}
     </p>
     } @else if (sessions().length === 0) {
-    <p class="mt-4 text-sm/6 text-gray-600 dark:text-gray-400">No active sessions found.</p>
+    <p class="mt-4 text-sm/6 text-gray-600 dark:text-gray-400" i18n>No active sessions found.</p>
     } @else {
     <ul class="mt-4 divide-y divide-gray-200 dark:divide-white/10">
       @for (session of sessions(); track session.id) {
       <li class="flex flex-wrap items-center justify-between gap-3 py-4">
         <div>
           <p class="text-sm font-medium text-gray-900 dark:text-gray-100">
-            {{ session.userAgent || 'Browser session' }} @if (session.isCurrent) {
-            <span class="ml-2 text-indigo-700 dark:text-indigo-300">This device</span>
+            @if (session.userAgent) { {{ session.userAgent }} } @else {
+            <ng-container i18n>Browser session</ng-container>
+            } @if (session.isCurrent) {
+            <span class="ml-2 text-indigo-700 dark:text-indigo-300" i18n>This device</span>
             }
           </p>
           <p class="mt-1 text-xs text-gray-600 dark:text-gray-400">
-            Started {{ session.createdAt | date: 'medium' }} · Expires {{ session.expiresAt | date:
-            'medium' }} @if (session.ipAddress) { · {{ session.ipAddress }} }
+            <ng-container i18n>
+              Started {{ session.createdAt | date: 'medium' }} · Expires {{ session.expiresAt |
+              date: 'medium' }}
+            </ng-container>
+            @if (session.ipAddress) {
+            <ng-container i18n>· {{ session.ipAddress }}</ng-container>
+            }
           </p>
         </div>
         <button
@@ -417,7 +462,11 @@
           (click)="revokeSession(session)"
           [disabled]="pendingAction() === 'sessions'"
           class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-white dark:outline-white/10 dark:hover:bg-white/20">
-          {{ session.isCurrent ? 'Sign out this device' : 'Sign out' }}
+          @if (session.isCurrent) {
+          <ng-container i18n>Sign out this device</ng-container>
+          } @else {
+          <ng-container i18n>Sign out</ng-container>
+          }
         </button>
       </li>
       }

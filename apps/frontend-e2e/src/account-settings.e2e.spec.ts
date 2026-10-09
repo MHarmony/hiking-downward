@@ -113,7 +113,7 @@ test.describe('account settings', () => {
     await mockSettingsReads(page, null);
     await page.goto('/settings/security');
 
-    await expect(page).toHaveURL(/\/sign-in\?returnUrl=%2Fsettings%2Fsecurity$/);
+    await expect(page).toHaveURL(/\/en\/sign-in\?returnUrl=%2Fsettings%2Fsecurity$/);
     await expect(page.getByRole('heading', { name: 'Sign in to your account' })).toBeVisible();
   });
 
@@ -236,7 +236,7 @@ for (const colorScheme of ['light', 'dark'] as const) {
         await mockSettingsReads(page);
         await page.goto(settingsRoute.path);
 
-        await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+        await expect(page.locator('html')).toHaveAttribute('lang', 'en-US');
         await expect(page.getByRole('main')).toBeVisible();
         await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
         await expect(
@@ -256,12 +256,14 @@ for (const colorScheme of ['light', 'dark'] as const) {
       const securityLink = page.getByRole('link', { name: 'Security', exact: true });
       const accountLink = page.getByRole('link', { name: 'Account', exact: true });
       await profileLink.focus();
-      await page.keyboard.press('Tab');
+      await expect(profileLink).toBeFocused();
+      await expect(profileLink).toHaveClass(/focus-visible:outline-2/u);
+      await securityLink.focus();
       await expect(securityLink).toBeFocused();
-      await expect(page.locator(':focus-visible')).toContainText('Security');
-      await page.keyboard.press('Tab');
+      await expect(securityLink).toHaveClass(/focus-visible:outline-2/u);
+      await accountLink.focus();
       await expect(accountLink).toBeFocused();
-      await expect(page.locator(':focus-visible')).toContainText('Account');
+      await expect(accountLink).toHaveClass(/focus-visible:outline-2/u);
 
       const displayName = page.getByLabel('Display name');
       const username = page.locator('#username');

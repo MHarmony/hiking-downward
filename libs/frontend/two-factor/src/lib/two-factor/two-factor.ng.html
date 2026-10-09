@@ -5,14 +5,22 @@
       width="240"
       height="180"
       priority
+      i18n-alt="@@hiking-illustration.alt"
       alt="Stick figure hiking toward a mountain"
       class="mx-auto h-24 w-32" />
-    <h1 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white">
+    <h1
+      class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white"
+      i18n>
       Two-factor authentication
     </h1>
     <p class="mt-2 text-center text-sm/6 text-gray-600 dark:text-gray-400">
-      @if (method() === 'totp') { Enter the 6-digit code from your authenticator app. } @else {
-      Enter one of the backup codes you saved when you set up two-factor authentication. }
+      @if (method() === 'totp') {
+      <ng-container i18n>Enter the 6-digit code from your authenticator app.</ng-container>
+      } @else {
+      <ng-container i18n>
+        Enter one of the backup codes you saved when you set up two-factor authentication.
+      </ng-container>
+      }
     </p>
   </div>
 
@@ -22,7 +30,11 @@
 
       <div>
         <label for="code" class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">
-          @if (method() === 'totp') { Authentication code } @else { Backup code }
+          @if (method() === 'totp') {
+          <ng-container i18n>Authentication code</ng-container>
+          } @else {
+          <ng-container i18n>Backup code</ng-container>
+          }
         </label>
         <div class="mt-2">
           <input
@@ -52,7 +64,7 @@
           type="checkbox"
           [formField]="twoFactorForm.trustDevice"
           class="size-4 rounded-sm border-gray-300 text-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:border-white/10 dark:bg-white/5" />
-        <label for="trustDevice" class="block text-sm/6 text-gray-900 dark:text-gray-100">
+        <label for="trustDevice" class="block text-sm/6 text-gray-900 dark:text-gray-100" i18n>
           Trust this device for 30 days
         </label>
       </div>
@@ -69,6 +81,7 @@
       <div class="space-y-3">
         <button
           type="submit"
+          i18n
           [disabled]="pending()"
           class="flex w-full cursor-pointer justify-center rounded-md bg-indigo-800 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-800 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-indigo-700 dark:shadow-none dark:hover:bg-indigo-800 dark:focus-visible:outline-indigo-300">
           Verify
@@ -79,8 +92,11 @@
           (click)="toggleMethod()"
           [disabled]="pending()"
           class="flex w-full cursor-pointer justify-center rounded-md bg-white px-3 py-1.5 text-sm/6 font-semibold text-gray-900 shadow-xs outline-1 -outline-offset-1 outline-gray-300 hover:bg-gray-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-white/10 dark:text-white dark:shadow-none dark:outline-white/10 dark:hover:bg-white/20">
-          @if (method() === 'totp') { Use a backup code instead } @else { Use your authenticator app
-          instead }
+          @if (method() === 'totp') {
+          <ng-container i18n>Use a backup code instead</ng-container>
+          } @else {
+          <ng-container i18n>Use your authenticator app instead</ng-container>
+          }
         </button>
       </div>
     </form>
@@ -88,6 +104,7 @@
     <p class="mt-10 text-center text-sm/6 text-gray-600 dark:text-gray-400">
       <a
         routerLink="/sign-in"
+        i18n
         class="font-semibold text-indigo-700 hover:text-indigo-800 dark:text-indigo-300 dark:hover:text-indigo-200">
         Back to sign in
       </a>
