@@ -147,6 +147,7 @@
   "tui": {
     "enabled": false
   },
+  "useDaemonProcess": true,
   "workspaceLayout": {
     "appsDir": "apps",
     "libsDir": "libs"

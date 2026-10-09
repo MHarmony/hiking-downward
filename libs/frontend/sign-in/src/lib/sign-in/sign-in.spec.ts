@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { captureException } from '@sentry/angular';
 import * as fc from 'fast-check';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -388,6 +388,21 @@ describe('SignIn', () => {
     await fixture.whenStable();
 
     expect(authClient.signIn.passkey).toHaveBeenCalledWith({ autoFill: true });
+    vi.unstubAllGlobals();
+  }, 10_000);
+
+  it('does not navigate when conditional UI returns no authentication data', async () => {
+    vi.stubGlobal('PublicKeyCredential', {
+      isConditionalMediationAvailable: vi.fn<() => Promise<boolean>>().mockResolvedValue(true),
+    });
+    authClient.signIn.passkey.mockResolvedValue({ data: null, error: null });
+    const navigateByUrl = vi.spyOn(TestBed.inject(Router), 'navigateByUrl');
+    const fixture = createFixture();
+    await fixture.whenStable();
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    expect(authClient.signIn.passkey).toHaveBeenCalledWith({ autoFill: true });
+    expect(navigateByUrl).not.toHaveBeenCalled();
     vi.unstubAllGlobals();
   }, 10_000);
 

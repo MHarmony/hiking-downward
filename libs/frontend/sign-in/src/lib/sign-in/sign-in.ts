@@ -204,8 +204,8 @@ export class SignIn {
     }
 
     // Errors are ignored: this ceremony is aborted whenever another passkey prompt starts.
-    const { error } = await this.#authClient.signIn.passkey({ autoFill: true });
-    if (!error) {
+    const { data, error } = await this.#authClient.signIn.passkey({ autoFill: true });
+    if (!error && data) {
       this.#auth.rememberPostAuthRedirectUrl(this.#returnUrl);
       await this.#router.navigateByUrl(this.#auth.consumePostAuthRedirectUrl());
     }
