@@ -356,13 +356,13 @@
         <target>No se pudo solicitar la eliminación de la cuenta. Comprueba tu conexión e inténtalo de nuevo.</target>
       </segment>
     </unit>
-    <unit id="6065256442019317931">
+    <unit id="4705574737363737948">
       <notes>
         <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ng.html:7,8</note>
       </notes>
       <segment>
-        <source> Update the name and username shown on your account. </source>
-        <target>Actualiza el nombre y el nombre de usuario que aparecen en tu cuenta.</target>
+        <source> Update your display name and username. Your username is public and can also be used to sign in. </source>
+        <target>Actualiza tu nombre visible y tu nombre de usuario. Tu nombre de usuario es público y también puedes usarlo para iniciar sesión.</target>
       </segment>
     </unit>
     <unit id="8597307603992498874">

@@ -9,10 +9,8 @@ import { authErrorMessage } from '../account-settings.utils';
 interface ProfileData {
   /** Name displayed across the application. */
   name: string;
-  /** Unique sign-in username. */
+  /** Unique username shown publicly and accepted for sign-in. */
   username: string;
-  /** Public-facing username shown to other users. */
-  displayUsername: string;
 }
 
 /** Loads and updates the signed-in user's profile fields. */
@@ -24,14 +22,11 @@ interface ProfileData {
 export class ProfileSettings {
   /* v8 ignore stop */
   readonly #authClient = inject(FrontendAuth).authClient;
-  readonly #profileModel = signal<ProfileData>({ name: '', username: '', displayUsername: '' });
+  readonly #profileModel = signal<ProfileData>({ name: '', username: '' });
 
   protected readonly profileForm = form<ProfileData>(this.#profileModel, (path) => {
     required(path.name, { message: $localize`Enter your display name.` });
     maxLength(path.name, 80, { message: $localize`Display name must be 80 characters or fewer.` });
-    maxLength(path.displayUsername, 50, {
-      message: $localize`Public username must be 50 characters or fewer.`,
-    });
     validate(path.username, (context) => {
       const username = context.value().trim();
       if (username.length === 0) {
@@ -84,16 +79,9 @@ export class ProfileSettings {
         this.pending.set(true);
         try {
           const profile = this.#profileModel();
-          const update: {
-            name: string;
-            username?: string;
-            displayUsername?: string;
-          } = { name: profile.name.trim() };
+          const update: { name: string; username?: string } = { name: profile.name.trim() };
           if (profile.username.trim()) {
             update.username = profile.username.trim();
-          }
-          if (profile.displayUsername.trim()) {
-            update.displayUsername = profile.displayUsername.trim();
           }
 
           const { error } = await this.#authClient.updateUser(update);
@@ -134,12 +122,10 @@ export class ProfileSettings {
     const user = data.user as {
       name?: string | null;
       username?: string | null;
-      displayUsername?: string | null;
     };
     this.#profileModel.set({
       name: user.name ?? '',
       username: user.username ?? '',
-      displayUsername: user.displayUsername ?? '',
     });
     this.loading.set(false);
   }

@@ -8,7 +8,7 @@ import { ProfileSettings } from './profile-settings';
 type SessionResponse = {
   /** Profile data or a missing session. */
   data: {
-    user: { name?: string | null; username?: string | null; displayUsername?: string | null };
+    user: { name?: string | null; username?: string | null };
   } | null;
   /** Session lookup error, when present. */
   error: { message?: string } | null;
@@ -35,7 +35,6 @@ describe('ProfileSettings', () => {
         user: {
           name: 'Trail Hiker',
           username: 'trail_hiker',
-          displayUsername: 'Trail Hiker',
         },
       },
       error: null,
@@ -82,12 +81,12 @@ describe('ProfileSettings', () => {
     expect(getSession).toHaveBeenCalledOnce();
     expect(fixture.nativeElement.querySelector('#display-name').value).toBe('Trail Hiker');
     expect(fixture.nativeElement.querySelector('#username').value).toBe('trail_hiker');
-    expect(fixture.nativeElement.querySelector('#public-username').value).toBe('Trail Hiker');
+    expect(fixture.nativeElement.querySelector('#public-username')).toBeNull();
   }, 10_000);
 
   it('uses empty defaults for nullable profile fields', async () => {
     getSession.mockResolvedValueOnce({
-      data: { user: { name: null, username: null, displayUsername: null } },
+      data: { user: { name: null, username: null } },
       error: null,
     });
     fixture = createFixture();
@@ -95,7 +94,6 @@ describe('ProfileSettings', () => {
 
     expect(fixture.nativeElement.querySelector('#display-name').value).toBe('');
     expect(fixture.nativeElement.querySelector('#username').value).toBe('');
-    expect(fixture.nativeElement.querySelector('#public-username').value).toBe('');
   }, 10_000);
 
   it('saves the profile fields and announces success', async () => {
@@ -116,7 +114,6 @@ describe('ProfileSettings', () => {
     expect(updateUser).toHaveBeenCalledWith({
       name: 'Ridge Walker',
       username: 'ridge_walker',
-      displayUsername: 'Trail Hiker',
     });
     expect(fixture.nativeElement.querySelector('[role="status"]').textContent).toContain(
       'Profile saved.',
@@ -180,13 +177,8 @@ describe('ProfileSettings', () => {
     fixture = createFixture();
     await waitForProfileLoad();
     const username = fixture.nativeElement.querySelector('#username') as HTMLInputElement;
-    const displayUsername = fixture.nativeElement.querySelector(
-      '#public-username',
-    ) as HTMLInputElement;
     username.value = '';
-    displayUsername.value = '';
     username.dispatchEvent(new Event('input', { bubbles: true }));
-    displayUsername.dispatchEvent(new Event('input', { bubbles: true }));
     fixture.detectChanges();
     fixture.nativeElement
       .querySelector('form')
@@ -217,7 +209,7 @@ describe('ProfileSettings', () => {
     expect(fixture.nativeElement.textContent).toContain('Username must be 3 to 30 characters.');
   }, 10_000);
 
-  it('requires a display name and bounds the public username', async () => {
+  it('requires a display name', async () => {
     fixture = createFixture();
     await waitForProfileLoad();
     const name = fixture.nativeElement.querySelector('#display-name') as HTMLInputElement;
@@ -229,21 +221,5 @@ describe('ProfileSettings', () => {
       .dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
     await fixture.whenStable();
     expect(fixture.nativeElement.textContent).toContain('Enter your display name.');
-
-    name.value = 'Trail Hiker';
-    name.dispatchEvent(new Event('input', { bubbles: true }));
-    const publicUsername = fixture.nativeElement.querySelector(
-      '#public-username',
-    ) as HTMLInputElement;
-    publicUsername.value = 'x'.repeat(51);
-    publicUsername.dispatchEvent(new Event('input', { bubbles: true }));
-    fixture.detectChanges();
-    fixture.nativeElement
-      .querySelector('form')
-      .dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
-    await fixture.whenStable();
-    expect(fixture.nativeElement.textContent).toContain(
-      'Public username must be 50 characters or fewer.',
-    );
   }, 10_000);
 });

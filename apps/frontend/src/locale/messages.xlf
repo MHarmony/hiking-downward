@@ -3,7 +3,7 @@
   <file id="ngi18n" original="ng.template">
     <unit id="2826581353496868063">
       <notes>
-        <note category="location">apps/frontend/src/app/app.ng.html:2</note>
+        <note category="location">apps/frontend/src/app/app.ng.html:3</note>
       </notes>
       <segment>
         <source>Language</source>
@@ -11,7 +11,7 @@
     </unit>
     <unit id="6148240505915136274">
       <notes>
-        <note category="location">apps/frontend/src/app/app.ng.html:8,9</note>
+        <note category="location">apps/frontend/src/app/app.ng.html:9,10</note>
       </notes>
       <segment>
         <source> English </source>
@@ -19,7 +19,7 @@
     </unit>
     <unit id="8909326324754435888">
       <notes>
-        <note category="location">apps/frontend/src/app/app.ng.html:15,16</note>
+        <note category="location">apps/frontend/src/app/app.ng.html:16,17</note>
       </notes>
       <segment>
         <source> Spanish </source>
@@ -269,8 +269,8 @@
     </unit>
     <unit id="6785988725371964672">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:30</note>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:56</note>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:32</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:57</note>
       </notes>
       <segment>
         <source>Password must be no more than 128 characters.</source>
@@ -278,7 +278,7 @@
     </unit>
     <unit id="16413049577373733">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:36</note>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:38</note>
       </notes>
       <segment>
         <source>Type DELETE to confirm account deletion.</source>
@@ -286,8 +286,8 @@
     </unit>
     <unit id="7007076451885734546">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:51</note>
-        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:109</note>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:53</note>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:111</note>
       </notes>
       <segment>
         <source>your account email address</source>
@@ -295,7 +295,7 @@
     </unit>
     <unit id="6259765537947007531">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:77</note>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:79</note>
       </notes>
       <segment>
         <source>Unable to request account deletion.</source>
@@ -303,7 +303,7 @@
     </unit>
     <unit id="6403387466235798986">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:83</note>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:85</note>
       </notes>
       <segment>
         <source>A confirmation link was sent to <ph id="0" equiv="emailAddress" disp="this.emailAddress()"/>. Use that link to complete deletion.</source>
@@ -311,23 +311,23 @@
     </unit>
     <unit id="4744589444219445795">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:87</note>
+        <note category="location">libs/frontend/account-settings/src/lib/danger-zone/danger-zone.ts:89</note>
       </notes>
       <segment>
         <source>Unable to request account deletion. Check your connection and try again.</source>
       </segment>
     </unit>
-    <unit id="6065256442019317931">
+    <unit id="4705574737363737948">
       <notes>
         <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ng.html:7,8</note>
       </notes>
       <segment>
-        <source> Update the name and username shown on your account. </source>
+        <source> Update your display name and username. Your username is public and can also be used to sign in. </source>
       </segment>
     </unit>
     <unit id="8597307603992498874">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ng.html:13,15</note>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ng.html:14,16</note>
       </notes>
       <segment>
         <source> Loading your profile… </source>
@@ -349,17 +349,9 @@
         <source> Username </source>
       </segment>
     </unit>
-    <unit id="7581144485449120695">
-      <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ng.html:74,75</note>
-      </notes>
-      <segment>
-        <source> Public username </source>
-      </segment>
-    </unit>
     <unit id="3923063526031081896">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ng.html:109,110</note>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ng.html:87,88</note>
       </notes>
       <segment>
         <source> Save profile </source>
@@ -381,17 +373,9 @@
         <source>Display name must be 80 characters or fewer.</source>
       </segment>
     </unit>
-    <unit id="1204369468971061187">
-      <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:31</note>
-      </notes>
-      <segment>
-        <source>Public username must be 50 characters or fewer.</source>
-      </segment>
-    </unit>
     <unit id="3097807716859260337">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:39</note>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:36</note>
       </notes>
       <segment>
         <source>Username must be 3 to 30 characters.</source>
@@ -399,7 +383,7 @@
     </unit>
     <unit id="4539460434431346009">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:44</note>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:41</note>
       </notes>
       <segment>
         <source>Use letters, numbers, underscores, and hyphens only.</source>
@@ -407,7 +391,7 @@
     </unit>
     <unit id="3916390336655266144">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:48</note>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:45</note>
       </notes>
       <segment>
         <source>That username is reserved.</source>
@@ -415,8 +399,8 @@
     </unit>
     <unit id="379178500204227116">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:62</note>
-        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:128</note>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:59</note>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:118</note>
       </notes>
       <segment>
         <source>Unable to load your profile. Refresh the page to try again.</source>
@@ -424,7 +408,7 @@
     </unit>
     <unit id="4263558935127234324">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:99</note>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:89</note>
       </notes>
       <segment>
         <source>Unable to save your profile.</source>
@@ -432,7 +416,7 @@
     </unit>
     <unit id="3894326505098597614">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:102</note>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:92</note>
       </notes>
       <segment>
         <source>Profile saved.</source>
@@ -440,7 +424,7 @@
     </unit>
     <unit id="8683828232798554719">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:105</note>
+        <note category="location">libs/frontend/account-settings/src/lib/profile-settings/profile-settings.ts:95</note>
       </notes>
       <segment>
         <source>Unable to save your profile. Check your connection and try again.</source>
@@ -856,7 +840,7 @@
     </unit>
     <unit id="6646688803486199365">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:47</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:48</note>
       </notes>
       <segment>
         <source>Enter your new email address.</source>
@@ -864,10 +848,10 @@
     </unit>
     <unit id="2112768397949905814">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:48</note>
-        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ts:68</note>
-        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:92</note>
-        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ts:78</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:49</note>
+        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ts:70</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:94</note>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ts:80</note>
       </notes>
       <segment>
         <source>Enter a valid email address.</source>
@@ -875,7 +859,7 @@
     </unit>
     <unit id="9121424381282805046">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:52</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:53</note>
       </notes>
       <segment>
         <source>Enter your current password.</source>
@@ -883,8 +867,8 @@
     </unit>
     <unit id="9192150750427245378">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:53</note>
-        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:84</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:54</note>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:86</note>
       </notes>
       <segment>
         <source>Enter a new password.</source>
@@ -892,7 +876,7 @@
     </unit>
     <unit id="5906359199564086241">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:54</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:55</note>
       </notes>
       <segment>
         <source>Password must be at least 8 characters.</source>
@@ -900,8 +884,8 @@
     </unit>
     <unit id="5182539120711458362">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:58</note>
-        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:96</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:59</note>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:98</note>
       </notes>
       <segment>
         <source>Confirm your new password.</source>
@@ -909,9 +893,9 @@
     </unit>
     <unit id="2561326148159407958">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:61</note>
-        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:101</note>
-        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:116</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:62</note>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:103</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:118</note>
       </notes>
       <segment>
         <source>Passwords must match.</source>
@@ -919,7 +903,7 @@
     </unit>
     <unit id="804793265126552077">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:72</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:73</note>
         <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ng.html:18</note>
         <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.utils.ts:39</note>
       </notes>
@@ -929,8 +913,8 @@
     </unit>
     <unit id="7907116368491097057">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:111</note>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:441</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:112</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:437</note>
       </notes>
       <segment>
         <source>Unable to load security settings. Refresh the page to try again.</source>
@@ -938,7 +922,7 @@
     </unit>
     <unit id="7861562218064676514">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:135</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:131</note>
       </notes>
       <segment>
         <source>Unable to request an email change.</source>
@@ -946,7 +930,7 @@
     </unit>
     <unit id="7632096107403805438">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:141</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:137</note>
       </notes>
       <segment>
         <source>Confirmation instructions were sent to <ph id="0" equiv="emailAddress" disp="this.emailAddress()"/>. Follow them to finish changing your email.</source>
@@ -954,7 +938,7 @@
     </unit>
     <unit id="5924732138040865931">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:173</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:169</note>
       </notes>
       <segment>
         <source>Unable to change your password.</source>
@@ -962,7 +946,7 @@
     </unit>
     <unit id="6556865132351795235">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:178</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:174</note>
       </notes>
       <segment>
         <source>Password changed. Other sessions were signed out.</source>
@@ -970,7 +954,7 @@
     </unit>
     <unit id="1093358842876886490">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:200</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:196</note>
       </notes>
       <segment>
         <source>Unable to send a password setup link.</source>
@@ -978,7 +962,7 @@
     </unit>
     <unit id="1223745264067059978">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:205</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:201</note>
       </notes>
       <segment>
         <source>A password setup link was sent to <ph id="0" equiv="emailAddress" disp="this.emailAddress()"/>.</source>
@@ -986,7 +970,7 @@
     </unit>
     <unit id="8089692315169013023">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:228</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:224</note>
       </notes>
       <segment>
         <source>Unable to start authenticator setup.</source>
@@ -994,7 +978,7 @@
     </unit>
     <unit id="2730525274401089757">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:238</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:234</note>
       </notes>
       <segment>
         <source>Unable to create the setup QR code. Use the setup key instead.</source>
@@ -1002,7 +986,7 @@
     </unit>
     <unit id="7816103001137822517">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:262</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:258</note>
       </notes>
       <segment>
         <source>Unable to verify this authenticator code.</source>
@@ -1010,7 +994,7 @@
     </unit>
     <unit id="2560268464180088571">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:273</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:269</note>
       </notes>
       <segment>
         <source>Two-factor authentication is enabled. Save your backup codes.</source>
@@ -1018,7 +1002,7 @@
     </unit>
     <unit id="5767650259795109024">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:293</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:289</note>
       </notes>
       <segment>
         <source>Unable to disable two-factor authentication.</source>
@@ -1026,7 +1010,7 @@
     </unit>
     <unit id="4892838806625807337">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:301</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:297</note>
       </notes>
       <segment>
         <source>Two-factor authentication is disabled.</source>
@@ -1034,7 +1018,7 @@
     </unit>
     <unit id="2453753329405843002">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:315</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:311</note>
       </notes>
       <segment>
         <source>Unable to generate backup codes.</source>
@@ -1042,7 +1026,7 @@
     </unit>
     <unit id="4040366258700651500">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:320</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:316</note>
       </notes>
       <segment>
         <source>These new codes replace all previously issued backup codes.</source>
@@ -1050,7 +1034,7 @@
     </unit>
     <unit id="3500974886501797910">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:322</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:318</note>
       </notes>
       <segment>
         <source>New backup codes generated. Save them now.</source>
@@ -1058,7 +1042,7 @@
     </unit>
     <unit id="8396867529514529579">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:333</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:329</note>
       </notes>
       <segment>
         <source>Unable to add this passkey.</source>
@@ -1066,7 +1050,7 @@
     </unit>
     <unit id="631000244808948820">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:337</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:333</note>
       </notes>
       <segment>
         <source>Passkey added.</source>
@@ -1074,7 +1058,7 @@
     </unit>
     <unit id="748604126515731273">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:366</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:362</note>
       </notes>
       <segment>
         <source>Unable to rename this passkey.</source>
@@ -1082,7 +1066,7 @@
     </unit>
     <unit id="2197291451354752941">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:369</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:365</note>
       </notes>
       <segment>
         <source>Passkey renamed.</source>
@@ -1090,7 +1074,7 @@
     </unit>
     <unit id="6640807627031916898">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:383</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:379</note>
       </notes>
       <segment>
         <source>Unable to remove this passkey.</source>
@@ -1098,7 +1082,7 @@
     </unit>
     <unit id="251356013038434452">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:386</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:382</note>
       </notes>
       <segment>
         <source>Passkey removed.</source>
@@ -1106,7 +1090,7 @@
     </unit>
     <unit id="1309399351322514414">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:398</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:394</note>
       </notes>
       <segment>
         <source>Unable to sign out this session.</source>
@@ -1114,7 +1098,7 @@
     </unit>
     <unit id="4562673020845265081">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:405</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:401</note>
       </notes>
       <segment>
         <source>Session signed out.</source>
@@ -1122,7 +1106,7 @@
     </unit>
     <unit id="2173471906224650335">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:417</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:413</note>
       </notes>
       <segment>
         <source>Unable to sign out other sessions.</source>
@@ -1130,7 +1114,7 @@
     </unit>
     <unit id="4784800066220710618">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:421</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:417</note>
       </notes>
       <segment>
         <source>Other sessions were signed out.</source>
@@ -1138,8 +1122,8 @@
     </unit>
     <unit id="7064959157597407158">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:466</note>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:481</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:462</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:477</note>
       </notes>
       <segment>
         <source>Unable to load active sessions.</source>
@@ -1147,7 +1131,7 @@
     </unit>
     <unit id="4193403352510434378">
       <notes>
-        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:492</note>
+        <note category="location">libs/frontend/account-settings/src/lib/security-settings/security-settings.ts:488</note>
       </notes>
       <segment>
         <source>The request could not be completed. Check your connection and try again.</source>
@@ -1311,9 +1295,9 @@
     </unit>
     <unit id="3538634276910895484">
       <notes>
-        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ts:64</note>
-        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:88</note>
-        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ts:74</note>
+        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ts:66</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:90</note>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ts:76</note>
       </notes>
       <segment>
         <source>Enter your email address.</source>
@@ -1321,7 +1305,7 @@
     </unit>
     <unit id="4299992624267335773">
       <notes>
-        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ts:124</note>
+        <note category="location">libs/frontend/password-reset/src/lib/forgot-password/forgot-password.ts:126</note>
       </notes>
       <segment>
         <source>Unable to send a password reset link.</source>
@@ -1369,8 +1353,8 @@
     </unit>
     <unit id="5625603433986567101">
       <notes>
-        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:88</note>
-        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:100</note>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:90</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:102</note>
       </notes>
       <segment>
         <source>Password must be at least <ph id="0" equiv="minLength" disp="MIN_PASSWORD_LENGTH"/> characters.</source>
@@ -1378,8 +1362,8 @@
     </unit>
     <unit id="142165942262266218">
       <notes>
-        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:92</note>
-        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:104</note>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:94</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:106</note>
       </notes>
       <segment>
         <source>Password must be no more than <ph id="0" equiv="maxLength" disp="MAX_PASSWORD_LENGTH"/> characters.</source>
@@ -1387,7 +1371,7 @@
     </unit>
     <unit id="9014047478111512177">
       <notes>
-        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:156</note>
+        <note category="location">libs/frontend/password-reset/src/lib/reset-password/reset-password.ts:158</note>
       </notes>
       <segment>
         <source>Unable to reset your password.</source>
@@ -1464,7 +1448,7 @@
     </unit>
     <unit id="5704488174033898372">
       <notes>
-        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:82</note>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:84</note>
       </notes>
       <segment>
         <source>Enter your email address or username.</source>
@@ -1472,7 +1456,7 @@
     </unit>
     <unit id="1739034957686187865">
       <notes>
-        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:86</note>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:88</note>
       </notes>
       <segment>
         <source>Magic link sign-in requires an email address.</source>
@@ -1480,7 +1464,7 @@
     </unit>
     <unit id="7206690825838385338">
       <notes>
-        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:90</note>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:92</note>
       </notes>
       <segment>
         <source>Enter your password.</source>
@@ -1488,7 +1472,7 @@
     </unit>
     <unit id="6087688606580921787">
       <notes>
-        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:127</note>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:129</note>
       </notes>
       <segment>
         <source>Unable to sign in.</source>
@@ -1496,7 +1480,7 @@
     </unit>
     <unit id="2968448101649938026">
       <notes>
-        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:157</note>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:159</note>
       </notes>
       <segment>
         <source>Unable to send a magic link.</source>
@@ -1504,7 +1488,7 @@
     </unit>
     <unit id="3525984796552568891">
       <notes>
-        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:180</note>
+        <note category="location">libs/frontend/sign-in/src/lib/sign-in/sign-in.ts:182</note>
       </notes>
       <segment>
         <source>Unable to sign in with a passkey.</source>
@@ -1587,7 +1571,7 @@
     </unit>
     <unit id="4809217652591352979">
       <notes>
-        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:96</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:98</note>
       </notes>
       <segment>
         <source>Enter a password.</source>
@@ -1595,7 +1579,7 @@
     </unit>
     <unit id="8596711597112316583">
       <notes>
-        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:108</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:110</note>
       </notes>
       <segment>
         <source>Confirm your password.</source>
@@ -1603,7 +1587,7 @@
     </unit>
     <unit id="7187327934595262809">
       <notes>
-        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:150</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:152</note>
       </notes>
       <segment>
         <source>Unable to create your account.</source>
@@ -1611,7 +1595,7 @@
     </unit>
     <unit id="759003055972359633">
       <notes>
-        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:179</note>
+        <note category="location">libs/frontend/sign-up/src/lib/sign-up/sign-up.ts:181</note>
       </notes>
       <segment>
         <source>Unable to send a sign-up link.</source>
@@ -1659,7 +1643,7 @@
     </unit>
     <unit id="185502375739415721">
       <notes>
-        <note category="location">libs/frontend/status-page/src/lib/status-page/status-page.ng.html:19,22</note>
+        <note category="location">libs/frontend/status-page/src/lib/status-page/status-page.ng.html:22,25</note>
       </notes>
       <segment>
         <source> Contact support <pc id="0" equivStart="START_TAG_SPAN" equivEnd="CLOSE_TAG_SPAN" type="other" dispStart="&lt;span aria-hidden=&quot;true&quot;&gt;" dispEnd="&lt;/span&gt;">→</pc></source>
@@ -1739,7 +1723,7 @@
     </unit>
     <unit id="2097056172158128827">
       <notes>
-        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ts:143</note>
+        <note category="location">libs/frontend/two-factor/src/lib/two-factor/two-factor.ts:145</note>
       </notes>
       <segment>
         <source>Unable to verify your code.</source>
@@ -1811,7 +1795,7 @@
     </unit>
     <unit id="5777841360616715126">
       <notes>
-        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ts:134</note>
+        <note category="location">libs/frontend/verify-email/src/lib/verify-email/verify-email-result.ts:136</note>
       </notes>
       <segment>
         <source>Unable to send a verification email.</source>

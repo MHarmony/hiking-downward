@@ -362,27 +362,9 @@ export const auth = betterAuth({
       twoFactorTable: 'two_factor',
     }),
     username({
-      /**
-       * Validates that a display username contains only permitted characters.
-       *
-       * @param displayUsername Display username to validate.
-       * @returns Whether the display username is valid.
-       */
-      displayUsernameValidator: (displayUsername) => {
-        // Allow only alphanumeric characters, underscores, and hyphens
-        return /^[a-zA-Z0-9_-]+$/.test(displayUsername);
-      },
-      /**
-       * Rejects reserved usernames and accepts all other usernames.
-       *
-       * @param username Username to validate.
-       * @returns Whether the username is available for use.
-       */
+      displayUsername: false,
       usernameValidator: (username) => {
-        if (username === 'admin') {
-          return false;
-        }
-        return true;
+        return username.toLowerCase() !== 'admin' && /^[a-zA-Z0-9_-]+$/.test(username);
       },
     }),
     magicLink({

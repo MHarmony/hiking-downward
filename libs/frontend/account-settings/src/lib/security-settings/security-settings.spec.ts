@@ -27,10 +27,10 @@ type PasskeyState = {
 };
 
 const { qrcodeMock } = vi.hoisted(() => ({
-  qrcodeMock: vi.fn<() => Promise<string>>(),
+  qrcodeMock: vi.fn<() => string>(),
 }));
 
-vi.mock('qrcode', () => ({ default: { toDataURL: qrcodeMock } }));
+vi.mock('etiket/qr', () => ({ qrcodeDataURI: qrcodeMock }));
 
 describe('SecuritySettings', () => {
   let fixture: ComponentFixture<SecuritySettings>;
@@ -74,7 +74,7 @@ describe('SecuritySettings', () => {
   });
 
   beforeEach(() => {
-    qrcodeMock.mockReset().mockResolvedValue('data:image/png;base64,qr');
+    qrcodeMock.mockReset().mockReturnValue('data:image/svg+xml;base64,qr');
     getSession = vi.fn<() => Promise<AuthResult>>().mockResolvedValue({
       data: {
         session: { token: 'current-session-secret' },
@@ -617,7 +617,9 @@ describe('SecuritySettings', () => {
   }, 10_000);
 
   it('starts TOTP setup for a passwordless account and handles QR errors', async () => {
-    qrcodeMock.mockRejectedValueOnce(new Error('QR generation failed.'));
+    qrcodeMock.mockImplementationOnce(() => {
+      throw new Error('QR generation failed.');
+    });
     fixture = createFixture();
     await waitForInitialLoad();
     const startButton = Array.from(

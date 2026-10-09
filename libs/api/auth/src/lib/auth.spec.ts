@@ -58,10 +58,10 @@ const {
   };
 });
 const usernameOptions: {
-  displayUsernameValidator: (value: string) => boolean;
+  displayUsername: boolean;
   usernameValidator: (value: string) => boolean;
 } = {
-  displayUsernameValidator: (_value: string): boolean => false,
+  displayUsername: true,
   usernameValidator: (_value: string): boolean => false,
 };
 type MagicLinkOptions = {
@@ -516,28 +516,30 @@ describe('auth validators and environment configuration', () => {
   it('loads the non-production plugin configuration', async () => {
     const authOptions = await loadAuth('test');
     expect(authOptions.plugins).toHaveLength(7);
-    expect(usernameOptions.displayUsernameValidator('valid_name-1')).toBe(true);
-    expect(usernameOptions.displayUsernameValidator('invalid name')).toBe(false);
+    expect(usernameOptions.displayUsername).toBe(false);
+    expect(usernameOptions.usernameValidator('valid_name-1')).toBe(true);
+    expect(usernameOptions.usernameValidator('invalid name')).toBe(false);
     expect(usernameOptions.usernameValidator('admin')).toBe(false);
+    expect(usernameOptions.usernameValidator('ADMIN')).toBe(false);
     expect(usernameOptions.usernameValidator('hiker')).toBe(true);
   }, 10_000);
 
-  it('accepts display usernames made only from the permitted alphabet', () => {
+  it('accepts usernames made only from the permitted alphabet', () => {
     const permittedCharacter = fc.constantFrom(
       ...Array.from('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-'),
     );
-    const displayUsername = fc
+    const username = fc
       .array(permittedCharacter, { minLength: 1 })
       .map((characters) => characters.join(''));
 
     fc.assert(
-      fc.property(displayUsername, (value) => {
-        expect(usernameOptions.displayUsernameValidator(value)).toBe(true);
+      fc.property(username, (value) => {
+        expect(usernameOptions.usernameValidator(value)).toBe(true);
       }),
     );
   }, 10_000);
 
-  it('rejects display usernames containing a forbidden character', () => {
+  it('rejects usernames containing a forbidden character', () => {
     const permittedCharacter = fc.constantFrom(
       ...Array.from('abcdefghijklmnopqrstuvwxyz0123456789'),
     );
@@ -548,9 +550,7 @@ describe('auth validators and environment configuration', () => {
         fc.array(permittedCharacter, { maxLength: 20 }),
         forbiddenCharacter,
         (prefix, forbidden) => {
-          expect(usernameOptions.displayUsernameValidator(`${prefix.join('')}${forbidden}`)).toBe(
-            false,
-          );
+          expect(usernameOptions.usernameValidator(`${prefix.join('')}${forbidden}`)).toBe(false);
         },
       ),
     );

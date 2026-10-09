@@ -6,7 +6,7 @@ account-deleted confirmation page.
 
 ## Routes
 
-- `/settings/profile` updates the display name, username, and username visibility.
+- `/settings/profile` updates the display name and public username, which can also be used to sign in.
 - `/settings/security` manages email, password, two-factor authentication,
   passkeys, and active sessions.
 - `/settings/account` requests email-confirmed account deletion.

@@ -29,7 +29,6 @@ const authenticatedSession = {
     emailVerified: true,
     name: 'Trail Hiker',
     username: 'trail_hiker',
-    displayUsername: 'Trail Hiker',
     twoFactorEnabled: false,
   },
 };
@@ -143,6 +142,10 @@ test.describe('account settings', () => {
     await page.goto('/settings/profile');
     await expect(page).toHaveTitle('HikingDownward - Profile Settings');
     await expect(page.getByLabel('Display name')).toHaveValue('Trail Hiker');
+    await expect(page.getByLabel('Username')).toHaveValue('trail_hiker');
+    await expect(
+      page.getByText('Your username is public and can also be used to sign in.'),
+    ).toBeVisible();
     await page.getByLabel('Display name').fill('Ridge Walker');
     await page.getByRole('button', { name: 'Save profile' }).click();
 
@@ -150,7 +153,6 @@ test.describe('account settings', () => {
     expect(updatePayload).toEqual({
       name: 'Ridge Walker',
       username: 'trail_hiker',
-      displayUsername: 'Trail Hiker',
     });
     const results = await new AxeBuilder({ page }).withTags(accessibilityTags).analyze();
     expect(results.violations).toEqual([]);

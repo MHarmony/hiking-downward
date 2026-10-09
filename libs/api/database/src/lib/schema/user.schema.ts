@@ -21,7 +21,6 @@ export const user = betterAuthSchema.table(
     banExpires: timestamp('ban_expires'),
     twoFactorEnabled: boolean('two_factor_enabled').default(false),
     username: text('username').unique(),
-    displayUsername: text('display_username'),
   },
   (table) => [index('user_email_idx').on(table.email)],
 );

@@ -126,7 +126,6 @@ test.describe('two-factor page', () => {
           emailVerified: true,
           name: 'Trail Hiker',
           username: 'trail_hiker',
-          displayUsername: 'Trail Hiker',
           twoFactorEnabled: true,
         },
       },

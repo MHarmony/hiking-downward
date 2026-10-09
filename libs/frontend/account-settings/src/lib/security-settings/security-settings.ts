@@ -227,8 +227,8 @@ export class SecuritySettings {
           this.setupUri.set(data.totpURI);
           this.#pendingBackupCodes = data.backupCodes;
           try {
-            const { default: QRCode } = await import('qrcode');
-            this.qrCodeUrl.set(await QRCode.toDataURL(data.totpURI, { margin: 1, width: 220 }));
+            const { qrcodeDataURI } = await import('etiket/qr');
+            this.qrCodeUrl.set(qrcodeDataURI(data.totpURI, { margin: 1, size: 220 }));
           } catch {
             this.errorMessage.set(
               $localize`Unable to create the setup QR code. Use the setup key instead.`,

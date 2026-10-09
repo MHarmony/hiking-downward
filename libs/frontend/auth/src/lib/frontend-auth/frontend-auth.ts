@@ -69,7 +69,7 @@ export class FrontendAuth {
           await this.#router.navigateByUrl('/two-factor');
         },
       }),
-      usernameClient({ displayUsername: true }),
+      usernameClient({ displayUsername: false }),
       passkeyClient(),
     ],
   });

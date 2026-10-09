@@ -146,7 +146,6 @@ test.describe('sign-in page', () => {
           emailVerified: true,
           name: 'Trail Hiker',
           username: 'trail_hiker',
-          displayUsername: 'Trail Hiker',
         },
       },
     });
