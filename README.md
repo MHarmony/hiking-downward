@@ -90,10 +90,6 @@ The API enforces a 1 MiB request-body limit, generates an `X-Request-Id` for
 each request, and returns normalized JSON errors for application routes while
 preserving Better Auth responses.
 
-CI runs migrations and both E2E projects. Configure the `BETTER_AUTH_SECRET`,
-`UPSTASH_REDIS_REST_URL`, and `UPSTASH_REDIS_REST_TOKEN` GitHub Actions secrets
-for the API E2E job.
-
 ## Validation
 
 Run the relevant Nx targets before opening a pull request:

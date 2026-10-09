@@ -78,10 +78,6 @@ bun run e2e
 
 The end-to-end command starts the frontend and api servers through Nx. If you are working on browser behavior, run the complete e2e suite rather than relying only on unit tests.
 
-The API E2E GitHub Actions job requires the `BETTER_AUTH_SECRET`,
-`UPSTASH_REDIS_REST_URL`, and `UPSTASH_REDIS_REST_TOKEN` repository secrets.
-Maintainers should configure these secrets for that job.
-
 When a command fails, fix the underlying issue rather than weakening a lint rule, coverage threshold, or test. Include any known environmental limitation in the pull request description.
 
 ## Making Changes
