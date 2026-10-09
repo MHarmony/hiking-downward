@@ -1,5 +1,4 @@
 {
-  "version": 1,
   "skills": {
     "accessibility": {
       "computedHash": "612f913bcb03f0787b103c848cd7664b676a9aaf31f25d3270cc69cf5caaab95",
@@ -80,7 +79,7 @@
       "sourceType": "github"
     },
     "email-best-practices": {
-      "computedHash": "c7218333381fa335b8a912bd55b3bb58b5b567a174f9e1d8b41940ff82f1a6b6",
+      "computedHash": "4c26ca203af6b3df259621544b09a9b28183b9ead10897b7315225e87dd012d5",
       "skillPath": "skills/email-best-practices/SKILL.md",
       "source": "resend/resend-skills",
       "sourceType": "github"
@@ -212,10 +211,10 @@
       "sourceType": "github"
     },
     "resend": {
-      "source": "resend/resend-skills",
-      "sourceType": "github",
+      "computedHash": "82b26e4f038c5dc4f5e6d94e83ceb09b655418919845ae4a2e7c5496d2c1b01f",
       "skillPath": "skills/resend/SKILL.md",
-      "computedHash": "82b26e4f038c5dc4f5e6d94e83ceb09b655418919845ae4a2e7c5496d2c1b01f"
+      "source": "resend/resend-skills",
+      "sourceType": "github"
     },
     "resend-cli": {
       "computedHash": "f092422073720c7d3af73a6c87ef02371e0f789b5b7b20528fa9fc3cf85ed2a1",
@@ -399,10 +398,11 @@
       "sourceType": "github"
     },
     "wizard": {
-      "computedHash": "3642db2041d66efa88407e958792268c5cace9e286ad0a93ae218bffc8aae448",
+      "computedHash": "49298bed80e7f722b071ad5d64798c75eb705bbbe0635b9bbffd08cd6fb81647",
       "skillPath": "skills/engineering/wizard/SKILL.md",
       "source": "mattpocock/skills",
       "sourceType": "github"
     }
-  }
+  },
+  "version": 1
 }
