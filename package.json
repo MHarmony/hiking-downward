@@ -27,12 +27,12 @@
     "@fontsource-variable/atkinson-hyperlegible-next": "5.3.0",
     "@sentry/angular": "11.6.0",
     "@sentry/elysia": "11.6.0",
+    "@slidoapp/qrcode": "3.0.0-alpha.1",
     "@upstash/redis": "1.39.0",
     "better-auth": "1.7.7",
     "drizzle-orm": "1.0.0-rc.4",
     "elysia": "next",
     "pg": "8.23.1",
-    "qrcode": "1.5.4",
     "resend": "6.32.1",
     "rxjs": "7.8.2"
   },
