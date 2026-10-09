@@ -79,7 +79,7 @@ export class SignIn {
   });
 
   /** Signal Form tree containing method-specific authentication validators. */
-  protected readonly signInForm = form(this.#signInModel, (path) => {
+  private readonly signInForm = form(this.#signInModel, (path) => {
     required(path.emailOrUsername, {
       message: $localize`Enter your email address or username.`,
       when: () => this.#method() !== null,
@@ -95,11 +95,11 @@ export class SignIn {
   });
 
   /** Whether an authentication request is currently in progress. */
-  protected readonly pending = signal(false);
+  private readonly pending = signal(false);
   /** User-facing authentication error, when the latest request failed. */
-  protected readonly errorMessage = signal<string | null>(null);
+  private readonly errorMessage = signal<string | null>(null);
   /** Email address to which the latest magic link was sent. */
-  protected readonly magicLinkSentTo = signal<string | null>(null);
+  private readonly magicLinkSentTo = signal<string | null>(null);
 
   /** Starts optional conditional passkey autofill after the view renders. */
   public constructor() {
@@ -113,7 +113,7 @@ export class SignIn {
    * @returns A promise that settles after validation and the auth request complete.
    * @throws Propagates unexpected form submission or auth client failures.
    */
-  protected async signInWithPassword(event: Event): Promise<void> {
+  private async signInWithPassword(event: Event): Promise<void> {
     event.preventDefault();
     this.#auth.rememberPostAuthRedirectUrl(this.#returnUrl);
     await this.#run('password', async () => {
@@ -143,7 +143,7 @@ export class SignIn {
    * @returns A promise that settles after validation and the email request complete.
    * @throws Propagates unexpected form submission or auth client failures.
    */
-  protected async sendMagicLink(): Promise<void> {
+  private async sendMagicLink(): Promise<void> {
     await this.#run('magicLink', async () => {
       const emailAddress = normalizeIdentifier(this.#signInModel().emailOrUsername);
       const { error } = await this.#authClient.signIn.magicLink({
@@ -169,7 +169,7 @@ export class SignIn {
    * @returns A promise that settles after the passkey ceremony and navigation complete.
    * @throws Propagates passkey client or navigation failures.
    */
-  protected async signInWithPasskey(): Promise<void> {
+  private async signInWithPasskey(): Promise<void> {
     this.#method.set(null);
     this.errorMessage.set(null);
     this.magicLinkSentTo.set(null);

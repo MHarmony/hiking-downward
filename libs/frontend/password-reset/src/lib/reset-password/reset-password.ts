@@ -78,10 +78,10 @@ export class ResetPassword {
   });
 
   /** Whether the reset link carried a usable token. */
-  protected readonly linkUsable = this.#token !== '';
+  private readonly linkUsable = this.#token !== '';
 
   /** Signal Form tree containing password policy validators. */
-  protected readonly resetPasswordForm = form(this.#resetPasswordModel, (path) => {
+  private readonly resetPasswordForm = form(this.#resetPasswordModel, (path) => {
     required(path.password, {
       message: $localize`Enter a new password.`,
       when: () => this.#attempted(),
@@ -107,11 +107,11 @@ export class ResetPassword {
   });
 
   /** Whether a reset request is currently in progress. */
-  protected readonly pending = signal(false);
+  private readonly pending = signal(false);
   /** User-facing reset error, when the latest request failed. */
-  protected readonly errorMessage = signal<string | null>(null);
+  private readonly errorMessage = signal<string | null>(null);
   /** Whether the password was reset successfully. */
-  protected readonly passwordReset = signal(false);
+  private readonly passwordReset = signal(false);
 
   /**
    * Validates the new password and submits it with the reset token.
@@ -120,7 +120,7 @@ export class ResetPassword {
    * @returns A promise that settles after validation and the reset request complete.
    * @throws Propagates unexpected form submission or authentication client failures.
    */
-  protected async resetPassword(event: Event): Promise<void> {
+  private async resetPassword(event: Event): Promise<void> {
     event.preventDefault();
     this.#attempted.set(true);
     this.errorMessage.set(null);

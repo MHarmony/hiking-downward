@@ -24,7 +24,7 @@ export class ProfileSettings {
   readonly #authClient = inject(FrontendAuth).authClient;
   readonly #profileModel = signal<ProfileData>({ name: '', username: '' });
 
-  protected readonly profileForm = form<ProfileData>(this.#profileModel, (path) => {
+  private readonly profileForm = form<ProfileData>(this.#profileModel, (path) => {
     required(path.name, { message: $localize`Enter your display name.` });
     maxLength(path.name, 80, { message: $localize`Display name must be 80 characters or fewer.` });
     validate(path.username, (context) => {
@@ -48,10 +48,10 @@ export class ProfileSettings {
     });
   });
 
-  protected readonly loading = signal(true);
-  protected readonly pending = signal(false);
-  protected readonly statusMessage = signal('');
-  protected readonly errorMessage = signal('');
+  private readonly loading = signal(true);
+  private readonly pending = signal(false);
+  private readonly statusMessage = signal('');
+  private readonly errorMessage = signal('');
 
   /** Starts loading the current user's profile when the component is created. */
   public constructor() {
@@ -70,7 +70,7 @@ export class ProfileSettings {
    * @returns A promise that settles after form validation and any profile update complete.
    * @throws Propagates unexpected Signal Forms submission failures.
    */
-  protected async saveProfile(event: Event): Promise<void> {
+  private async saveProfile(event: Event): Promise<void> {
     event.preventDefault();
     this.statusMessage.set('');
     this.errorMessage.set('');

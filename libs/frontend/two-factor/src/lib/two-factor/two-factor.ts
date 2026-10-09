@@ -70,10 +70,10 @@ export class TwoFactor {
   readonly #twoFactorModel = signal<TwoFactorData>({ code: '', trustDevice: false });
 
   /** Verification method currently offered to the user. */
-  protected readonly method = signal<TwoFactorMethod>('totp');
+  private readonly method = signal<TwoFactorMethod>('totp');
 
   /** Signal Form tree containing method-specific code validation. */
-  protected readonly twoFactorForm = form(this.#twoFactorModel, (path) => {
+  private readonly twoFactorForm = form(this.#twoFactorModel, (path) => {
     validate(path.code, (context) => {
       const message = this.#attempted() ? codeError(this.method(), context.value()) : null;
       if (message !== null) {
@@ -84,13 +84,13 @@ export class TwoFactor {
   });
 
   /** Whether a verification request is currently in progress. */
-  protected readonly pending = signal(false);
+  private readonly pending = signal(false);
   /** User-facing verification error, when the latest request failed. */
-  protected readonly errorMessage = signal<string | null>(null);
+  private readonly errorMessage = signal<string | null>(null);
 
   /** Switches between authenticator app and backup code verification. */
   /** Switches code type, clears prior validation, and resets the entered value. */
-  protected toggleMethod(): void {
+  private toggleMethod(): void {
     this.method.update((method) => (method === 'totp' ? 'backupCode' : 'totp'));
     this.#attempted.set(false);
     this.errorMessage.set(null);
@@ -104,7 +104,7 @@ export class TwoFactor {
    * @returns A promise that settles after validation, verification, and navigation complete.
    * @throws Propagates unexpected form submission, authentication client, or navigation failures.
    */
-  protected async verify(event: Event): Promise<void> {
+  private async verify(event: Event): Promise<void> {
     event.preventDefault();
     this.#attempted.set(true);
     this.errorMessage.set(null);

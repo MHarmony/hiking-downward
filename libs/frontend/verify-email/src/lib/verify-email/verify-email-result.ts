@@ -67,11 +67,11 @@ export class VerifyEmailResult {
   readonly #resendModel = signal<ResendVerificationData>({ email: '' });
 
   /** Explanation of the verification failure, or `null` when verification succeeded. */
-  protected readonly failureMessage =
+  private readonly failureMessage =
     this.#errorCode === null ? null : verificationErrorMessage(this.#errorCode);
 
   /** Signal Form tree containing email validation for resending verification. */
-  protected readonly resendForm = form(this.#resendModel, (path) => {
+  private readonly resendForm = form(this.#resendModel, (path) => {
     required(path.email, {
       message: $localize`Enter your email address.`,
       when: () => this.#attempted(),
@@ -83,11 +83,11 @@ export class VerifyEmailResult {
   });
 
   /** Whether a resend request is currently in progress. */
-  protected readonly pending = signal(false);
+  private readonly pending = signal(false);
   /** User-facing resend error, when the latest request failed. */
-  protected readonly errorMessage = signal<string | null>(null);
+  private readonly errorMessage = signal<string | null>(null);
   /** Email address to which the latest verification link was requested. */
-  protected readonly verificationSentTo = signal<string | null>(null);
+  private readonly verificationSentTo = signal<string | null>(null);
 
   /**
    * Validates the email address and requests a new verification link.
@@ -96,7 +96,7 @@ export class VerifyEmailResult {
    * @returns A promise that settles after validation and the resend request complete.
    * @throws Propagates unexpected form submission or authentication client failures.
    */
-  protected async resendVerification(event: Event): Promise<void> {
+  private async resendVerification(event: Event): Promise<void> {
     event.preventDefault();
     this.#attempted.set(true);
     this.errorMessage.set(null);

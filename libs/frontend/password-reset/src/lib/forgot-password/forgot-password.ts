@@ -61,7 +61,7 @@ export class ForgotPassword {
   readonly #forgotPasswordModel = signal<ForgotPasswordData>({ email: '' });
 
   /** Signal Form tree containing email validation. */
-  protected readonly forgotPasswordForm = form(this.#forgotPasswordModel, (path) => {
+  private readonly forgotPasswordForm = form(this.#forgotPasswordModel, (path) => {
     required(path.email, {
       message: $localize`Enter your email address.`,
       when: () => this.#attempted(),
@@ -73,11 +73,11 @@ export class ForgotPassword {
   });
 
   /** Whether a reset request is currently in progress. */
-  protected readonly pending = signal(false);
+  private readonly pending = signal(false);
   /** User-facing request error, when the latest request failed. */
-  protected readonly errorMessage = signal<string | null>(null);
+  private readonly errorMessage = signal<string | null>(null);
   /** Email address for which the latest reset link was requested. */
-  protected readonly resetLinkSentTo = signal<string | null>(null);
+  private readonly resetLinkSentTo = signal<string | null>(null);
 
   /**
    * Validates the email address and requests a password reset link.
@@ -86,7 +86,7 @@ export class ForgotPassword {
    * @returns A promise that settles after validation and the reset request complete.
    * @throws Propagates unexpected form submission or authentication client failures.
    */
-  protected async sendResetLink(event: Event): Promise<void> {
+  private async sendResetLink(event: Event): Promise<void> {
     event.preventDefault();
     this.#attempted.set(true);
     this.errorMessage.set(null);

@@ -27,7 +27,7 @@ export class DangerZone {
   readonly #origin = inject(DOCUMENT).location.origin;
   readonly #deleteModel = signal<DeleteAccountData>({ password: '', confirmation: '' });
 
-  protected readonly deleteForm = form(this.#deleteModel, (path) => {
+  private readonly deleteForm = form(this.#deleteModel, (path) => {
     maxLength(path.password, 128, {
       message: $localize`Password must be no more than 128 characters.`,
     });
@@ -42,10 +42,10 @@ export class DangerZone {
     });
   });
 
-  protected readonly emailAddress = signal('');
-  protected readonly pending = signal(false);
-  protected readonly statusMessage = signal('');
-  protected readonly errorMessage = signal('');
+  private readonly emailAddress = signal('');
+  private readonly pending = signal(false);
+  private readonly statusMessage = signal('');
+  private readonly errorMessage = signal('');
 
   /** Loads the account email shown with the deletion confirmation request. */
   public constructor() {
@@ -61,7 +61,7 @@ export class DangerZone {
    * @returns A promise that settles after validation and the deletion request complete.
    * @throws Propagates unexpected Signal Forms submission failures.
    */
-  protected async requestDeletion(event: Event): Promise<void> {
+  private async requestDeletion(event: Event): Promise<void> {
     event.preventDefault();
     this.statusMessage.set('');
     this.errorMessage.set('');

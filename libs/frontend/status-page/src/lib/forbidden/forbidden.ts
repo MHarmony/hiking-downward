@@ -10,6 +10,6 @@ import { StatusPage } from '../status-page/status-page';
   templateUrl: './forbidden.ng.html',
 })
 export class Forbidden {
-  protected readonly heading = $localize`Forbidden`;
-  protected readonly description = $localize`You do not have permission to view this page.`;
+  private readonly heading = $localize`Forbidden`;
+  private readonly description = $localize`You do not have permission to view this page.`;
 }

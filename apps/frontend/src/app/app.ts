@@ -46,7 +46,7 @@ export class App {
   /* v8 ignore stop */
   readonly #document = inject(DOCUMENT);
   /** Whether the current URL has a supported locale prefix and should show the locale switcher. */
-  protected readonly showLocaleSwitcher = hasLocalePrefix(this.#document.location.pathname);
+  private readonly showLocaleSwitcher = hasLocalePrefix(this.#document.location.pathname);
 
   /**
    * Builds a URL for the requested locale using the current route state.
@@ -54,7 +54,7 @@ export class App {
    * @param locale - The locale to use in the URL.
    * @returns The localized URL.
    */
-  protected localeHref(locale: FrontendLocale): string {
+  private localeHref(locale: FrontendLocale): string {
     const { pathname, search, hash } = this.#document.location;
     return localizedHref(pathname, search, hash, locale);
   }

@@ -10,6 +10,6 @@ import { StatusPage } from '../status-page/status-page';
   templateUrl: './unauthorized.ng.html',
 })
 export class Unauthorized {
-  protected readonly heading = $localize`Unauthorized`;
-  protected readonly description = $localize`Please sign in to continue.`;
+  private readonly heading = $localize`Unauthorized`;
+  private readonly description = $localize`Please sign in to continue.`;
 }

@@ -44,12 +44,12 @@ export class SecuritySettings {
   });
   readonly #authenticatorModel = signal<AuthenticatorData>({ password: '', code: '' });
 
-  protected readonly emailForm = form(this.#emailModel, (path) => {
+  private readonly emailForm = form(this.#emailModel, (path) => {
     required(path.newEmail, { message: $localize`Enter your new email address.` });
     email(path.newEmail, { message: $localize`Enter a valid email address.` });
   });
 
-  protected readonly passwordForm = form(this.#passwordModel, (path) => {
+  private readonly passwordForm = form(this.#passwordModel, (path) => {
     required(path.currentPassword, { message: $localize`Enter your current password.` });
     required(path.newPassword, { message: $localize`Enter a new password.` });
     minLength(path.newPassword, 8, { message: $localize`Password must be at least 8 characters.` });
@@ -65,7 +65,7 @@ export class SecuritySettings {
     });
   });
 
-  protected readonly authenticatorForm = form(this.#authenticatorModel, (path) => {
+  private readonly authenticatorForm = form(this.#authenticatorModel, (path) => {
     validate(path.code, (context) => {
       if (this.setupUri() && !/^[0-9]{6}$/u.test(context.value().trim())) {
         return {
@@ -77,25 +77,25 @@ export class SecuritySettings {
     });
   });
 
-  protected readonly loading = signal(true);
-  protected readonly pendingAction = signal('');
-  protected readonly emailAddress = signal('');
-  protected readonly emailVerified = signal(false);
-  protected readonly emailChangePending = signal(false);
-  protected readonly twoFactorEnabled = signal(false);
-  protected readonly setupUri = signal('');
-  protected readonly qrCodeUrl = signal('');
-  protected readonly backupCodes = signal<string[]>([]);
-  protected readonly backupCodesNotice = signal('');
-  protected readonly passkeys = signal<PasskeySummary[]>([]);
-  protected readonly sessions = signal<SessionSummary[]>([]);
-  protected readonly passkeyName = signal('');
-  protected readonly passkeyPendingRemoval = signal('');
-  protected readonly passkeySupported =
+  private readonly loading = signal(true);
+  private readonly pendingAction = signal('');
+  private readonly emailAddress = signal('');
+  private readonly emailVerified = signal(false);
+  private readonly emailChangePending = signal(false);
+  private readonly twoFactorEnabled = signal(false);
+  private readonly setupUri = signal('');
+  private readonly qrCodeUrl = signal('');
+  private readonly backupCodes = signal<string[]>([]);
+  private readonly backupCodesNotice = signal('');
+  private readonly passkeys = signal<PasskeySummary[]>([]);
+  private readonly sessions = signal<SessionSummary[]>([]);
+  private readonly passkeyName = signal('');
+  private readonly passkeyPendingRemoval = signal('');
+  private readonly passkeySupported =
     typeof PublicKeyCredential !== 'undefined' && globalThis.isSecureContext;
-  protected readonly statusMessage = signal('');
-  protected readonly errorMessage = signal('');
-  protected readonly sessionError = signal('');
+  private readonly statusMessage = signal('');
+  private readonly errorMessage = signal('');
+  private readonly sessionError = signal('');
 
   #currentSessionToken = '';
   #pendingBackupCodes: string[] = [];
@@ -116,7 +116,7 @@ export class SecuritySettings {
   }
 
   /** Requests an email change and reports where its confirmation was sent. */
-  protected async requestEmailChange(event: Event): Promise<void> {
+  private async requestEmailChange(event: Event): Promise<void> {
     event.preventDefault();
     this.#clearMessages();
     await submit(this.emailForm, {
@@ -152,7 +152,7 @@ export class SecuritySettings {
    * @param event Form-submit event to prevent from navigating.
    * @returns Promise settling after validation and the password change.
    */
-  protected async changePassword(event: Event): Promise<void> {
+  private async changePassword(event: Event): Promise<void> {
     event.preventDefault();
     this.#clearMessages();
     await submit(this.passwordForm, {
@@ -184,7 +184,7 @@ export class SecuritySettings {
   }
 
   /** Emails a password setup link; resolves when the request completes. */
-  protected async requestPasswordSetup(): Promise<void> {
+  private async requestPasswordSetup(): Promise<void> {
     this.#clearMessages();
     await this.#runAction('password-reset', async () => {
       const { error } = await this.#authClient.requestPasswordReset({
@@ -209,7 +209,7 @@ export class SecuritySettings {
    * @param event Form-submit event to prevent from navigating.
    * @returns Promise settling after setup data and QR generation.
    */
-  protected async startAuthenticatorSetup(event: Event): Promise<void> {
+  private async startAuthenticatorSetup(event: Event): Promise<void> {
     event.preventDefault();
     this.#clearMessages();
     await submit(this.authenticatorForm, {
@@ -245,7 +245,7 @@ export class SecuritySettings {
    * @param event Form-submit event to prevent from navigating.
    * @returns Promise settling after validation and verification.
    */
-  protected async verifyAuthenticatorSetup(event: Event): Promise<void> {
+  private async verifyAuthenticatorSetup(event: Event): Promise<void> {
     event.preventDefault();
     this.#clearMessages();
     await submit(this.authenticatorForm, {
@@ -279,7 +279,7 @@ export class SecuritySettings {
   }
 
   /** Disables two-factor authentication and clears recovery codes; resolves after the request. */
-  protected async disableTwoFactor(): Promise<void> {
+  private async disableTwoFactor(): Promise<void> {
     this.#clearMessages();
     await this.#runAction('two-factor', async () => {
       const password = this.#authenticatorModel().password.trim();
@@ -299,7 +299,7 @@ export class SecuritySettings {
   }
 
   /** Replaces the backup codes; resolves after the replacement set is loaded. */
-  protected async regenerateBackupCodes(): Promise<void> {
+  private async regenerateBackupCodes(): Promise<void> {
     this.#clearMessages();
     await this.#runAction('backup-codes', async () => {
       const password = this.#authenticatorModel().password.trim();
@@ -320,7 +320,7 @@ export class SecuritySettings {
   }
 
   /** Registers a passkey; resolves after registration and list refresh. */
-  protected async addPasskey(): Promise<void> {
+  private async addPasskey(): Promise<void> {
     this.#clearMessages();
     await this.#runAction('passkey', async () => {
       const name = this.passkeyName().trim();
@@ -336,22 +336,22 @@ export class SecuritySettings {
   }
 
   /** Updates the pending passkey label from its input event. @param event Bound input event. */
-  protected updatePasskeyName(event: Event): void {
+  private updatePasskeyName(event: Event): void {
     this.passkeyName.set((event.target as HTMLInputElement).value);
   }
 
   /** Marks a passkey for removal confirmation. @param id Passkey identifier. */
-  protected askRemovePasskey(id: string): void {
+  private askRemovePasskey(id: string): void {
     this.passkeyPendingRemoval.set(id);
   }
 
   /** Cancels pending passkey removal confirmation. */
-  protected cancelRemovePasskey(): void {
+  private cancelRemovePasskey(): void {
     this.passkeyPendingRemoval.set('');
   }
 
   /** Renames a passkey and refreshes the list. @param id Passkey ID. @param name New label. */
-  protected async renamePasskey(id: string, name: string): Promise<void> {
+  private async renamePasskey(id: string, name: string): Promise<void> {
     this.#clearMessages();
     await this.#runAction('passkey', async () => {
       const { error } = await this.#authClient.$fetch('/passkey/update-passkey', {
@@ -368,7 +368,7 @@ export class SecuritySettings {
   }
 
   /** Removes a passkey and refreshes the list. @param id Passkey identifier. */
-  protected async removePasskey(id: string): Promise<void> {
+  private async removePasskey(id: string): Promise<void> {
     this.#clearMessages();
     await this.#runAction('passkey', async () => {
       const { error } = await this.#authClient.$fetch('/passkey/delete-passkey', {
@@ -386,7 +386,7 @@ export class SecuritySettings {
   }
 
   /** Revokes a session and signs out the current browser when selected. @param session Target. */
-  protected async revokeSession(session: SessionSummary): Promise<void> {
+  private async revokeSession(session: SessionSummary): Promise<void> {
     this.#clearMessages();
     await this.#runAction('sessions', async () => {
       const { error } = await this.#authClient.revokeSession({ token: session.token });
@@ -404,7 +404,7 @@ export class SecuritySettings {
   }
 
   /** Revokes all other sessions and refreshes the session list. */
-  protected async revokeOtherSessions(): Promise<void> {
+  private async revokeOtherSessions(): Promise<void> {
     this.#clearMessages();
     await this.#runAction('sessions', async () => {
       const { error } = await this.#authClient.revokeOtherSessions();
@@ -420,7 +420,7 @@ export class SecuritySettings {
   }
 
   /** @returns Setup secret or `null` when absent; throws `TypeError` for an invalid URI. */
-  protected manualTotpKey(): string | null {
+  private manualTotpKey(): string | null {
     const uri = this.setupUri();
     if (!uri) {
       return null;

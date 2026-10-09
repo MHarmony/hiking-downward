@@ -85,7 +85,7 @@ export class SignUp {
   readonly #method = signal<'email' | 'magicLink' | null>(null);
 
   /** Signal Form tree containing method-specific registration validators. */
-  protected readonly signUpForm = form(this.#signUpModel, (path) => {
+  private readonly signUpForm = form(this.#signUpModel, (path) => {
     required(path.email, {
       message: $localize`Enter your email address.`,
       when: () => this.#method() !== null,
@@ -122,11 +122,11 @@ export class SignUp {
   });
 
   /** Whether a registration request is currently in progress. */
-  protected readonly pending = signal(false);
+  private readonly pending = signal(false);
   /** User-facing registration error, when the latest request failed. */
-  protected readonly errorMessage = signal<string | null>(null);
+  private readonly errorMessage = signal<string | null>(null);
   /** Email address to which the latest verification or magic-link email was sent. */
-  protected readonly verificationSentTo = signal<string | null>(null);
+  private readonly verificationSentTo = signal<string | null>(null);
 
   /**
    * Creates an account using the entered email address and password.
@@ -135,7 +135,7 @@ export class SignUp {
    * @returns A promise that settles after validation and the registration request complete.
    * @throws Propagates unexpected form submission or authentication client failures.
    */
-  protected async signUpWithPassword(event: Event): Promise<void> {
+  private async signUpWithPassword(event: Event): Promise<void> {
     event.preventDefault();
     await this.#run('email', async () => {
       const { email: rawEmail, password } = this.#signUpModel();
@@ -162,7 +162,7 @@ export class SignUp {
    * @returns A promise that settles after validation and the email request complete.
    * @throws Propagates unexpected form submission or authentication client failures.
    */
-  protected async sendMagicLink(): Promise<void> {
+  private async sendMagicLink(): Promise<void> {
     this.#method.set('magicLink');
     this.#clearMessages();
     await submit(this.signUpForm, {
