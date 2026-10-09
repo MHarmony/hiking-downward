@@ -48,7 +48,7 @@ export class FrontendAuth {
   readonly #localePrefix = inject(LOCALE_ID) === 'es' ? '/es' : '/en';
 
   /** Better Auth client configured with the application's enabled auth plugins. */
-  public authClient = createAuthClient({
+  public readonly authClient = createAuthClient({
     baseURL: inject(AUTH_BASE_URL),
     fetchOptions: {
       onSuccess: (context) => {
