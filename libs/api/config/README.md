@@ -20,7 +20,7 @@ Database configuration requires:
 Email configuration requires:
 
 - `RESEND_API_KEY`
-- `EMAIL_FROM` (optional; defaults to `HikingDownward <no-reply@hiking-downward.com>`)
+- `EMAIL_FROM` (optional; defaults to `HikingDownward <no-reply@mail.hikingdownward.com>`)
 
 API observability configuration is optional:
 

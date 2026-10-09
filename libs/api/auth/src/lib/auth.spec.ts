@@ -97,7 +97,7 @@ vi.mock('@upstash/redis', () => ({
     fromEnv: vi.fn<() => typeof redisMock>(() => redisMock),
   },
 }));
-vi.mock('better-auth/minimal', () => ({ betterAuth: betterAuthMock }));
+vi.mock('better-auth', () => ({ betterAuth: betterAuthMock }));
 vi.mock('better-auth/plugins', () => ({
   admin: vi.fn<() => { id: string }>(() => ({ id: 'admin' })),
   haveIBeenPwned: vi.fn<() => { id: string }>(() => ({ id: 'pwned' })),

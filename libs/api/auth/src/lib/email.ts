@@ -120,16 +120,28 @@ function renderHtml({
  * @throws An error when Resend reports a failure while sending the email.
  */
 export async function sendTransactionalEmail(email: TransactionalEmail): Promise<void> {
-  const { error } = await resend.emails.send(
-    {
-      from: sender,
-      to: [email.to],
+  let response: Awaited<ReturnType<typeof resend.emails.send>>;
+  try {
+    response = await resend.emails.send(
+      {
+        from: sender,
+        to: [email.to],
+        subject: email.subject,
+        html: renderHtml(email),
+        text: email.textBody,
+      },
+      email.idempotencyKey ? { idempotencyKey: email.idempotencyKey } : {},
+    );
+  } catch (error) {
+    /* oxlint-disable-next-line no-console */
+    console.error('Transactional email request failed before a Resend response', {
+      message: error instanceof Error ? error.message : String(error),
       subject: email.subject,
-      html: renderHtml(email),
-      text: email.textBody,
-    },
-    email.idempotencyKey ? { idempotencyKey: email.idempotencyKey } : {},
-  );
+    });
+    throw error;
+  }
+
+  const { error } = response;
 
   if (error) {
     /* oxlint-disable-next-line no-console */

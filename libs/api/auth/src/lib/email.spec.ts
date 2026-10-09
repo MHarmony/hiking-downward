@@ -1,5 +1,5 @@
 import * as fc from 'fast-check';
-import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const noValue = null as never;
 
@@ -25,6 +25,11 @@ describe('sendTransactionalEmail', () => {
   beforeEach(() => {
     sendMock.mockReset();
     sendMock.mockResolvedValue({ data: { id: 'email-id' }, error: null });
+    vi.spyOn(console, 'info').mockImplementation(() => noValue);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it('sends escaped HTML and plain text with an action and idempotency key', async () => {
@@ -42,7 +47,7 @@ describe('sendTransactionalEmail', () => {
     expect(sendMock).toHaveBeenCalledOnce();
     expect(sendMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        from: 'HikingDownward <no-reply@hiking-downward.com>',
+        from: 'HikingDownward <no-reply@mail.hikingdownward.com>',
         to: ['person@example.com'],
         subject: 'Subject',
         text: 'Plain text',
@@ -94,6 +99,52 @@ describe('sendTransactionalEmail', () => {
       subject: 'Subject',
     });
     errorSpy.mockRestore();
+  }, 10_000);
+
+  it('logs and rethrows errors thrown before Resend responds', async () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => noValue);
+    sendMock.mockRejectedValueOnce(new Error('Connection reset'));
+
+    await expect(
+      sendTransactionalEmail({
+        body: 'Body',
+        heading: 'Heading',
+        preview: 'Preview',
+        subject: 'Subject',
+        textBody: 'Text',
+        to: 'person@example.com',
+      }),
+    ).rejects.toThrow('Connection reset');
+    expect(errorSpy).toHaveBeenCalledWith(
+      'Transactional email request failed before a Resend response',
+      {
+        message: 'Connection reset',
+        subject: 'Subject',
+      },
+    );
+  }, 10_000);
+
+  it('logs and rethrows non-Error values thrown before Resend responds', async () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => noValue);
+    sendMock.mockRejectedValueOnce('Connection reset');
+
+    await expect(
+      sendTransactionalEmail({
+        body: 'Body',
+        heading: 'Heading',
+        preview: 'Preview',
+        subject: 'Subject',
+        textBody: 'Text',
+        to: 'person@example.com',
+      }),
+    ).rejects.toBe('Connection reset');
+    expect(errorSpy).toHaveBeenCalledWith(
+      'Transactional email request failed before a Resend response',
+      {
+        message: 'Connection reset',
+        subject: 'Subject',
+      },
+    );
   }, 10_000);
 
   it('escapes arbitrary content in every HTML interpolation', async () => {

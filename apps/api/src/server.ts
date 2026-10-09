@@ -64,13 +64,23 @@ const normalizeError = (context: { error: unknown }): unknown => {
     request: Request;
     set: { headers: Record<string, string | number>; status: number };
   };
-  if (new URL(request.url).pathname.startsWith('/api/auth')) {
-    return;
-  }
-
   const requestId = set.headers['X-Request-Id'];
   const isValidation = error instanceof ValidationError;
   const isNotFound = error instanceof NotFound;
+  const isAuthRequest = new URL(request.url).pathname.startsWith('/api/auth');
+
+  if (isAuthRequest && (isValidation || isNotFound)) {
+    return;
+  }
+
+  if (isAuthRequest) {
+    /* oxlint-disable-next-line no-console */
+    console.error('Unhandled authentication API error', {
+      name: error instanceof Error ? error.name : typeof error,
+      requestId,
+    });
+  }
+
   const statusCode =
     set.status === 200 ? (isValidation ? 400 : isNotFound ? 404 : 500) : set.status;
   const code = isValidation ? 'VALIDATION_ERROR' : isNotFound ? 'NOT_FOUND' : 'INTERNAL_ERROR';
@@ -137,7 +147,7 @@ export function createApp(): AnyElysia {
         });
       }
 
-      return null;
+      return;
     })
     .use(
       cors({
@@ -320,6 +330,9 @@ export function createApp(): AnyElysia {
 /** Configured Elysia application for the HikingDownward API server. */
 // export const app = Sentry.withElysia(createApp()).error(normalizeError).listen(3000);
 export const app = createApp().error(normalizeError).listen(3000);
+
+// oxlint-disable-next-line no-console
+console.log('API server is running on port 3000');
 
 let shutdownPromise: Promise<void> | null = null;
 

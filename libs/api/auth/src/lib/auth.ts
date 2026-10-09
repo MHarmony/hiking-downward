@@ -10,8 +10,8 @@ import {
 } from '@hiking-downward/database';
 import { Redis } from '@upstash/redis';
 import type { SecondaryStorage } from 'better-auth';
+import { betterAuth } from 'better-auth';
 import { createAuthMiddleware } from 'better-auth/api';
-import { betterAuth } from 'better-auth/minimal';
 import { admin, haveIBeenPwned, magicLink, twoFactor, username } from 'better-auth/plugins';
 import type { User } from 'better-auth/types';
 import { getAuditRequestContext, recordAuditEvent } from './audit';
@@ -350,6 +350,7 @@ export const auth = betterAuth({
         to: user.email,
       });
     },
+    sendOnSignUp: true,
   },
   disabledPaths: ['/is-username-available'],
   verification: { storeInDatabase: false },

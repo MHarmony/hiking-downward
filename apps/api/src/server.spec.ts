@@ -265,7 +265,7 @@ describe('server', () => {
         request: new Request('http://localhost/docs'),
         set: { headers: {} },
       }),
-    ).toBeNull();
+    ).toBeUndefined();
 
     const oversizedSet: { headers: Record<string, string> } = { headers: {} };
     expect(
@@ -382,7 +382,7 @@ describe('server', () => {
       throw new Error('Expected error hook to be registered');
     }
     const normalizeError = errorEntry[1] as (input: {
-      error: Error;
+      error: unknown;
       request: Request;
       set: { headers: Record<string, string>; status: number };
     }) => unknown;
@@ -410,6 +410,13 @@ describe('server', () => {
     expect(errorSet.status).toBe(200);
     expect(
       normalizeError({
+        error: new ValidationError(),
+        request: new Request('http://localhost/api/auth/sign-up/email'),
+        set: { headers: { 'X-Request-Id': 'request-id' }, status: 400 },
+      }),
+    ).toBeUndefined();
+    expect(
+      normalizeError({
         error: new NotFound(),
         request: new Request('http://localhost/missing'),
         set: { headers: { 'X-Request-Id': 'request-id' }, status: 200 },
@@ -431,6 +438,38 @@ describe('server', () => {
         set: { headers: { 'X-Request-Id': 'request-id' }, status: 404 },
       }),
     ).toBeUndefined();
+
+    const authErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => noValue);
+    expect(
+      normalizeError({
+        error: new Error('Unexpected auth failure'),
+        request: new Request('http://localhost/api/auth/sign-up/email'),
+        set: { headers: { 'X-Request-Id': 'request-id' }, status: 200 },
+      }),
+    ).toMatchObject({
+      status: 500,
+      title: 'Internal Server Error',
+      detail: 'Internal server error',
+      error: {
+        code: 'INTERNAL_ERROR',
+        message: 'Internal server error',
+        requestId: 'request-id',
+      },
+    });
+    expect(authErrorSpy).toHaveBeenCalledWith('Unhandled authentication API error', {
+      name: 'Error',
+      requestId: 'request-id',
+    });
+    normalizeError({
+      error: 'Unexpected auth failure',
+      request: new Request('http://localhost/api/auth/sign-up/email'),
+      set: { headers: { 'X-Request-Id': 'request-id' }, status: 200 },
+    });
+    expect(authErrorSpy).toHaveBeenNthCalledWith(2, 'Unhandled authentication API error', {
+      name: 'string',
+      requestId: 'request-id',
+    });
+    authErrorSpy.mockRestore();
 
     const internalErrorSet = { headers: { 'X-Request-Id': 'request-id' }, status: 200 };
     expect(

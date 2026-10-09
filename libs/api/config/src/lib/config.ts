@@ -1,5 +1,5 @@
 const defaultFrontendUrl = 'http://localhost:4200';
-const defaultEmailSender = 'HikingDownward <no-reply@hiking-downward.com>';
+const defaultEmailSender = 'HikingDownward <no-reply@mail.hikingdownward.com>';
 const defaultSentryTraceSampleRate = 0.1;
 
 /** Runtime configuration used by the API server. */
