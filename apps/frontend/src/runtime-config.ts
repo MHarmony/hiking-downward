@@ -8,10 +8,6 @@ export type FrontendRuntimeConfig = {
   sentryEnvironment?: string;
   /** Release identifier reported to Sentry. */
   sentryRelease?: string;
-  /** Fraction of frontend transactions sampled by Sentry. */
-  sentryTracesSampleRate?: number;
-  /** Origins that receive Sentry trace headers; defaults to `apiUrl`. */
-  sentryTracePropagationTargets?: string[];
 };
 
 const defaultRuntimeConfig: FrontendRuntimeConfig = {};

@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { FrontendAuth } from '@hiking-downward/frontend-auth';
-import { createErrorHandler, getClient, setUser, TraceService } from '@sentry/angular';
+import { createErrorHandler, getClient, setUser } from '@sentry/angular';
 
 import { appRoutes } from './app.routes';
 
@@ -17,10 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(appRoutes),
     { provide: ErrorHandler, useFactory: () => createErrorHandler({ logErrors: true }) },
-    // Eagerly instantiated so it can record router navigation spans.
-    provideAppInitializer(() => {
-      inject(TraceService);
-    }),
     // Keeps the Sentry user in step with sign-in, sign-out, and restored sessions.
     provideAppInitializer(() => {
       if (!getClient()) {

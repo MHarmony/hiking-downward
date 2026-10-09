@@ -39,6 +39,10 @@
           "sourceMap": true
         },
         "production": {
+          "define": {
+            "__SENTRY_DEBUG__": "false",
+            "__SENTRY_TRACING__": "false"
+          },
           "budgets": [
             {
               "maximumError": "1mb",

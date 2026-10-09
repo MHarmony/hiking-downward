@@ -2,6 +2,5 @@
   "apiUrl": "http://localhost:3000",
   "sentryDsn": "",
   "sentryEnvironment": "development",
-  "sentryRelease": "local",
-  "sentryTracesSampleRate": 0.1
+  "sentryRelease": "local"
 }

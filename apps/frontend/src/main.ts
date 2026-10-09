@@ -10,12 +10,6 @@ import { loadRuntimeConfig } from './runtime-config';
 
 const runtimeConfig = await loadRuntimeConfig();
 
-/** API origins that should receive Sentry distributed-tracing headers. */
-const apiTargets = runtimeConfig.apiUrl ? [runtimeConfig.apiUrl] : null;
-
-/** Configured Sentry propagation targets, falling back to the API origin. */
-const tracePropagationTargets = runtimeConfig.sentryTracePropagationTargets ?? apiTargets;
-
 if (runtimeConfig.sentryDsn) {
   Sentry.init({
     dsn: runtimeConfig.sentryDsn,
@@ -24,9 +18,6 @@ if (runtimeConfig.sentryDsn) {
     dataCollection: {
       userInfo: false,
     },
-    tracesSampleRate: runtimeConfig.sentryTracesSampleRate ?? 0.1,
-    integrations: [Sentry.browserTracingIntegration()],
-    ...(tracePropagationTargets && { tracePropagationTargets }),
   });
 }
 
