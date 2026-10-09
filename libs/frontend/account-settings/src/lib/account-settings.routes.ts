@@ -1,8 +1,5 @@
 import type { Routes } from '@angular/router';
 import { AccountSettings } from './account-settings/account-settings';
-import { DangerZone } from './danger-zone/danger-zone';
-import { ProfileSettings } from './profile-settings/profile-settings';
-import { SecuritySettings } from './security-settings/security-settings';
 
 /**
  * Nested routes for the signed-in account settings area.
@@ -15,13 +12,23 @@ export const accountSettingsRoutes: Routes = [
     component: AccountSettings,
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'profile' },
-      { path: 'profile', component: ProfileSettings, title: 'HikingDownward - Profile Settings' },
+      {
+        path: 'profile',
+        loadComponent: async () =>
+          import('./profile-settings/profile-settings').then((m) => m.ProfileSettings),
+        title: 'HikingDownward - Profile Settings',
+      },
       {
         path: 'security',
-        component: SecuritySettings,
+        loadComponent: async () =>
+          import('./security-settings/security-settings').then((m) => m.SecuritySettings),
         title: 'HikingDownward - Security Settings',
       },
-      { path: 'account', component: DangerZone, title: 'HikingDownward - Account Settings' },
+      {
+        path: 'account',
+        loadComponent: async () => import('./danger-zone/danger-zone').then((m) => m.DangerZone),
+        title: 'HikingDownward - Account Settings',
+      },
     ],
   },
 ];
