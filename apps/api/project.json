@@ -93,7 +93,7 @@
         "^production"
       ],
       "options": {
-        "command": "tsc --noEmit -p apps/api/tsconfig.app.json"
+        "command": "bun check -p apps/api/tsconfig.app.json"
       }
     },
     "typecheck:test": {
@@ -104,7 +104,7 @@
         "^production"
       ],
       "options": {
-        "command": "tsc --noEmit -p apps/api/tsconfig.spec.json"
+        "command": "bun check -p apps/api/tsconfig.spec.json"
       }
     }
   }

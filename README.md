@@ -3,7 +3,7 @@
 [![CI](https://github.com/MHarmony/hiking-downward/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/MHarmony/hiking-downward/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/MHarmony/hiking-downward?label=license)](LICENSE.md)
 [![Contributor Covenant 3.0](https://img.shields.io/badge/Contributor_Covenant-3.0-5e0d73)](CODE_OF_CONDUCT.md)
-![Bun](https://img.shields.io/badge/Bun-1.4.2-f9f1e1?logo=bun)
+![Bun](https://img.shields.io/badge/Bun-1.4.3-f9f1e1?logo=bun)
 ![Node.js](https://img.shields.io/badge/Node.js-26.11.1-339933?logo=nodedotjs)
 
 > [!WARNING]
@@ -13,7 +13,7 @@ HikingDownward is a re-imagined version of HikingUpward, built as an [Angular](h
 
 ## Requirements
 
-- [Bun](https://bun.sh/) `1.4.2`
+- [Bun](https://bun.sh/) `1.4.3`
 - [Node.js](https://nodejs.org/) `26.11.1`
 - [PostgreSQL](https://www.postgresql.org/)
 - [Git](https://git-scm.com/)

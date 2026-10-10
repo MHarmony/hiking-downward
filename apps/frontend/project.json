@@ -149,7 +149,7 @@
         "^production"
       ],
       "options": {
-        "command": "tsc --noEmit -p apps/frontend/tsconfig.app.json"
+        "command": "bun check -p apps/frontend/tsconfig.app.json"
       }
     },
     "typecheck:test": {
@@ -160,7 +160,7 @@
         "^production"
       ],
       "options": {
-        "command": "tsc --noEmit -p apps/frontend/tsconfig.spec.json"
+        "command": "bun check -p apps/frontend/tsconfig.spec.json"
       }
     }
   }

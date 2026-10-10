@@ -76,7 +76,7 @@
         "^production"
       ],
       "options": {
-        "command": "tsc --noEmit -p libs/frontend/two-factor/tsconfig.lib.json"
+        "command": "bun check -p libs/frontend/two-factor/tsconfig.lib.json"
       }
     },
     "typecheck:test": {
@@ -87,7 +87,7 @@
         "^production"
       ],
       "options": {
-        "command": "tsc --noEmit -p libs/frontend/two-factor/tsconfig.spec.json"
+        "command": "bun check -p libs/frontend/two-factor/tsconfig.spec.json"
       }
     }
   }

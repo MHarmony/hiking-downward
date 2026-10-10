@@ -59,7 +59,7 @@
         "^production"
       ],
       "options": {
-        "command": "tsc --noEmit -p libs/api/database/tsconfig.lib.json"
+        "command": "bun check -p libs/api/database/tsconfig.lib.json"
       }
     },
     "typecheck:test": {
@@ -70,7 +70,7 @@
         "^production"
       ],
       "options": {
-        "command": "tsc --noEmit -p libs/api/database/tsconfig.spec.json"
+        "command": "bun check -p libs/api/database/tsconfig.spec.json"
       }
     }
   }

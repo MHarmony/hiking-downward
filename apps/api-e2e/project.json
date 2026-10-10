@@ -48,7 +48,7 @@
         "^production"
       ],
       "options": {
-        "command": "tsc --noEmit -p apps/api-e2e/tsconfig.json"
+        "command": "bun check -p apps/api-e2e/tsconfig.json"
       }
     }
   }

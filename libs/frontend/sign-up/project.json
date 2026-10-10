@@ -76,7 +76,7 @@
         "^production"
       ],
       "options": {
-        "command": "tsc --noEmit -p libs/frontend/sign-up/tsconfig.lib.json"
+        "command": "bun check -p libs/frontend/sign-up/tsconfig.lib.json"
       }
     },
     "typecheck:test": {
@@ -87,7 +87,7 @@
         "^production"
       ],
       "options": {
-        "command": "tsc --noEmit -p libs/frontend/sign-up/tsconfig.spec.json"
+        "command": "bun check -p libs/frontend/sign-up/tsconfig.spec.json"
       }
     }
   }
