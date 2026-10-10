@@ -1,4 +1,5 @@
 {
+  "version": 1,
   "skills": {
     "accessibility": {
       "computedHash": "612f913bcb03f0787b103c848cd7664b676a9aaf31f25d3270cc69cf5caaab95",
@@ -7,10 +8,10 @@
       "sourceType": "github"
     },
     "angular-developer": {
-      "computedHash": "4b23f026727c3e7aad1b553eac3769a39fb2cb3d2e04a450712455ce67653cef",
-      "skillPath": "skills/dev-skills/angular-developer/SKILL.md",
       "source": "angular/angular",
-      "sourceType": "github"
+      "sourceType": "github",
+      "skillPath": "skills/dev-skills/angular-developer/SKILL.md",
+      "computedHash": "9b78fec217d3f9e585b0eff7c7a64fefc61b3f1d15d15e7df4e44180d76d90bb"
     },
     "best-practices": {
       "computedHash": "ca00ef2671d65a7442bc796e8744cd3d759f92c01640f2fbcab638889c494424",
@@ -217,10 +218,10 @@
       "sourceType": "github"
     },
     "resend-cli": {
-      "computedHash": "f092422073720c7d3af73a6c87ef02371e0f789b5b7b20528fa9fc3cf85ed2a1",
-      "skillPath": "skills/resend-cli/SKILL.md",
       "source": "resend/resend-skills",
-      "sourceType": "github"
+      "sourceType": "github",
+      "skillPath": "skills/resend-cli/SKILL.md",
+      "computedHash": "e82822f03b86adbee741f50b51213abc16be70af8a784c7b65667982ad320128"
     },
     "retro": {
       "computedHash": "b8d55851a2909e26c2dbb2e8563719c87b3b700559f604e4df344f8c27e21047",
@@ -403,6 +404,5 @@
       "source": "mattpocock/skills",
       "sourceType": "github"
     }
-  },
-  "version": 1
+  }
 }
