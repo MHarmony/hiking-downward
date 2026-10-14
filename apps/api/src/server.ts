@@ -111,7 +111,7 @@ export function createApp(): AnyElysia {
     strictPath: true,
     serve: { maxRequestBodySize },
   })
-    .request(({ request, set }) => {
+    .onRequest(({ request, set }) => {
       set.headers['X-Request-Id'] = randomUUID();
 
       const contentLength = Number(request.headers.get('content-length'));
@@ -164,13 +164,13 @@ export function createApp(): AnyElysia {
         exposeHeaders: ['X-Request-Id'],
       }),
     )
-    .afterHandle(({ set }) => {
+    .onAfterHandle(({ set }) => {
       set.headers['X-Content-Type-Options'] = 'nosniff';
       set.headers['Referrer-Policy'] = 'no-referrer';
       set.headers['X-Frame-Options'] = 'DENY';
       set.headers['Permissions-Policy'] = 'camera=(), microphone=(), geolocation=()';
     })
-    .error(normalizeError)
+    .onError(normalizeError)
     .get(
       '/health',
       {
@@ -329,7 +329,7 @@ export function createApp(): AnyElysia {
 
 /** Configured Elysia application for the HikingDownward API server. */
 // export const app = Sentry.withElysia(createApp()).error(normalizeError).listen(3000);
-export const app = createApp().error(normalizeError).listen(3000);
+export const app = createApp().onError(normalizeError).listen(3000);
 
 // oxlint-disable-next-line no-console
 console.log('API server is running on port 3000');

@@ -247,10 +247,10 @@ describe('server', () => {
     expect(app.calls.some(([name]) => name === 'mount')).toBe(true);
     expect(app.calls).toContainEqual(['listen', 3000]);
 
-    const requestEntry = app.calls.find(([name]) => name === 'request');
+    const requestEntry = app.calls.find(([name]) => name === 'onRequest');
     expect(requestEntry).toBeTruthy();
     if (!requestEntry) {
-      throw new Error('Expected request hook to be registered');
+      throw new Error('Expected onRequest hook to be registered');
     }
     const requestHook = requestEntry[1] as (input: {
       request: Request;
@@ -360,10 +360,10 @@ describe('server', () => {
     });
     vi.useRealTimers();
 
-    const afterHandleEntry = app.calls.find(([name]) => name === 'afterHandle');
+    const afterHandleEntry = app.calls.find(([name]) => name === 'onAfterHandle');
     expect(afterHandleEntry).toBeTruthy();
     if (!afterHandleEntry) {
-      throw new Error('Expected response hook to be registered');
+      throw new Error('Expected onAfterHandle hook to be registered');
     }
     const afterHandle = afterHandleEntry[1] as (input: {
       set: { headers: Record<string, string> };
@@ -376,10 +376,10 @@ describe('server', () => {
       'X-Frame-Options': 'DENY',
     });
 
-    const errorEntry = app.calls.find(([name]) => name === 'error');
+    const errorEntry = app.calls.find(([name]) => name === 'onError');
     expect(errorEntry).toBeTruthy();
     if (!errorEntry) {
-      throw new Error('Expected error hook to be registered');
+      throw new Error('Expected onError hook to be registered');
     }
     const normalizeError = errorEntry[1] as (input: {
       error: unknown;

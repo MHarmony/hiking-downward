@@ -53,3 +53,5 @@ vite.config.*.timestamp*
 vitest.config.*.timestamp*
 
 playwright-report
+
+.nx/self-healing

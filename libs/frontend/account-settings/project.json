@@ -55,10 +55,10 @@
     "test": {
       "executor": "@nx/angular:unit-test",
       "options": {
+        "coverage": true,
         "coverageExclude": [
           "**/libs/frontend/auth/src/**"
         ],
-        "coverage": true,
         "coverageThresholds": {
           "branches": 100,
           "functions": 100,
