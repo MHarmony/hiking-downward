@@ -1,8 +1,9 @@
 import { inject, InjectionToken, LOCALE_ID, Service } from '@angular/core';
 import { Router } from '@angular/router';
 import { passkeyClient } from '@better-auth/passkey/client';
-import { createAuthClient } from 'better-auth/client';
+import { type AuthClient, type SuccessContext, createAuthClient } from 'better-auth/client';
 import {
+  type AdminClientOptions,
   adminClient,
   magicLinkClient,
   twoFactorClient,
@@ -39,6 +40,17 @@ interface EmailVerificationFlow {
   expiresAt: number;
 }
 
+/** Client plugins kept explicit so declaration emit uses portable public types. */
+interface FrontendAuthClientOptions {
+  plugins: [
+    ReturnType<typeof adminClient<AdminClientOptions>>,
+    ReturnType<typeof magicLinkClient>,
+    ReturnType<typeof twoFactorClient>,
+    ReturnType<typeof usernameClient<{ displayUsername: false }>>,
+    ReturnType<typeof passkeyClient>,
+  ];
+}
+
 /** Provides the configured Better Auth client to frontend features. */
 @Service()
 export class FrontendAuth {
@@ -48,10 +60,10 @@ export class FrontendAuth {
   readonly #localePrefix = inject(LOCALE_ID) === 'es' ? '/es' : '/en';
 
   /** Better Auth client configured with the application's enabled auth plugins. */
-  public readonly authClient = createAuthClient({
+  public readonly authClient: AuthClient<FrontendAuthClientOptions> = createAuthClient({
     baseURL: inject(AUTH_BASE_URL),
     fetchOptions: {
-      onSuccess: (context) => {
+      onSuccess: (context: SuccessContext<unknown>) => {
         if (context.request.url.toString().includes('/two-factor/verify-')) {
           this.#sessionStorage.removeItem(TWO_FACTOR_PENDING_KEY);
         }
