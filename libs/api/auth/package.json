@@ -2,14 +2,14 @@
   "main": "./index.mjs",
   "name": "@hiking-downward/api-auth",
   "peerDependencies": {
-    "@better-auth/drizzle-adapter": "1.7.10",
-    "@better-auth/i18n": "1.7.10",
-    "@better-auth/passkey": "1.7.10",
+    "@better-auth/drizzle-adapter": "1.7.11",
+    "@better-auth/i18n": "1.7.11",
+    "@better-auth/passkey": "1.7.11",
     "@hiking-downward/api-config": "0.0.0",
     "@hiking-downward/database": "0.0.0",
     "@upstash/redis": "1.39.0",
-    "better-auth": "1.7.10",
-    "resend": "6.33.0"
+    "better-auth": "1.7.11",
+    "resend": "6.34.1"
   },
   "type": "module",
   "types": "./index.d.ts",
