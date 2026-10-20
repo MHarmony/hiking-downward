@@ -11,7 +11,7 @@
       "source": "angular/angular",
       "sourceType": "github",
       "skillPath": "skills/dev-skills/angular-developer/SKILL.md",
-      "computedHash": "9b78fec217d3f9e585b0eff7c7a64fefc61b3f1d15d15e7df4e44180d76d90bb"
+      "computedHash": "cef5f1739f4a7158f20230f7e5a03c9b4b150b77174f22938512dcc49e270b91"
     },
     "best-practices": {
       "computedHash": "ca00ef2671d65a7442bc796e8744cd3d759f92c01640f2fbcab638889c494424",
@@ -68,10 +68,10 @@
       "sourceType": "github"
     },
     "elysiajs": {
-      "computedHash": "55268e69a2c766ed67e56a0db57544f60cc52dba0c7f024a974baf965e525e1b",
-      "skillPath": "elysia/SKILL.md",
       "source": "elysiajs/skills",
-      "sourceType": "github"
+      "sourceType": "github",
+      "skillPath": "elysia/SKILL.md",
+      "computedHash": "e0bc0ecce6cecc34f14cf445c72f7df0cec278e64dfd4ea99f26c503e98624d6"
     },
     "email-and-password-best-practices": {
       "computedHash": "863886759f729081e265941f4f72c503835d55a1f34f6d63cebe6571159fff4a",
@@ -116,10 +116,10 @@
       "sourceType": "github"
     },
     "humanizer": {
-      "computedHash": "fa4ffac562a8e7349282f606391ede22d23118e998dc8b5ac931662fa734c1b7",
-      "skillPath": "SKILL.md",
       "source": "blader/humanizer",
-      "sourceType": "github"
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "d85c4727f62296887c3206e32a99caeed7611af7c4701c1b9931897260e31a73"
     },
     "implement": {
       "computedHash": "b6371a0a6723bad551f3adc721e3729a6a97acfc3670dc2bdea198bbe78408c0",
@@ -140,16 +140,16 @@
       "sourceType": "github"
     },
     "maplibre-cartography": {
-      "computedHash": "9fc484e170614b80200d39d5f2029d1888c77e3ca084e412a40616e7d6d37e23",
-      "skillPath": "skills/maplibre-cartography/SKILL.md",
       "source": "maplibre/maplibre-agent-skills",
-      "sourceType": "github"
+      "sourceType": "github",
+      "skillPath": "skills/maplibre-cartography/SKILL.md",
+      "computedHash": "cf218300f9a471aa41ccca968d7a5e89fbbbc3228925d2ad614a29d755a49d54"
     },
     "maplibre-fonts-glyphs": {
-      "computedHash": "461c9d558292c9433890a3728541863a771ec7849052124278cf3e1144c54820",
-      "skillPath": "skills/maplibre-fonts-glyphs/SKILL.md",
       "source": "maplibre/maplibre-agent-skills",
-      "sourceType": "github"
+      "sourceType": "github",
+      "skillPath": "skills/maplibre-fonts-glyphs/SKILL.md",
+      "computedHash": "87fadbddfa3234e5c5d10d3e7bffff860456879f7607e3a93b4d8706f501ab15"
     },
     "maplibre-pmtiles-patterns": {
       "computedHash": "52110cdd693a32c28e46beda88c49636c1c2390cf64716f706b38c5f39f8984a",
@@ -158,10 +158,10 @@
       "sourceType": "github"
     },
     "maplibre-source-wiring": {
-      "computedHash": "1d6287fe0f6fd41a64d95eb488a44290bf41b588fe6f8faae85dc3f053f1d374",
-      "skillPath": "skills/maplibre-source-wiring/SKILL.md",
       "source": "maplibre/maplibre-agent-skills",
-      "sourceType": "github"
+      "sourceType": "github",
+      "skillPath": "skills/maplibre-source-wiring/SKILL.md",
+      "computedHash": "f32b27b46357931373756f18f4b4eb65bf940e6e3206661a21fd9c3f7078bcc9"
     },
     "maplibre-terrain-rendering": {
       "computedHash": "ab520b4f51536746ac2f2098f840d9444cdfd28210ff0640eeadb8d3d6fcdc42",
@@ -170,10 +170,10 @@
       "sourceType": "github"
     },
     "maplibre-tile-sources": {
-      "computedHash": "f3bdeeccad44178664b3c2081989ee26f33a20b93aada8407fca1ea3945e02f4",
-      "skillPath": "skills/maplibre-tile-sources/SKILL.md",
       "source": "maplibre/maplibre-agent-skills",
-      "sourceType": "github"
+      "sourceType": "github",
+      "skillPath": "skills/maplibre-tile-sources/SKILL.md",
+      "computedHash": "c4f5907d81f96ce344209474c67aaee029b5f3efea2ed31674dc08b90755d05d"
     },
     "organization-best-practices": {
       "computedHash": "8c85e683dabef4532f1e8b67bbed5c453d39e0e3d5aeedd69d16b568f6e6d44f",
@@ -212,16 +212,16 @@
       "sourceType": "github"
     },
     "resend": {
-      "computedHash": "82b26e4f038c5dc4f5e6d94e83ceb09b655418919845ae4a2e7c5496d2c1b01f",
-      "skillPath": "skills/resend/SKILL.md",
       "source": "resend/resend-skills",
-      "sourceType": "github"
+      "sourceType": "github",
+      "skillPath": "skills/resend/SKILL.md",
+      "computedHash": "e12ac96a3c05509aabf1b03f40a3112e710e1bda060161b6495f851b7ac18f34"
     },
     "resend-cli": {
       "source": "resend/resend-skills",
       "sourceType": "github",
       "skillPath": "skills/resend-cli/SKILL.md",
-      "computedHash": "e82822f03b86adbee741f50b51213abc16be70af8a784c7b65667982ad320128"
+      "computedHash": "32c729456e8b6384e7d581d3aef289c4755cb85ba44c963137cc41531506023c"
     },
     "retro": {
       "computedHash": "b8d55851a2909e26c2dbb2e8563719c87b3b700559f604e4df344f8c27e21047",
@@ -261,10 +261,10 @@
       "sourceType": "github"
     },
     "sentry-fix-stack-traces": {
-      "computedHash": "39712fb0ba8f43792aaeb3f34e8851b484f10f0c9569e2c10b5b6299e314cac4",
-      "skillPath": "src/skills/sentry-fix-stack-traces/SKILL.md",
       "source": "getsentry/sentry-for-ai",
-      "sourceType": "github"
+      "sourceType": "github",
+      "skillPath": "src/skills/sentry-fix-stack-traces/SKILL.md",
+      "computedHash": "be2c5020ae1774a704e9a631460eac7fb112fbf201667fe6209680add41d3f97"
     },
     "sentry-get-started": {
       "computedHash": "c5727e02ec59cf31272d979e5d4b15cebef64dfa6269dec6aecf878511197a62",
