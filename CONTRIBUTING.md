@@ -13,7 +13,7 @@ For bugs, feature ideas, and questions that are not security-sensitive, search e
 Use the repository's supported toolchain:
 
 - [Bun](https://bun.sh/) `1.4.3`
-- [Node.js](https://nodejs.org/) `26.11.1`
+- [Node.js](https://nodejs.org/) `26.12.0`
 - [Git](https://git-scm.com/)
 - [PostgreSQL](https://www.postgresql.org/) for API and database work
 

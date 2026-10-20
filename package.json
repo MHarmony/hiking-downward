@@ -103,13 +103,13 @@
       {
         "name": "node",
         "onFail": "error",
-        "version": "26.11.1"
+        "version": "26.12.0"
       }
     ]
   },
   "engines": {
     "bun": "1.4.3",
-    "node": "26.11.1"
+    "node": "26.12.0"
   },
   "engineStrict": true,
   "funding": [
