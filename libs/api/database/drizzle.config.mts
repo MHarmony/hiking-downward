@@ -9,7 +9,6 @@ export default defineConfig({
   out: './libs/api/database/drizzle',
   schema: './libs/api/database/src/lib/schema',
   dialect: 'postgresql',
-  strict: true,
   dbCredentials: {
     host: databaseConfig.host,
     port: databaseConfig.port,
