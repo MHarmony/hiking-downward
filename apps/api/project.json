@@ -7,6 +7,13 @@
     "scope:api"
   ],
   "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bun lint --no-script .",
+        "cwd": "apps/api"
+      }
+    },
     "build": {
       "configurations": {
         "development": {},

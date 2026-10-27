@@ -25,17 +25,13 @@
   "editor.codeActionsOnSave": {
     "source.addMissingImports": "explicit",
     "source.fixAll": "explicit",
-    "source.fixAll.oxc": "explicit",
-    "source.fixAllDangerous.oxc": "explicit",
-    "source.format.oxc": "explicit",
     "source.organizeImports": "explicit",
     "source.removeUnusedImports": "explicit",
     "source.sort": "explicit",
     "source.sort.json": "explicit",
     "source.sortImports": "explicit"
   },
-  "editor.defaultFormatter": "oxc.oxc-vscode",
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.quickSuggestions": {
     "strings": "on"
   },
@@ -92,14 +88,6 @@
   "npm.scriptRunner": "bun",
   "nxConsole.nxCloudNotifications": "none",
   "nxConsole.nxWorkspacePath": ".",
-  "oxc.configPath": "oxlint.config.mts",
-  "oxc.enable": true,
-  "oxc.enable.oxfmt": true,
-  "oxc.enable.oxlint": true,
-  "oxc.fixKind": "all",
-  "oxc.fmt.configPath": "oxfmt.config.mts",
-  "oxc.tsConfigPath": "tsconfig.base.json",
-  "oxc.typeAware": true,
   "scss.format.spaceAroundSelectorSeparator": true,
   "tailwindCSS.emmetCompletions": true,
   "telemetry.editStats.enabled": false,

@@ -7,16 +7,11 @@
     "version": {
       "currentVersionResolver": "git-tag",
       "fallbackCurrentVersionResolver": "disk",
-      "manifestRootsToUpdate": [
-        "dist/{projectRoot}"
-      ]
+      "manifestRootsToUpdate": ["dist/{projectRoot}"]
     }
   },
   "sourceRoot": "libs/frontend/home/src",
-  "tags": [
-    "scope:frontend",
-    "type:ui"
-  ],
+  "tags": ["scope:frontend", "type:ui"],
   "targets": {
     "build": {
       "configurations": {
@@ -31,19 +26,14 @@
         "project": "libs/frontend/home/ng-package.json",
         "tsConfig": "libs/frontend/home/tsconfig.lib.json"
       },
-      "outputs": [
-        "{workspaceRoot}/dist/{projectRoot}"
-      ]
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"]
     },
     "lint": {
       "cache": true,
       "executor": "nx:run-commands",
-      "inputs": [
-        "default",
-        "^production"
-      ],
+      "inputs": ["default", "^production", "lintGlobals"],
       "options": {
-        "command": "oxlint . && eslint package.json",
+        "command": "bun lint --no-script . && eslint --config ../../../eslint.manifest.config.mts package.json",
         "cwd": "libs/frontend/home"
       }
     },
@@ -68,10 +58,7 @@
     "typecheck": {
       "cache": true,
       "executor": "nx:run-commands",
-      "inputs": [
-        "default",
-        "^production"
-      ],
+      "inputs": ["default", "^production"],
       "options": {
         "command": "bun check -p libs/frontend/home/tsconfig.lib.json"
       }
@@ -79,10 +66,7 @@
     "typecheck:test": {
       "cache": true,
       "executor": "nx:run-commands",
-      "inputs": [
-        "default",
-        "^production"
-      ],
+      "inputs": ["default", "^production"],
       "options": {
         "command": "bun check -p libs/frontend/home/tsconfig.spec.json"
       }

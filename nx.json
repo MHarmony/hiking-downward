@@ -8,8 +8,8 @@
     "@nx/angular:application": {
       "bundler": "esbuild",
       "e2eTestRunner": "playwright",
-      "formatter": "oxfmt",
-      "linter": "oxlint",
+      "formatter": "none",
+      "linter": "none",
       "prefix": "hiking-downward",
       "style": "css",
       "unitTestRunner": "vitest-angular"
@@ -19,16 +19,26 @@
       "style": "css"
     },
     "@nx/angular:library": {
-      "linter": "oxlint",
+      "linter": "none",
       "prefix": "hiking-downward",
       "style": "css",
       "unitTestRunner": "vitest-angular"
     }
   },
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "lintGlobals": [
+      "{workspaceRoot}/eslint.manifest.config.mts",
+      "{workspaceRoot}/nx.json",
+      "{workspaceRoot}/**/project.json",
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/tsconfig.json",
+      "{workspaceRoot}/bun.lock",
+      "{workspaceRoot}/bunfig.toml",
+      "{workspaceRoot}/.gitignore",
+      {
+        "runtime": "bun --revision"
+      }
     ],
     "production": [
       "default",
@@ -36,18 +46,10 @@
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/src/test-setup.[jt]s"
     ],
-    "sharedGlobals": [
-      "{workspaceRoot}/.github/workflows/ci.yml"
-    ]
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
   "parallel": 4,
   "plugins": [
-    {
-      "options": {
-        "targetName": "lint"
-      },
-      "plugin": "@nx/oxlint"
-    },
     {
       "options": {
         "targetName": "e2e"
@@ -83,65 +85,43 @@
   "targetDefaults": {
     "@angular/build:application": {
       "cache": true,
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ]
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     },
     "@angular/build:unit-test": {
       "cache": true,
-      "inputs": [
-        "default",
-        "^production"
-      ],
+      "inputs": ["default", "^production"],
       "options": {
-        "setupFiles": [
-          "libs/frontend/test-setup.ts"
-        ]
+        "setupFiles": ["libs/frontend/test-setup.ts"]
       }
     },
     "@nx/angular:package": {
       "cache": true,
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ]
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     },
     "@nx/angular:unit-test": {
       "cache": true,
-      "inputs": [
-        "default",
-        "^production"
-      ],
+      "inputs": ["default", "^production"],
       "options": {
-        "setupFiles": [
-          "libs/frontend/test-setup.ts"
-        ]
+        "setupFiles": ["libs/frontend/test-setup.ts"]
       }
     },
     "@nx/esbuild:esbuild": {
       "cache": true,
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["^build"],
       "inputs": [
         "production",
         "^production",
         {
-          "fields": [
-            "extends",
-            "files",
-            "include"
-          ],
+          "fields": ["extends", "files", "include"],
           "json": "{workspaceRoot}/tsconfig.json"
         }
       ]
+    },
+    "lint": {
+      "cache": true,
+      "inputs": ["default", "^production", "lintGlobals"]
     }
   },
   "tui": {

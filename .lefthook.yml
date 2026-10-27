@@ -2,7 +2,7 @@ pre-commit:
   parallel: true
   commands:
     lint:
-      run: bun run lint
+      run: bun run lint:all
     typecheck:
       run: bun run typecheck
 

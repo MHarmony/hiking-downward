@@ -6,43 +6,29 @@
     "version": {
       "currentVersionResolver": "git-tag",
       "fallbackCurrentVersionResolver": "disk",
-      "manifestRootsToUpdate": [
-        "dist/{projectRoot}"
-      ]
+      "manifestRootsToUpdate": ["dist/{projectRoot}"]
     }
   },
   "sourceRoot": "libs/api/config/src",
-  "tags": [
-    "scope:api",
-    "type:util"
-  ],
+  "tags": ["scope:api", "type:util"],
   "targets": {
     "build": {
       "executor": "@nx/esbuild:esbuild",
       "options": {
-        "assets": [
-          "libs/api/config/*.md"
-        ],
-        "format": [
-          "esm"
-        ],
+        "assets": ["libs/api/config/*.md"],
+        "format": ["esm"],
         "main": "libs/api/config/src/index.ts",
         "outputPath": "dist/libs/api/config",
         "tsConfig": "libs/api/config/tsconfig.lib.json"
       },
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      "outputs": ["{options.outputPath}"]
     },
     "lint": {
       "cache": true,
       "executor": "nx:run-commands",
-      "inputs": [
-        "default",
-        "^production"
-      ],
+      "inputs": ["default", "^production", "lintGlobals"],
       "options": {
-        "command": "oxlint . && eslint package.json",
+        "command": "bun lint --no-script . && eslint --config ../../../eslint.manifest.config.mts package.json",
         "cwd": "libs/api/config"
       }
     },
@@ -54,10 +40,7 @@
     "typecheck": {
       "cache": true,
       "executor": "nx:run-commands",
-      "inputs": [
-        "default",
-        "^production"
-      ],
+      "inputs": ["default", "^production"],
       "options": {
         "command": "bun check -p libs/api/config/tsconfig.lib.json"
       }
@@ -65,10 +48,7 @@
     "typecheck:test": {
       "cache": true,
       "executor": "nx:run-commands",
-      "inputs": [
-        "default",
-        "^production"
-      ],
+      "inputs": ["default", "^production"],
       "options": {
         "command": "bun check -p libs/api/config/tsconfig.spec.json"
       }

@@ -16,25 +16,26 @@
   "prefix": "hiking-downward",
   "projectType": "application",
   "sourceRoot": "apps/frontend/src",
-  "tags": [
-    "scope:frontend"
-  ],
+  "tags": ["scope:frontend"],
   "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bun lint --no-script .",
+        "cwd": "apps/frontend"
+      }
+    },
     "build": {
       "configurations": {
         "development": {
           "extractLicenses": false,
-          "localize": [
-            "en-US"
-          ],
+          "localize": ["en-US"],
           "optimization": false,
           "sourceMap": true
         },
         "development-es": {
           "extractLicenses": false,
-          "localize": [
-            "es"
-          ],
+          "localize": ["es"],
           "optimization": false,
           "sourceMap": true
         },
@@ -71,17 +72,14 @@
         "browser": "apps/frontend/src/main.ts",
         "i18nMissingTranslation": "error",
         "outputPath": "dist/apps/frontend",
-        "polyfills": [
-          "@angular/localize/init"
-        ],
+        "polyfills": ["@angular/localize/init"],
         "styles": [
-          "apps/frontend/src/styles.css"
+          "apps/frontend/src/styles.css",
+          "node_modules/@fontsource-variable/atkinson-hyperlegible-next/wght.css"
         ],
         "tsConfig": "apps/frontend/tsconfig.app.json"
       },
-      "outputs": [
-        "{options.outputPath}"
-      ]
+      "outputs": ["{options.outputPath}"]
     },
     "extract-i18n": {
       "executor": "@angular/build:extract-i18n",
@@ -108,9 +106,7 @@
       "defaultConfiguration": "development",
       "dependsOn": [
         {
-          "projects": [
-            "@hiking-downward/api"
-          ],
+          "projects": ["@hiking-downward/api"],
           "target": "serve"
         }
       ],
@@ -119,9 +115,7 @@
     "serve-static": {
       "cache": false,
       "continuous": true,
-      "dependsOn": [
-        "build"
-      ],
+      "dependsOn": ["build"],
       "executor": "nx:run-commands",
       "options": {
         "command": "node apps/frontend-e2e/serve-localized-static.mjs",
@@ -144,10 +138,7 @@
     "typecheck": {
       "cache": true,
       "executor": "nx:run-commands",
-      "inputs": [
-        "default",
-        "^production"
-      ],
+      "inputs": ["default", "^production"],
       "options": {
         "command": "bun check -p apps/frontend/tsconfig.app.json"
       }
@@ -155,10 +146,7 @@
     "typecheck:test": {
       "cache": true,
       "executor": "nx:run-commands",
-      "inputs": [
-        "default",
-        "^production"
-      ],
+      "inputs": ["default", "^production"],
       "options": {
         "command": "bun check -p apps/frontend/tsconfig.spec.json"
       }

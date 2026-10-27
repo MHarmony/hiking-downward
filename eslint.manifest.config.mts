@@ -4,11 +4,7 @@ import * as jsoncParser from 'jsonc-eslint-parser';
 /** ESLint configuration for Nx package dependency checks. */
 export default [
   {
-    files: [
-      'libs/api/**/*/package.json',
-      'libs/frontend/**/*/package.json',
-      'libs/shared/**/*/package.json',
-    ],
+    files: ['**/package.json'],
     languageOptions: {
       parser: jsoncParser,
     },

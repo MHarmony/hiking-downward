@@ -12,7 +12,8 @@ For bugs, feature ideas, and questions that are not security-sensitive, search e
 
 Use the repository's supported toolchain:
 
-- [Bun](https://bun.sh/) `1.4.3`
+- [Bun canary](https://bun.com/docs/installation#canary-builds) with built-in `bun lint`
+  (verified with `1.4.4-canary.1+57fe60250`; stable `1.4.4` does not include it)
 - [Node.js](https://nodejs.org/) `26.12.0`
 - [Git](https://git-scm.com/)
 - [PostgreSQL](https://www.postgresql.org/) for API and database work
@@ -64,13 +65,94 @@ bun run db:generate
 bun run db:migrate
 ```
 
+## Formatting
+
+Use Bun's built-in formatter (requires the Bun canary build listed under
+[Development Requirements](#development-requirements)):
+
+```sh
+bun run format
+bun run format:check
+```
+
+To format only the files you changed, pass their paths to `bun run format`.
+For example:
+
+```sh
+bun run format libs/api/database/drizzle.config.mts
+bun run format:check libs/api/database/drizzle.config.mts
+```
+
+Bun reads the formatter settings from the `[fmt]` section of
+[bunfig.toml](bunfig.toml). It preserves the previous formatter options,
+including Angular template parsing, Tailwind class sorting, and JSDoc
+formatting; the `oxfmt` package is not needed. Run `bun fmt --doctor` to inspect
+formatter configuration and native support.
+
+Bun has no formatter language server. Workspace VS Code settings no longer
+configure Oxc and disable format-on-save; use the commands above instead.
+
+Nx's Angular application generator uses `formatter: "none"` so it does not
+install another formatter. Format generated files with Bun afterward.
+
+The migration does not reformat existing files or add formatting enforcement
+to CI or hooks. A repository-wide check may report existing formatting
+differences; keep formatting changes focused on the files you touch.
+
+## Linting
+
+Run all Nx lint targets, including the library package dependency checks:
+
+```sh
+bun run lint:all
+```
+
+The script is deliberately named `lint:all`, not `lint`: a `lint` script would
+shadow Bun's built-in command. For a focused check, use Nx or the native CLI:
+
+```sh
+bun nx run @hiking-downward/database:lint
+bun lint libs/api/database
+bun lint --fix libs/api/database
+bun lint --doctor
+```
+
+Bun reads the lint rules and overrides in [bunfig.toml](bunfig.toml), including
+type-aware rules and type checking. Neither `oxlint` nor `oxlint-tsgolint` is
+installed.
+Playwright, Tailwind, Drizzle, and Nx module-boundary rules remain configured.
+The previous native JSDoc rules run through `eslint-plugin-jsdoc` under the
+`jsdoc` prefix because Bun does not implement native `jsdoc/*` rules.
+
+ESLint remains installed for Tailwind's plugin and the separate
+`@nx/dependency-checks` package manifest checks. The Nx library lint targets run
+those manifest checks after Bun; a direct `bun lint` does not replace them.
+Nx lint caches include the lint configuration, project metadata, lockfile,
+TypeScript configuration, and Bun revision.
+Agent skill examples and scripts are excluded from application linting, as
+they were outside the previous Nx lint targets. Use Nx for module-boundary
+checks so its project graph is available; the rule needs that graph even when
+invoked through the native CLI.
+
+Bun has no lint language server, so use the CLI or Nx targets instead of the
+Oxc editor integration. Angular generators use `linter: "none"` to avoid
+reinstalling Oxlint; add a `lint` target that runs `bun lint --no-script .` with
+the generated project's directory as `cwd`. For libraries, also run ESLint
+against `package.json` with `eslint.manifest.config.mts` (from a library
+directory, pass `--config ../../../eslint.manifest.config.mts`). The
+manifest-only ESLint configuration uses a non-default filename so it does not
+change Bun's parser or source-file discovery.
+
+CI uses a fresh Bun canary build because the stable `1.4.4` release has no
+native linter. Verify `bun lint --help` after installing or upgrading Bun.
+
 ## Validate Changes
 
 Run the checks relevant to your change before opening a pull request:
 
 ```sh
 bun run typecheck
-bun run lint
+bun run lint:all
 bun run test
 bun run build
 bun run e2e

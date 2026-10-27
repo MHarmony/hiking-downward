@@ -1,5 +1,5 @@
 import { defineConfig } from 'drizzle-kit';
-// oxlint-disable-next-line @nx/enforce-module-boundaries
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { getDatabaseConfig } from '../config/src/lib/config';
 
 const databaseConfig = getDatabaseConfig();

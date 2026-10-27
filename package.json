@@ -53,7 +53,6 @@
     "@nx/eslint-plugin": "24.0.2",
     "@nx/js": "24.0.2",
     "@nx/node": "24.0.2",
-    "@nx/oxlint": "24.0.2",
     "@nx/playwright": "24.0.2",
     "@nx/vite": "24.0.2",
     "@nx/vitest": "24.0.2",
@@ -71,6 +70,7 @@
     "esbuild": "0.28.2",
     "eslint": "10.13.0",
     "eslint-plugin-drizzle": "0.2.3",
+    "eslint-plugin-jsdoc": "65.4.2",
     "eslint-plugin-playwright": "2.12.1",
     "eslint-plugin-tailwindcss": "4.4.0",
     "fast-check": "4.10.2",
@@ -80,9 +80,6 @@
     "ng-packagr": "22.2.5",
     "npm-check-updates": "23.1.1",
     "nx": "24.0.2",
-    "oxfmt": "0.74.0",
-    "oxlint": "1.89.0",
-    "oxlint-tsgolint": "7.0.2005",
     "postcss": "8.5.32",
     "skills": "1.7.4",
     "tailwindcss": "4.3.3",
@@ -98,7 +95,7 @@
       {
         "name": "bun",
         "onFail": "error",
-        "version": "1.4.3"
+        "version": "1.4.4-canary.1"
       },
       {
         "name": "node",
@@ -108,7 +105,7 @@
     ]
   },
   "engines": {
-    "bun": "1.4.3",
+    "bun": "1.4.4-canary.1",
     "node": "26.12.0"
   },
   "engineStrict": true,
@@ -124,7 +121,7 @@
   "nx": {
     "includedScripts": []
   },
-  "packageManager": "bun@1.4.4",
+  "packageManager": "bun@1.4.4-canary.1",
   "private": true,
   "readme": "README.md",
   "repository": {
@@ -136,7 +133,9 @@
     "db:generate": "drizzle-kit generate --config libs/api/database/drizzle.config.mts",
     "db:migrate": "drizzle-kit migrate --config libs/api/database/drizzle.config.mts",
     "e2e": "nx run-many -t e2e",
-    "lint": "nx run-many -t lint",
+    "format": "bun fmt",
+    "format:check": "bun fmt --check",
+    "lint:all": "nx run-many -t lint",
     "postinstall": "lefthook install",
     "skills:update": "bun skills update -y",
     "test": "nx run-many -t test",

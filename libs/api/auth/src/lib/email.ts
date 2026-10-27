@@ -133,7 +133,7 @@ export async function sendTransactionalEmail(email: TransactionalEmail): Promise
       email.idempotencyKey ? { idempotencyKey: email.idempotencyKey } : {},
     );
   } catch (error) {
-    /* oxlint-disable-next-line no-console */
+    /* eslint-disable-next-line no-console */
     console.error('Transactional email request failed before a Resend response', {
       message: error instanceof Error ? error.message : String(error),
       subject: email.subject,
@@ -144,7 +144,7 @@ export async function sendTransactionalEmail(email: TransactionalEmail): Promise
   const { error } = response;
 
   if (error) {
-    /* oxlint-disable-next-line no-console */
+    /* eslint-disable-next-line no-console */
     console.error('Transactional email delivery failed', {
       message: error.message,
       subject: email.subject,

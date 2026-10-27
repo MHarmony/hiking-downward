@@ -103,7 +103,7 @@ export async function recordAuditEvent(event: AuditEventInput): Promise<void> {
       metadata: redactMetadata(event.metadata ?? {}),
     });
   } catch {
-    /* oxlint-disable-next-line no-console */
+    /* eslint-disable-next-line no-console */
     console.error('Unable to persist audit event', { eventType: event.eventType });
   }
 }

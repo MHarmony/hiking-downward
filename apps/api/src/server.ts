@@ -74,7 +74,7 @@ const normalizeError = (context: { error: unknown }): unknown => {
   }
 
   if (isAuthRequest) {
-    /* oxlint-disable-next-line no-console */
+    /* eslint-disable-next-line no-console */
     console.error('Unhandled authentication API error', {
       name: error instanceof Error ? error.name : typeof error,
       requestId,
@@ -331,7 +331,7 @@ export function createApp(): AnyElysia {
 // export const app = Sentry.withElysia(createApp()).error(normalizeError).listen(3000);
 export const app = createApp().onError(normalizeError).listen(3000);
 
-// oxlint-disable-next-line no-console
+// eslint-disable-next-line no-console
 console.log('API server is running on port 3000');
 
 let shutdownPromise: Promise<void> | null = null;

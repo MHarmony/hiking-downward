@@ -5,3 +5,165 @@ exact = true
 
 [run]
 noOrphans = true
+
+[fmt]
+arrowParens = "always"
+bracketSameLine = true
+bracketSpacing = true
+embeddedLanguageFormatting = "auto"
+endOfLine = "lf"
+experimentalOperatorPosition = "end"
+htmlWhitespaceSensitivity = "ignore"
+insertFinalNewline = true
+jsdoc = true
+printWidth = 100
+quoteProps = "as-needed"
+semi = true
+singleAttributePerLine = false
+singleQuote = true
+sortImports = true
+trailingComma = "all"
+useTabs = false
+
+[fmt.sortTailwindcss]
+stylesheet = "apps/frontend/src/styles.css"
+
+[lint]
+categories = { correctness = "error", perf = "error", restriction = "error" }
+ignorePatterns = [".agents/**", ".github/skills/**"]
+plugins = [
+  "@nx/eslint-plugin",
+  "eslint-plugin-playwright",
+  "eslint-plugin-tailwindcss",
+  "eslint-plugin-drizzle",
+  "eslint-plugin-jsdoc",
+]
+reportUnusedDisableDirectives = "error"
+typeAware = true
+typeCheck = true
+
+[lint.settings.tailwindcss]
+cssConfigPath = "apps/frontend/src/styles.css"
+
+[lint.rules]
+"@typescript-eslint/no-misused-promises" = "warn"
+"@typescript-eslint/no-unused-private-class-members" = "warn"
+"import/no-default-export" = "warn"
+"import/no-relative-parent-imports" = "warn"
+"jsdoc/check-access" = "error"
+"jsdoc/check-property-names" = "error"
+"jsdoc/check-tag-names" = "error"
+"jsdoc/empty-tags" = "error"
+"jsdoc/implements-on-classes" = "error"
+"jsdoc/no-defaults" = "error"
+"jsdoc/require-property" = "error"
+"jsdoc/require-property-description" = "error"
+"jsdoc/require-property-name" = "error"
+"jsdoc/require-property-type" = "error"
+"jsdoc/require-yields" = "error"
+"n/no-process-env" = "warn"
+"n/no-top-level-await" = "warn"
+"oxc/no-barrel-file" = "warn"
+
+[[lint.overrides]]
+files = ["**/*.ts", "**/*.mts"]
+[lint.overrides.rules]
+"max-lines" = ["error", 500]
+"oxc/no-async-await" = "off"
+"oxc/no-rest-spread-properties" = "off"
+"@nx/enforce-module-boundaries" = [
+  "error",
+  { depConstraints = [
+    { sourceTag = "type:ui", onlyDependOnLibsWithTags = ["type:util", "type:ui"] },
+    { sourceTag = "type:util", onlyDependOnLibsWithTags = ["type:util"] },
+    { sourceTag = "type:feature", onlyDependOnLibsWithTags = [
+      "type:util",
+      "type:ui",
+      "type:data-access",
+      "type:feature",
+    ] },
+    { sourceTag = "type:data-access", onlyDependOnLibsWithTags = [
+      "type:util",
+      "type:data-access",
+    ] },
+    { sourceTag = "scope:frontend", onlyDependOnLibsWithTags = ["scope:shared", "scope:frontend"] },
+    { sourceTag = "scope:api", onlyDependOnLibsWithTags = ["scope:shared", "scope:api"] },
+    { sourceTag = "scope:shared", onlyDependOnLibsWithTags = ["scope:shared"] },
+  ] },
+]
+
+[[lint.overrides]]
+files = ["**/*.e2e.spec.ts"]
+
+[lint.overrides.rules]
+"playwright/consistent-spacing-between-blocks" = "warn"
+"playwright/expect-expect" = "warn"
+"playwright/max-nested-describe" = "warn"
+"playwright/missing-playwright-await" = "error"
+"playwright/no-conditional-expect" = "warn"
+"playwright/no-conditional-in-test" = "warn"
+"playwright/no-duplicate-hooks" = "warn"
+"playwright/no-duplicate-slow" = "warn"
+"playwright/no-element-handle" = "warn"
+"playwright/no-eval" = "warn"
+"playwright/no-focused-test" = "error"
+"playwright/no-force-option" = "warn"
+"playwright/no-identical-title" = "warn"
+"playwright/no-nested-step" = "warn"
+"playwright/no-networkidle" = "error"
+"playwright/no-page-pause" = "warn"
+"playwright/no-skipped-test" = "warn"
+"playwright/no-standalone-expect" = "error"
+"playwright/no-unnecessary-assertions" = "error"
+"playwright/no-unsafe-references" = "error"
+"playwright/no-unused-locators" = "error"
+"playwright/no-useless-await" = "warn"
+"playwright/no-useless-not" = "warn"
+"playwright/no-wait-for-navigation" = "error"
+"playwright/no-wait-for-selector" = "warn"
+"playwright/no-wait-for-timeout" = "warn"
+"playwright/prefer-hooks-in-order" = "warn"
+"playwright/prefer-hooks-on-top" = "warn"
+"playwright/prefer-locator" = "warn"
+"playwright/prefer-to-have-count" = "warn"
+"playwright/prefer-to-have-length" = "warn"
+"playwright/prefer-web-first-assertions" = "error"
+"playwright/valid-describe-callback" = "error"
+"playwright/valid-expect" = "error"
+"playwright/valid-expect-in-promise" = "error"
+"playwright/valid-test-tags" = "error"
+"playwright/valid-title" = "error"
+
+[[lint.overrides]]
+files = ["**/*.schema.ts"]
+rules = { "drizzle/enforce-delete-with-where" = "error", "drizzle/enforce-update-with-where" = "error" }
+
+[[lint.overrides]]
+files = ["**/*.spec.ts"]
+
+[lint.overrides.globals]
+afterAll = "readonly"
+afterEach = "readonly"
+beforeAll = "readonly"
+beforeEach = "readonly"
+describe = "readonly"
+expect = "readonly"
+it = "readonly"
+test = "readonly"
+vi = "readonly"
+
+[lint.overrides.rules]
+"max-lines" = "off"
+
+[[lint.overrides]]
+files = ["**/*.css"]
+
+[lint.overrides.rules]
+"tailwindcss/classnames-order" = "error"
+"tailwindcss/no-custom-classname" = "error"
+"tailwindcss/enforces-negative-arbitrary-values" = "error"
+"tailwindcss/enforces-shorthand" = "error"
+"tailwindcss/no-unnecessary-arbitrary-value" = "error"
+"tailwindcss/no-contradicting-classname" = "error"
+"tailwindcss/important-modifier-suffix" = "error"
+"tailwindcss/enforces-canonical-classname" = "error"
